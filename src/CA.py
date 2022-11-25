@@ -2,16 +2,34 @@ import matplotlib.pyplot as plt
 import random
 import numpy as np
 
+BORDER_TYPES = {'toroidal' : 'toroidal',
+                'open' : 'open',
+                'reflective' : 'reflective'}
+
 class CA:
     
-    def __init__(self, size=30, density=0.5):
-        self.size = size
-        self.density = density
-        self.board = np.array([
-                        [1 if random.uniform(0, 1) <= self.density else 0
-                        for i in range(0,self.size)]
-                        for j in range(0,self.size)
-                    ])
+    def __init__(self, size=None, density=None, board=None, iterations=10, life_threshold=3, death_threshold=2, border=BORDER_TYPES['toroidal']):
+        self.iterations = iterations
+        
+        if board is None:
+            self.size = size
+            self.density = density
+            
+            self.board = np.array([
+                            [1 if random.uniform(0, 1) <= self.density else 0
+                            for i in range(0, self.size)]
+                            for j in range(0, self.size)
+                        ], dtype=np.int8)
+        else:
+            if size is not None:
+                raise ValueError('Board and size cannot be both specified. When size is specified the board is auto generated.')
+            if density is not None:
+                raise ValueError('Board and density cannot be both specified. When density is specified the board is auto generated.')
+            self.board = board
+            self.size = board.shape[0]
+        
+        self.life_threshold = life_threshold
+        self.death_threshold = death_threshold
         
     def __str__(self):
         return f"{self.board}"
@@ -20,5 +38,36 @@ class CA:
         print(self.board)
     
     def draw(self):
-        plt.matshow(self.board, cmap='Greys')
+        plt.matshow(self.board, cmap='Greys', vmin=0, vmax=1)
         plt.show()
+        
+    def get_neighbours(self, i, j):
+        
+        count = 0
+        for r in range(i-1, i+2):
+            for c in range(j-1, j+2):
+                r = 0 if r == self.size else r
+                c = 0 if c == self.size else c
+                
+                count += self.board[r][c]
+        
+        return count
+        
+    def update(self):
+        new_board = np.zeros((self.size, self.size), dtype=np.int8)
+        for i in range(0, self.size):
+            for j in range(0, self.size):
+                cell = self.board[i][j]
+                alive = cell == 1
+                
+                neighborhood = self.get_neighbours(i,j)
+                if i==2 and j==2: print(neighborhood)
+                if alive and neighborhood >= self.death_threshold:
+                    new_board[i][j] = 0
+                elif not alive and neighborhood >= self.life_threshold:
+                    new_board[i][j] = 1
+                else:
+                    new_board[i][j] = 0
+                
+        self.board = new_board
+                
