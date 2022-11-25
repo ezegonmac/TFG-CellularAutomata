@@ -40,9 +40,8 @@ class CA:
     def draw(self):
         plt.matshow(self.board, cmap='Greys', vmin=0, vmax=1)
         plt.show()
-        
+    
     def get_neighbours(self, i, j):
-        
         count = 0
         for r in range(i-1, i+2):
             for c in range(j-1, j+2):
@@ -52,22 +51,22 @@ class CA:
                 count += self.board[r][c]
         
         return count
-        
+
+    def update_cell(self, board, i, j, cell):
+        alive = cell == 1
+        neighborhood = self.get_neighbours(i, j)
+        if alive and neighborhood >= self.death_threshold:
+            board[i][j] = 0
+        elif not alive and neighborhood >= self.life_threshold:
+            board[i][j] = 1
+        else:
+            board[i][j] = 0
+
     def update(self):
         new_board = np.zeros((self.size, self.size), dtype=np.int8)
         for i in range(0, self.size):
             for j in range(0, self.size):
                 cell = self.board[i][j]
-                alive = cell == 1
-                
-                neighborhood = self.get_neighbours(i,j)
-                if i==2 and j==2: print(neighborhood)
-                if alive and neighborhood >= self.death_threshold:
-                    new_board[i][j] = 0
-                elif not alive and neighborhood >= self.life_threshold:
-                    new_board[i][j] = 1
-                else:
-                    new_board[i][j] = 0
-                
+                self.update_cell(new_board, i, j, cell)
+
         self.board = new_board
-                
