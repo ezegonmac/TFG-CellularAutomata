@@ -1,16 +1,17 @@
 import matplotlib.pyplot as plt
 import random
 import numpy as np
-
-BORDER_TYPES = {'toroidal' : 'toroidal',
-                'open' : 'open',
-                'reflective' : 'reflective'}
+from RulesStrategies import RulesStrategy
 
 class CA:
     
-    def __init__(self, size=None, density=None, board=None, iterations=10, underpopulation=2, overpopulation=3, birth=3, border=BORDER_TYPES['toroidal']):
+    def __init__(self, rules_strategy: RulesStrategy, size=None, density=None, board=None, iterations=10, **kwargs):
+        
+        # GENERAL PARAMETERS
+        self._rules_strategy = rules_strategy
         self.iterations = iterations
         
+        # BOARD
         if board is None:
             self.size = size
             self.density = density
@@ -28,9 +29,9 @@ class CA:
             self.board = board
             self.size = board.shape[0]
         
-        self.underpopulation = underpopulation
-        self.overpopulation = overpopulation
-        self.birth = birth
+        # EXTRA PARAMETERS (RULES, ...)
+        for key, value in kwargs.items():
+            setattr(self, key, value)
         
     def __str__(self):
         return f"{self.board}"
@@ -49,28 +50,16 @@ class CA:
                 r = 0 if r == self.size else r
                 c = 0 if c == self.size else c
                 
-                count += self.board[r][c]
+                if not (r == i and c == j):
+                    count += self.board[r][c]
         
         return count
-
-    def update_cell(self, board, i, j, cell):
-        alive = cell == 1
-        neighbours = self.get_neighbours(i, j)
-        print(neighbours)
-        if alive:
-            if neighbours < self.underpopulation or neighbours > self.overpopulation:
-                board[i][j] = 0
-            else:
-                board[i][j] = cell
-        else:
-            if neighbours == self.birth:
-                board[i][j] = 1
 
     def update(self):
         new_board = np.zeros((self.size, self.size), dtype=np.int8)
         for i in range(0, self.size):
             for j in range(0, self.size):
                 cell = self.board[i][j]
-                self.update_cell(new_board, i, j, cell)
+                self._rules_strategy.update_cell(self, new_board, cell, i, j)
 
         self.board = new_board

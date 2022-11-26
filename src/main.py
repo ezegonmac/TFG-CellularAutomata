@@ -10,5 +10,8 @@ if __name__ == '__main__':
     # test_2_all_live()
     # test_2_all_die()
     
-    test_2_all_live2()
-    test_2_all_die2()
+    # test_2_all_live2()
+    # test_2_all_die2()
+
+    test_strategy1()
+    test_strategy2()
