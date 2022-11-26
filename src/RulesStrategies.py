@@ -7,6 +7,20 @@ class RulesStrategy(ABC):
     def update_cell(self, board, cell, i, j):
         pass
 
+class RulesStrategyBS(RulesStrategy):
+    
+    def update_cell(self, board, cell, i, j):
+        alive = cell == 1
+        neighbours = self.get_neighbours(i, j)
+        if alive:
+            if neighbours in self.survival:
+                board[i][j] = 1
+            else:
+                board[i][j] = 0
+        else:
+            if neighbours in self.birth:
+                board[i][j] = 1
+
 class RulesStrategyUPOPB(RulesStrategy):
     
     def update_cell(self, board, cell, i, j):
@@ -18,7 +32,7 @@ class RulesStrategyUPOPB(RulesStrategy):
             else:
                 board[i][j] = cell
         else:
-            if neighbours == self.birth:
+            if neighbours in self.birth:
                 board[i][j] = 1
 
 class RulesStrategyLD(RulesStrategy):
