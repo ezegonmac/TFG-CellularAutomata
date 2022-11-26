@@ -6,9 +6,9 @@ BORDER_TYPES = {'toroidal' : 'toroidal',
                 'open' : 'open',
                 'reflective' : 'reflective'}
 
-class CA:
+class CAv1:
     
-    def __init__(self, size=None, density=None, board=None, iterations=10, underpopulation=2, overpopulation=3, birth=3, border=BORDER_TYPES['toroidal']):
+    def __init__(self, size=None, density=None, board=None, iterations=10, life_threshold=3, death_threshold=2, border=BORDER_TYPES['toroidal']):
         self.iterations = iterations
         
         if board is None:
@@ -28,9 +28,8 @@ class CA:
             self.board = board
             self.size = board.shape[0]
         
-        self.underpopulation = underpopulation
-        self.overpopulation = overpopulation
-        self.birth = birth
+        self.life_threshold = life_threshold
+        self.death_threshold = death_threshold
         
     def __str__(self):
         return f"{self.board}"
@@ -49,22 +48,20 @@ class CA:
                 r = 0 if r == self.size else r
                 c = 0 if c == self.size else c
                 
-                count += self.board[r][c]
+                if not (r == i and c == j):
+                    count += self.board[r][c]
         
         return count
 
     def update_cell(self, board, i, j, cell):
         alive = cell == 1
         neighbours = self.get_neighbours(i, j)
-        print(neighbours)
-        if alive:
-            if neighbours < self.underpopulation or neighbours > self.overpopulation:
-                board[i][j] = 0
-            else:
-                board[i][j] = cell
+        if alive and neighbours >= self.death_threshold:
+            board[i][j] = 0
+        elif not alive and neighbours >= self.life_threshold:
+            board[i][j] = 1
         else:
-            if neighbours == self.birth:
-                board[i][j] = 1
+            board[i][j] = cell
 
     def update(self):
         new_board = np.zeros((self.size, self.size), dtype=np.int8)
