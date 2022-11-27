@@ -1,6 +1,7 @@
 import numpy as np
 from CA import CA
 from RulesStrategies import *
+from CAFactory import CAFactory
 
 def test_1():
     board = np.array([
@@ -119,3 +120,21 @@ def test_strategy3():
     ca2.print()
     ca2.update()
     ca2.print()
+    
+def test_CA_factory_1():
+    ca1 = CAFactory().create_CA_BS(density=0.5, size=15)
+    ca1.print()
+    ca1.update()
+    ca1.print()
+    
+def test_CA_factory_2():
+    ca1 = CAFactory().create_CA_UPOPB(density=0.5, size=15)
+    ca1.print()
+    ca1.update()
+    ca1.print()
+    
+def test_CA_factory_3():
+    ca1 = CAFactory().create_CA_LB(density=0.5, size=15)
+    ca1.print()
+    ca1.update()
+    ca1.print()
