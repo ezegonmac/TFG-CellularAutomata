@@ -149,3 +149,17 @@ def test_draw_evolution1():
     
     ca1.print_evolution()
     ca1.draw_evolution()
+
+def test_save_and_load1():
+    ca1 = CAFactory.create_CA_LB(
+        life_threshold=2, 
+        death_threshold=4, 
+        size=10, 
+        density=0.5, 
+        iterations=3)
+    
+    file = "./data/test/test"
+    ca1.save_evolution(filename=file)
+    
+    ca1_loaded = np.load(file + ".npy")
+    print(ca1_loaded.shape)

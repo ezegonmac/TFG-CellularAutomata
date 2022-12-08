@@ -3,6 +3,7 @@ import random
 import numpy as np
 from RulesStrategies import RulesStrategy
 import time
+import pandas as pd
 
 SLEEP_PLOT_TIME = 0.3
 class CA:
