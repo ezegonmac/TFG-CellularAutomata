@@ -138,3 +138,14 @@ def test_CA_factory_3():
     ca1.print()
     ca1.update()
     ca1.print()
+    
+def test_draw_evolution1():
+    ca1 = CAFactory.create_CA_LB(
+        life_threshold=2, 
+        death_threshold=4, 
+        size=10, 
+        density=0.5, 
+        iterations=3)
+    
+    ca1.print_evolution()
+    ca1.draw_evolution()

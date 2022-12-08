@@ -2,7 +2,9 @@ import matplotlib.pyplot as plt
 import random
 import numpy as np
 from RulesStrategies import RulesStrategy
+import time
 
+SLEEP_PLOT_TIME = 0.3
 class CA:
     
     def __init__(self, rules_strategy: RulesStrategy, size=None, density=None, board=None, iterations=10, **kwargs):
@@ -33,15 +35,21 @@ class CA:
         for key, value in kwargs.items():
             setattr(self, key, value)
         
+        # STATE evolution
+        self.evolution = np.array([self.board])
+        if(self.iterations > 0):
+            for i in range(0, self.iterations-1):
+                self.update()
+                self.evolution = np.append(self.evolution, [self.board], axis=0)
+    
     def __str__(self):
         return f"{self.board}"
     
     def print(self):
         print(self.board)
-    
-    def draw(self):
-        plt.matshow(self.board, cmap='Greys', vmin=0, vmax=1)
-        plt.show()
+        
+    def print_evolution(self):
+        print(self.evolution)
     
     def get_neighbours(self, i, j):
         count = 0
@@ -63,3 +71,28 @@ class CA:
                 self._rules_strategy.update_cell(self, new_board, cell, i, j)
 
         self.board = new_board
+        
+    def draw(self):
+        plt.matshow(self.board, cmap='Greys', vmin=0, vmax=1)
+        plt.show()
+    
+    def draw_evolution(self):
+        plt.ion()
+        
+        # fig = plt.figure()
+        fig = plt.figure()
+        ax = fig.add_subplot(111)
+        graph = ax.matshow(self.evolution[0], cmap='Greys', vmin=0, vmax=1)
+        
+        for i in range(0, self.evolution.shape[0]):
+            # updating data values
+            graph.set_data(self.evolution[i])
+
+            fig.canvas.draw()
+            
+            fig.canvas.flush_events()
+        
+            time.sleep(SLEEP_PLOT_TIME)
+
+    def save_evolution(self, filename):
+        np.save(filename, self.evolution)
