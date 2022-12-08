@@ -1,6 +1,5 @@
-from CA import CA
-from RulesStrategies import *
-import numpy as np
+from CA.CA import CA
+from CA.RulesStrategies import *
 
 class CAFactory():
     """
@@ -61,3 +60,4 @@ class CAFactory():
             CA: CA object with the specified LB rule strategy.
         """
         return CA(life_threshold=life_threshold, death_threshold=death_threshold, rules_strategy=RulesStrategyLD, size=size, density=density, board=board, iterations=iterations)
+    

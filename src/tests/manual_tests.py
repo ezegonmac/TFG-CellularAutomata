@@ -1,7 +1,7 @@
 import numpy as np
-from CA import CA
-from RulesStrategies import *
-from CAFactory import CAFactory
+from CA.CA import CA
+from CA.RulesStrategies import *
+from CA.CAFactory import CAFactory
 
 def test_1():
     board = np.array([

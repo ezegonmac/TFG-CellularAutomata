@@ -1,4 +1,4 @@
-from CAFactory import CAFactory
+from CA.CAFactory import CAFactory
 import os
 import numpy as np
 

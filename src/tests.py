@@ -1,4 +1,4 @@
-from manual_tests import *
+from tests.manual_tests import *
 
 if __name__ == '__main__':
     
@@ -23,4 +23,4 @@ if __name__ == '__main__':
 
     # test_draw_evolution1()
     
-    test_save_and_load1()
+    # test_save_and_load1()

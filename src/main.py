@@ -1,5 +1,5 @@
-from manual_tests import *
-from datasets import *
+from tests.manual_tests import *
+from datasets.datasets import *
 
 if __name__ == '__main__':
 
