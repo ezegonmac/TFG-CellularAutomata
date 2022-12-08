@@ -20,7 +20,7 @@ class CA:
             self.density = density
             
             self.board = np.array([
-                            [1 if random.uniform(0, 1) <= self.density else 0
+                            [1 if np.random.uniform(0, 1) <= self.density else 0
                             for i in range(0, self.size)]
                             for j in range(0, self.size)
                         ], dtype=np.int8)

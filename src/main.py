@@ -1,5 +1,6 @@
 from manual_tests import *
-import numpy as np
-import os
+from datasets import *
 
 if __name__ == '__main__':
+
+    generate_dataset1()
