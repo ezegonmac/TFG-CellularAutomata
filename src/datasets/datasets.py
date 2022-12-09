@@ -5,8 +5,11 @@ import pandas as pd
 
 DATA_FOLDER = './data'
 
-def generate_dataset1():
+def generate_dataset1() -> None:
     """
+    Generate dataset1.
+    
+    Description:
     All cells dies or become alive in the next iteration.
     
     Variables:
@@ -15,65 +18,96 @@ def generate_dataset1():
     - fixed iterations: 3
     - fixed life_threshold and death_threshold: (0, 9), (9, 0)
     """
+    
     dataset_name = 'dataset1'
     
+    # fixed attributes
+    size = 10
+    density = 0.5
+    n_seeds = 10
+    n_iterations = 3
+    # variable attributes
     subsets = [
-        ['all_live', 0, 9],
-        ['all_die', 9, 0],
+        {'name': 'all_live', 'lt': 0, 'dt': 9, 'size': size, 'density': density, 'n_seeds': n_seeds, 'iterations': n_iterations},
+        {'name': 'all_die', 'lt': 9, 'dt': 0, 'size': size, 'density': density, 'n_seeds': n_seeds, 'iterations': n_iterations},
     ]
     
-    number_of_seeds = 10
-    
-    seeds = []
     life_thresholds = []
     death_thresholds = []
+    sizes = []
+    initial_densities = []
+    seeds = []
+    iterations = []
     files = []
     for subset in subsets:
-        subset_folder = subset[0]
-        life_threshold = subset[1]
-        death_threshold = subset[2]
-        subset_seeds = range(0, number_of_seeds)
+        # subset attributes
+        subset_name = subset['name']
+        subset_life_threshold = subset['lt']
+        subset_death_threshold = subset['dt']
+        subset_size = subset['size']
+        subset_density = subset['density']
+        subset_n_seeds = subset['n_seeds']
+        subset_n_iterations = subset['iterations']
+
+        # subset folder
+        subset_folder = f'{DATA_FOLDER}/{dataset_name}/{subset_name}'
+        if not os.path.exists(subset_folder):
+            os.makedirs(subset_folder)
         
-        subset_files = save_files_LD(dataset_name, subset_seeds, subset_folder, life_threshold, death_threshold)
+        # create subset attributes for every seed
+        subset_seeds = range(0, subset_n_seeds)
+        subset_life_thresholds = [subset_life_threshold] * subset_n_seeds
+        subset_death_thresholds = [subset_death_threshold] * subset_n_seeds
+        subset_sizes = [subset_size] * subset_n_seeds
+        subset_densities = [subset_density] * subset_n_seeds
+        subset_iterations = [subset_n_iterations] * subset_n_seeds
+        subset_files = [f"{subset_folder}/ca_s{seed}" for seed in subset_seeds]
+        
+        save_subset_files_LD(
+            subset_seeds, 
+            subset_life_thresholds, 
+            subset_death_thresholds, 
+            subset_sizes, 
+            subset_densities,
+            subset_iterations,
+            subset_files
+            )
 
         # add subset attributes to lists
         seeds.extend(subset_seeds)
-        life_thresholds.extend([life_threshold] * number_of_seeds)
-        death_thresholds.extend([death_threshold] * number_of_seeds)
+        life_thresholds.extend(subset_life_thresholds)
+        death_thresholds.extend(subset_death_thresholds)
+        sizes.extend(subset_sizes)
+        initial_densities.extend(subset_densities)
+        iterations.extend(subset_iterations)
         files.extend(subset_files)
 
     df = pd.DataFrame(
         data={'seed' : seeds,
               'life_threshold' : life_thresholds, 
               'death_threshold' : death_thresholds, 
-              'file' : files,
-              })
+              'size' : sizes,
+              'initial_density' : initial_densities,
+              'iterations' : iterations,
+              'file' : files})
     
     df.to_csv(f'{DATA_FOLDER}/{dataset_name}/dataset.csv')
 
-def save_files_LD(dataset_name, seeds, subset_folder, life_threshold, death_threshold):
-    folder = f'{DATA_FOLDER}/{dataset_name}/{subset_folder}'
+def save_subset_files_LD(seeds, life_thresholds, death_thresholds, sizes, densities, iterations, files) -> None:    
     
-    if not os.path.exists(folder):
-        os.makedirs(folder)
-    
-    subset_files = []
-    for seed in seeds:
+    attributes = zip(seeds, life_thresholds, death_thresholds, sizes, densities, iterations, files)
+    for seed, life_threshold, death_threshold, size, density, n_iterations, file in attributes:
         # different seed for every iteration
         np.random.seed(seed)
-            
+        
         ca1 = CAFactory.create_CA_LB(
             life_threshold=life_threshold,
             death_threshold=death_threshold,
-            size=10,
-            density=0.5,
-            iterations=3)
+            size=size,
+            density=density,
+            iterations=n_iterations)
         
-        file = f"{folder}/ca_s{seed}"
         ca1.save_evolution(file)
-        subset_files.append(file)
-        
-    return subset_files
 
 # not working
 def generate_dataset2():
@@ -96,12 +130,12 @@ def generate_dataset2():
         ['l8_d1', 8, 1],
     ]
     
-    number_of_seeds = 4
+    n_seeds = 4
     
     for subset in subsets:
         subset_folder = subset[0]
         life_threshold = subset[1]
         death_threshold = subset[2]
         
-        save_file_LD(dataset_name, number_of_seeds, subset_folder, life_threshold, death_threshold)
+        save_file_LD(dataset_name, n_seeds, subset_folder, life_threshold, death_threshold)
 
