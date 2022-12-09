@@ -140,6 +140,8 @@ def test_CA_factory_3():
     ca1.print()
     
 def test_draw_evolution1():
+    np.random.seed(0)
+    
     ca1 = CAFactory.create_CA_LB(
         life_threshold=2, 
         death_threshold=4, 

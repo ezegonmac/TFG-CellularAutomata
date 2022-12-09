@@ -3,7 +3,7 @@ import numpy as np
 from CA.RulesStrategies import RulesStrategy
 import time
 
-SLEEP_PLOT_TIME = 0.3
+SLEEP_PLOT_TIME = 1
 
 class CA:
     
