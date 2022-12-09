@@ -1,4 +1,5 @@
 import numpy as np
+import pandas as pd
 from CA.CA import CA
 from CA.RulesStrategies import *
 from CA.CAFactory import CAFactory
@@ -165,3 +166,7 @@ def test_save_and_load1():
     
     ca1_loaded = np.load(file + ".npy")
     print(ca1_loaded.shape)
+    
+def test_load_dataset1_evolution_density():
+    df = pd.read_csv('./data/dataset1/dataset.csv', converters={'evolution_density': pd.eval})
+    print(type(df.iloc[0].evolution_density))

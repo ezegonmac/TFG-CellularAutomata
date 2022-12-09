@@ -24,3 +24,5 @@ if __name__ == '__main__':
     # test_draw_evolution1()
     
     # test_save_and_load1()
+    
+    test_load_dataset1_evolution_density()
