@@ -47,13 +47,13 @@ def generate_dataset1():
 
 def generate_dataset2():
     """
-    All cells dies or become alive in the next iteration.
+    Some cells die some become alive.
     
     Variables:
     - fixed size: 10x10
     - fixed density: 0.5
     - fixed iterations: 3
-    - fixed life_threshold and death_threshold: (0, 9), (9, 0)
+    - fixed life_threshold and death_threshold: (1, 8), (3, 6), (5, 5), (6, 3), (8, 1)
     """
     subsets = [
         ['l1_d8', 1, 8],
