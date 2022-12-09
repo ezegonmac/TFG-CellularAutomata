@@ -6,8 +6,8 @@ from shutil import rmtree
 
 def generate_dataset_files_from_individuals(individuals, dataset_folder, individuals_folder):
     # delete old dataset
-    if os.path.exists(individuals_folder):
-        rmtree(individuals_folder)
+    if os.path.exists(dataset_folder):
+        rmtree(dataset_folder)
     # create new dataset folder
     if not os.path.exists(dataset_folder):
         os.mkdir(dataset_folder)

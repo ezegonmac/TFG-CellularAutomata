@@ -70,37 +70,50 @@ def generate_dataset1() -> None:
     
     generate_dataset_files_from_individuals(individuals, dataset_folder, individuals_folder)
 
-# not working
-# def generate_dataset2():
-#     """
-#     Some cells die some become alive.
+def generate_dataset2() -> None:
+    """
+    Generate dataset2.
     
-#     Variables:
-#     - fixed size: 10x10
-#     - fixed density: 0.5
-#     - fixed iterations: 3
-#     - fixed life_threshold and death_threshold: (1, 8), (3, 6), (5, 5), (6, 3), (8, 1)
-#     """
-#     dataset_name = 'dataset2'
+    Some cells die some become alive.
     
-#     # fixed attributes
-#     size = 10
-#     density = 0.5
-#     n_seeds = 4
-#     n_iterations = 5
-#     # variable attributes
-#     subsets = [
-#         {'name': 'l1_d8', 'lt': 1, 'dt': 8, 'size': size, 'density': density, 'n_seeds': n_seeds, 'iterations': n_iterations},
-#         {'name': 'l3_d6', 'lt': 3, 'dt': 6, 'size': size, 'density': density, 'n_seeds': n_seeds, 'iterations': n_iterations},
-#         {'name': 'l5_d5', 'lt': 5, 'dt': 5, 'size': size, 'density': density, 'n_seeds': n_seeds, 'iterations': n_iterations},
-#         {'name': 'l6_d3', 'lt': 6, 'dt': 3, 'size': size, 'density': density, 'n_seeds': n_seeds, 'iterations': n_iterations},
-#         {'name': 'l8_d1', 'lt': 8, 'dt': 1, 'size': size, 'density': density, 'n_seeds': n_seeds, 'iterations': n_iterations},
-#     ]
+    Variables:
+    - fixed size: 10x10
+    - fixed density: 0.5
+    - fixed iterations: 3
+    - fixed life_threshold and death_threshold: (1, 8), (3, 6), (5, 5), (6, 3), (8, 1)
+    """
     
-#     generate_dataset_LD(dataset_name, subsets)
+    dataset_name = 'dataset2'
+    
+    # fixed attributes
+    size = 10
+    density = 0.5
+    iterations = 3
+    
+    # folders
+    dataset_folder = f'{DATA_FOLDER}/{dataset_name}'
+    individuals_folder = f'{dataset_folder}/individuals'
+    
+    lt_dt_pairs = [(1, 8), (3, 6), (5, 5), (6, 3), (8, 1)]
+    n_subset = 5
+    
+    # individuals with fixed lt and dt
+    individuals = [CA_LD_individual(
+        id=id,
+        life_threshold=lt_dt_pairs[pair][0], 
+        death_threshold=lt_dt_pairs[pair][1], 
+        size=size, 
+        density=density, 
+        iterations=iterations, 
+        file=f'{individuals_folder}/ca_pair_{pair}_{id}',
+        ) for pair in range(len(lt_dt_pairs)) for id in range(n_subset)]
+    
+    generate_dataset_files_from_individuals(individuals, dataset_folder, individuals_folder)
 
 def generate_dataset3() -> None:
     """
+    Generate dataset3.
+        
     Some cells die some become alive.
     
     Variables:
