@@ -1,1 +1,2 @@
 NP_RANDOM_SEED = 0
+DATA_FOLDER = './data'

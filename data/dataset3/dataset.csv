@@ -1,51 +1,21 @@
-,seed,life_threshold,death_threshold,size,density,iterations,file,evolution_density
-0,0,5,8,10,0.5,10,./data/dataset3/subsets/l5_d8/ca_s0,"[0.51, 0.73, 0.51, 0.62, 0.58, 0.65, 0.72, 0.74, 0.49, 0.52]"
-1,0,0,4,10,0.5,10,./data/dataset3/subsets/l0_d4/ca_s0,"[0.51, 0.66, 0.4, 0.67, 0.34, 0.7, 0.3, 0.73, 0.27, 0.75]"
-2,0,3,1,10,0.5,10,./data/dataset3/subsets/l3_d1/ca_s0,"[0.51, 0.39, 0.51, 0.47, 0.5, 0.5, 0.5, 0.5, 0.5, 0.5]"
-3,0,3,4,10,0.5,10,./data/dataset3/subsets/l3_d4/ca_s0,"[0.51, 0.56, 0.53, 0.39, 0.53, 0.54, 0.41, 0.46, 0.54, 0.47]"
-4,0,7,8,10,0.5,10,./data/dataset3/subsets/l7_d8/ca_s0,"[0.51, 0.57, 0.52, 0.52, 0.5, 0.51, 0.53, 0.49, 0.52, 0.52]"
-5,0,3,1,10,0.5,10,./data/dataset3/subsets/l3_d1/ca_s0,"[0.51, 0.39, 0.51, 0.47, 0.5, 0.5, 0.5, 0.5, 0.5, 0.5]"
-6,0,5,1,10,0.5,10,./data/dataset3/subsets/l5_d1/ca_s0,"[0.51, 0.22, 0.07, 0.05, 0.05, 0.05, 0.05, 0.05, 0.05, 0.05]"
-7,0,2,7,10,0.5,10,./data/dataset3/subsets/l2_d7/ca_s0,"[0.51, 0.95, 0.1, 0.2, 0.35, 0.45, 0.75, 0.43, 0.69, 0.55]"
-8,0,4,3,10,0.5,10,./data/dataset3/subsets/l4_d3/ca_s0,"[0.51, 0.38, 0.46, 0.38, 0.28, 0.25, 0.22, 0.19, 0.18, 0.18]"
-9,0,7,6,10,0.5,10,./data/dataset3/subsets/l7_d6/ca_s0,"[0.51, 0.5, 0.44, 0.45, 0.44, 0.44, 0.43, 0.43, 0.43, 0.43]"
-10,0,6,7,10,0.5,10,./data/dataset3/subsets/l6_d7/ca_s0,"[0.51, 0.6, 0.47, 0.52, 0.51, 0.45, 0.46, 0.5, 0.45, 0.48]"
-11,0,8,2,10,0.5,10,./data/dataset3/subsets/l8_d2/ca_s0,"[0.51, 0.04, 0.04, 0.04, 0.04, 0.04, 0.04, 0.04, 0.04, 0.04]"
-12,0,8,0,10,0.5,10,./data/dataset3/subsets/l8_d0/ca_s0,"[0.51, 0.02, 0.0, 0.0, 0.0, 0.0, 0.0, 0.0, 0.0, 0.0]"
-13,0,1,3,10,0.5,10,./data/dataset3/subsets/l1_d3/ca_s0,"[0.51, 0.56, 0.52, 0.45, 0.47, 0.6, 0.4, 0.66, 0.36, 0.49]"
-14,0,6,5,10,0.5,10,./data/dataset3/subsets/l6_d5/ca_s0,"[0.51, 0.43, 0.39, 0.43, 0.37, 0.37, 0.36, 0.37, 0.36, 0.37]"
-15,0,7,4,10,0.5,10,./data/dataset3/subsets/l7_d4/ca_s0,"[0.51, 0.23, 0.23, 0.23, 0.23, 0.23, 0.23, 0.23, 0.23, 0.23]"
-16,0,7,4,10,0.5,10,./data/dataset3/subsets/l7_d4/ca_s0,"[0.51, 0.23, 0.23, 0.23, 0.23, 0.23, 0.23, 0.23, 0.23, 0.23]"
-17,0,8,6,10,0.5,10,./data/dataset3/subsets/l8_d6/ca_s0,"[0.51, 0.46, 0.43, 0.43, 0.43, 0.43, 0.43, 0.43, 0.43, 0.43]"
-18,0,1,4,10,0.5,10,./data/dataset3/subsets/l1_d4/ca_s0,"[0.51, 0.66, 0.4, 0.54, 0.43, 0.71, 0.33, 0.69, 0.32, 0.65]"
-19,0,5,4,10,0.5,10,./data/dataset3/subsets/l5_d4/ca_s0,"[0.51, 0.39, 0.35, 0.32, 0.32, 0.28, 0.29, 0.25, 0.25, 0.25]"
-20,0,8,3,10,0.5,10,./data/dataset3/subsets/l8_d3/ca_s0,"[0.51, 0.09, 0.09, 0.09, 0.09, 0.09, 0.09, 0.09, 0.09, 0.09]"
-21,0,4,4,10,0.5,10,./data/dataset3/subsets/l4_d4/ca_s0,"[0.51, 0.48, 0.46, 0.52, 0.43, 0.34, 0.39, 0.36, 0.43, 0.4]"
-22,0,3,4,10,0.5,10,./data/dataset3/subsets/l3_d4/ca_s0,"[0.51, 0.56, 0.53, 0.39, 0.53, 0.54, 0.41, 0.46, 0.54, 0.47]"
-23,0,0,8,10,0.5,10,./data/dataset3/subsets/l0_d8/ca_s0,"[0.51, 1.0, 0.0, 1.0, 0.0, 1.0, 0.0, 1.0, 0.0, 1.0]"
-24,0,3,4,10,0.5,10,./data/dataset3/subsets/l3_d4/ca_s0,"[0.51, 0.56, 0.53, 0.39, 0.53, 0.54, 0.41, 0.46, 0.54, 0.47]"
-25,0,5,3,10,0.5,10,./data/dataset3/subsets/l5_d3/ca_s0,"[0.51, 0.29, 0.25, 0.21, 0.21, 0.21, 0.21, 0.21, 0.21, 0.21]"
-26,0,0,7,10,0.5,10,./data/dataset3/subsets/l0_d7/ca_s0,"[0.51, 0.99, 0.01, 1.0, 0.0, 1.0, 0.0, 1.0, 0.0, 1.0]"
-27,0,2,5,10,0.5,10,./data/dataset3/subsets/l2_d5/ca_s0,"[0.51, 0.78, 0.28, 0.45, 0.56, 0.67, 0.35, 0.61, 0.46, 0.56]"
-28,0,3,5,10,0.5,10,./data/dataset3/subsets/l3_d5/ca_s0,"[0.51, 0.72, 0.37, 0.37, 0.61, 0.45, 0.53, 0.51, 0.61, 0.43]"
-29,0,8,0,10,0.5,10,./data/dataset3/subsets/l8_d0/ca_s0,"[0.51, 0.02, 0.0, 0.0, 0.0, 0.0, 0.0, 0.0, 0.0, 0.0]"
-30,0,1,1,10,0.5,10,./data/dataset3/subsets/l1_d1/ca_s0,"[0.51, 0.49, 0.53, 0.47, 0.49, 0.51, 0.49, 0.51, 0.49, 0.51]"
-31,0,3,5,10,0.5,10,./data/dataset3/subsets/l3_d5/ca_s0,"[0.51, 0.72, 0.37, 0.37, 0.61, 0.45, 0.53, 0.51, 0.61, 0.43]"
-32,0,3,3,10,0.5,10,./data/dataset3/subsets/l3_d3/ca_s0,"[0.51, 0.46, 0.61, 0.36, 0.52, 0.49, 0.54, 0.43, 0.42, 0.52]"
-33,0,3,0,10,0.5,10,./data/dataset3/subsets/l3_d0/ca_s0,"[0.51, 0.39, 0.49, 0.49, 0.51, 0.49, 0.51, 0.49, 0.51, 0.49]"
-34,0,7,5,10,0.5,10,./data/dataset3/subsets/l7_d5/ca_s0,"[0.51, 0.39, 0.38, 0.38, 0.37, 0.36, 0.36, 0.36, 0.36, 0.36]"
-35,0,0,0,10,0.5,10,./data/dataset3/subsets/l0_d0/ca_s0,"[0.51, 0.49, 0.51, 0.49, 0.51, 0.49, 0.51, 0.49, 0.51, 0.49]"
-36,0,1,1,10,0.5,10,./data/dataset3/subsets/l1_d1/ca_s0,"[0.51, 0.49, 0.53, 0.47, 0.49, 0.51, 0.49, 0.51, 0.49, 0.51]"
-37,0,0,2,10,0.5,10,./data/dataset3/subsets/l0_d2/ca_s0,"[0.51, 0.51, 0.55, 0.45, 0.57, 0.43, 0.57, 0.43, 0.57, 0.43]"
-38,0,4,4,10,0.5,10,./data/dataset3/subsets/l4_d4/ca_s0,"[0.51, 0.48, 0.46, 0.52, 0.43, 0.34, 0.39, 0.36, 0.43, 0.4]"
-39,0,7,2,10,0.5,10,./data/dataset3/subsets/l7_d2/ca_s0,"[0.51, 0.08, 0.08, 0.08, 0.08, 0.08, 0.08, 0.08, 0.08, 0.08]"
-40,0,3,0,10,0.5,10,./data/dataset3/subsets/l3_d0/ca_s0,"[0.51, 0.39, 0.49, 0.49, 0.51, 0.49, 0.51, 0.49, 0.51, 0.49]"
-41,0,2,3,10,0.5,10,./data/dataset3/subsets/l2_d3/ca_s0,"[0.51, 0.52, 0.55, 0.49, 0.4, 0.59, 0.44, 0.46, 0.59, 0.39]"
-42,0,7,2,10,0.5,10,./data/dataset3/subsets/l7_d2/ca_s0,"[0.51, 0.08, 0.08, 0.08, 0.08, 0.08, 0.08, 0.08, 0.08, 0.08]"
-43,0,2,0,10,0.5,10,./data/dataset3/subsets/l2_d0/ca_s0,"[0.51, 0.45, 0.54, 0.46, 0.54, 0.46, 0.54, 0.46, 0.54, 0.46]"
-44,0,0,7,10,0.5,10,./data/dataset3/subsets/l0_d7/ca_s0,"[0.51, 0.99, 0.01, 1.0, 0.0, 1.0, 0.0, 1.0, 0.0, 1.0]"
-45,0,0,5,10,0.5,10,./data/dataset3/subsets/l0_d5/ca_s0,"[0.51, 0.82, 0.23, 0.89, 0.13, 0.94, 0.06, 0.99, 0.01, 1.0]"
-46,0,4,0,10,0.5,10,./data/dataset3/subsets/l4_d0/ca_s0,"[0.51, 0.31, 0.26, 0.22, 0.16, 0.08, 0.03, 0.0, 0.0, 0.0]"
-47,0,5,2,10,0.5,10,./data/dataset3/subsets/l5_d2/ca_s0,"[0.51, 0.24, 0.17, 0.16, 0.16, 0.16, 0.16, 0.16, 0.16, 0.16]"
-48,0,5,7,10,0.5,10,./data/dataset3/subsets/l5_d7/ca_s0,"[0.51, 0.72, 0.38, 0.44, 0.44, 0.42, 0.47, 0.44, 0.45, 0.54]"
-49,0,6,2,10,0.5,10,./data/dataset3/subsets/l6_d2/ca_s0,"[0.51, 0.12, 0.12, 0.12, 0.12, 0.12, 0.12, 0.12, 0.12, 0.12]"
+,0
+0,<datasets.datasets.CA_LD_individual object at 0x000001FEB6A1ABC0>
+1,<datasets.datasets.CA_LD_individual object at 0x000001FEBA1AFC40>
+2,<datasets.datasets.CA_LD_individual object at 0x000001FEBA1AE5F0>
+3,<datasets.datasets.CA_LD_individual object at 0x000001FEBA1ACFA0>
+4,<datasets.datasets.CA_LD_individual object at 0x000001FEBA1AD060>
+5,<datasets.datasets.CA_LD_individual object at 0x000001FEBA1AEB90>
+6,<datasets.datasets.CA_LD_individual object at 0x000001FEBA1AE440>
+7,<datasets.datasets.CA_LD_individual object at 0x000001FEBA1AE380>
+8,<datasets.datasets.CA_LD_individual object at 0x000001FEBA1AE470>
+9,<datasets.datasets.CA_LD_individual object at 0x000001FEBA1ACF10>
+10,<datasets.datasets.CA_LD_individual object at 0x000001FEBA1AE110>
+11,<datasets.datasets.CA_LD_individual object at 0x000001FEBA1AC7F0>
+12,<datasets.datasets.CA_LD_individual object at 0x000001FEBA1AC400>
+13,<datasets.datasets.CA_LD_individual object at 0x000001FEBA1AFCA0>
+14,<datasets.datasets.CA_LD_individual object at 0x000001FEBA1AE140>
+15,<datasets.datasets.CA_LD_individual object at 0x000001FEBA1AD960>
+16,<datasets.datasets.CA_LD_individual object at 0x000001FEBA1AE620>
+17,<datasets.datasets.CA_LD_individual object at 0x000001FEBA1AD0C0>
+18,<datasets.datasets.CA_LD_individual object at 0x000001FEBA1AD990>
+19,<datasets.datasets.CA_LD_individual object at 0x000001FEBA1AEBC0>
