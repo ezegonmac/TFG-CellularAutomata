@@ -2,10 +2,18 @@ from CA.CAFactory import CAFactory
 import os
 import numpy as np
 import pandas as pd
+from shutil import rmtree
+from constants import *
 
 DATA_FOLDER = './data'
 
 def generate_dataset_LD(dataset_name, subsets):
+    np.random.seed(NP_RANDOM_SEED)
+    
+    # delete old dataset
+    dataset_folder = f'{DATA_FOLDER}/{dataset_name}'
+    if os.path.exists(dataset_folder):
+        rmtree(dataset_folder)
     
     life_thresholds = []
     death_thresholds = []
@@ -59,7 +67,7 @@ def generate_subset_LD(dataset_name, subset):
     n_iterations = subset['iterations']
 
     # subset folder
-    folder = f'{DATA_FOLDER}/{dataset_name}/{name}'
+    folder = f'{DATA_FOLDER}/{dataset_name}/subsets/{name}'
     if not os.path.exists(folder):
         os.makedirs(folder)
     
@@ -92,7 +100,7 @@ def save_subset_files_LD(seeds, life_thresholds, death_thresholds, sizes, densit
     attributes = zip(seeds, life_thresholds, death_thresholds, sizes, densities, iterations, files)
     for seed, life_threshold, death_threshold, size, density, n_iterations, file in attributes:
         # different seed for every iteration
-        np.random.seed(seed)
+        np.random.seed(NP_RANDOM_SEED + seed)
         
         ca1 = CAFactory.create_CA_LB(
             life_threshold=life_threshold,
