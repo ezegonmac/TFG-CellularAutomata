@@ -35,14 +35,15 @@ def generate_dataset1() -> None:
     iterations = 3
     
     # define subsets with same attributes
-    n_subset1 = 10
-    n_subset2 = 10
+    n_subset1 = 20
+    n_subset2 = 20
     
     # folders
     dataset_folder = f'{DATA_FOLDER}/{dataset_name}'
     individuals_folder = f'{dataset_folder}/individuals'
     
     # subsets
+    np.random.seed(NP_RANDOM_SEED)
     subset1 = [CA_LD_individual(
         id=id,
         life_threshold=0, 
@@ -95,9 +96,10 @@ def generate_dataset2() -> None:
     individuals_folder = f'{dataset_folder}/individuals'
     
     lt_dt_pairs = [(1, 8), (3, 6), (5, 5), (6, 3), (8, 1)]
-    n_subset = 5
+    n_subset = 30
     
     # individuals with fixed lt and dt
+    np.random.seed(NP_RANDOM_SEED)
     individuals = [CA_LD_individual(
         id=id,
         life_threshold=lt_dt_pairs[pair][0], 
@@ -138,7 +140,7 @@ def generate_dataset3() -> None:
     dt_min = 0
     dt_max = 9
       
-    n_individuals = 20
+    n_individuals = 300
     
     # folders
     dataset_folder = f'{DATA_FOLDER}/{dataset_name}'

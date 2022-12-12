@@ -20,7 +20,9 @@ def generate_dataset_files_from_individuals(individuals, dataset_folder, individ
         evolution_densities = calc_evolution_densities_from_file(individual.file)
         individual.evolution_densities = evolution_densities
     
-    df = pd.DataFrame(data=individuals)
+    # converts individuals to dict to save attributes instead of objects
+    individuals_dict = [individual.__dict__ for individual in individuals]
+    df = pd.DataFrame(data=individuals_dict)
     df.to_csv(f'{dataset_folder}/dataset.csv')
 
 def generate_file_from_individual(individual):
