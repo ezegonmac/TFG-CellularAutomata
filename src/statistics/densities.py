@@ -6,6 +6,7 @@ from matplotlib.ticker import MaxNLocator
 from matplotlib import cm
 import numpy as np
 from matplotlib.lines import Line2D
+from statistics.utils import *
 
 DENSITIES_FIGURES_FOLDER = f'{FIGURES_FOLDER}/statistics/densities'
 
@@ -139,12 +140,10 @@ def create_dataset_density_evolution_per_dt_plot(dataset, show=False, title="Den
 def plot_density_evolutions_per_dt(density_evolutions_by_dt, dts, title):
     ax = plt.subplot(111)
     
-    cmap = cm.get_cmap('jet')
-    colors = cmap(np.linspace(0, 1, len(dts)))
-    colors_by_dt = {dts[i]: colors[i] for i in range(len(dts))}
+    colors_by_threshold = get_colors_by_threshold()
     for dt in dts:
         density_evolutions = density_evolutions_by_dt[dt]
-        color = colors_by_dt[dt]
+        color = colors_by_threshold[dt]
         for densities in density_evolutions:
             plt.plot(densities, c=color, alpha=0.5)
     
@@ -156,7 +155,7 @@ def plot_density_evolutions_per_dt(density_evolutions_by_dt, dts, title):
     ax.xaxis.set_major_locator(MaxNLocator(integer=True))
     # legend
     custom_lines = [Line2D([0], [0], color=color, lw=4)
-                    for color in colors]
+                    for color in colors_by_threshold.values()]
     ax.legend(title="Life Threshold",fancybox=True,
               handles=custom_lines, 
               labels=range(0, 10),
