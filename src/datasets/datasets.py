@@ -11,7 +11,7 @@ class CA_LD_individual:
         self.density = density
         self.iterations = iterations
         self.file = file
-        self.evolution_densities = None
+        self.density_evolution = None
 
 def generate_dataset1() -> None:
     """
@@ -32,7 +32,7 @@ def generate_dataset1() -> None:
     # fixed attributes
     size = 10
     density = 0.5
-    iterations = 3
+    iterations = 10
     
     # define subsets with same attributes
     n_subset1 = 20
@@ -89,7 +89,7 @@ def generate_dataset2() -> None:
     # fixed attributes
     size = 10
     density = 0.5
-    iterations = 3
+    iterations = 10
     
     # folders
     dataset_folder = f'{DATA_FOLDER}/{dataset_name}'
@@ -132,7 +132,7 @@ def generate_dataset3() -> None:
     # fixed attributes
     size = 10
     density = 0.5
-    iterations = 5
+    iterations = 10
     
     # free attributes
     lt_min = 0

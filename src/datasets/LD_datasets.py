@@ -17,8 +17,8 @@ def generate_dataset_files_from_individuals(individuals, dataset_folder, individ
     # generate file and set evolution densities for each individual
     for individual in individuals:
         generate_file_from_individual(individual)
-        evolution_densities = calc_evolution_densities_from_file(individual.file)
-        individual.evolution_densities = evolution_densities
+        density_evolution = calc_density_evolution_from_file(individual.file)
+        individual.density_evolution = density_evolution
     
     # converts individuals to dict to save attributes instead of objects
     individuals_dict = [individual.__dict__ for individual in individuals]
@@ -36,8 +36,8 @@ def generate_file_from_individual(individual):
     
     ca1.save_evolution(individual.file)
 
-def calc_evolution_densities_from_file(file):
-    evolution_densities = []
+def calc_density_evolution_from_file(file):
+    density_evolution = []
     
     evolution = np.load(file + '.npy')
     
@@ -45,6 +45,6 @@ def calc_evolution_densities_from_file(file):
     
     for it in range(0, iterations):
         state = evolution[it]
-        evolution_densities.append(np.count_nonzero(state) / state.size)
+        density_evolution.append(np.count_nonzero(state) / state.size)
     
-    return evolution_densities
+    return density_evolution
