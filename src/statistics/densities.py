@@ -146,4 +146,3 @@ def plot_density_evolutions_per_dt(density_evolutions_by_dt, dts, title):
     ax.spines.top.set_visible(False)
     # integer x axis
     ax.xaxis.set_major_locator(MaxNLocator(integer=True))
-

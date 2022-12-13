@@ -152,8 +152,8 @@ def generate_dataset3() -> None:
     np.random.seed(NP_RANDOM_SEED)
     individuals = [CA_LD_individual(
         id=id,
-        life_threshold=np.random.randint(lt_min, lt_max), 
-        death_threshold=np.random.randint(dt_min, dt_max), 
+        life_threshold=np.random.randint(lt_min, lt_max+1), 
+        death_threshold=np.random.randint(dt_min, dt_max+1), 
         size=size, 
         density=density, 
         iterations=iterations, 
@@ -188,7 +188,7 @@ def generate_dataset4() -> None:
     individuals_folder = f'{dataset_folder}/individuals'
     
     life_threshold = 0
-    lt_dt_pairs = [(life_threshold, i) for i in range(0, 10)]
+    lt_dt_pairs = [(life_threshold, i) for i in range(0, 9+1)]
     n_subset = 30
     
     # individuals with fixed lt and dt
@@ -231,7 +231,7 @@ def generate_dataset5() -> None:
     individuals_folder = f'{dataset_folder}/individuals'
     
     death_threshold = 0
-    lt_dt_pairs = [(i, death_threshold) for i in range(0, 10)]
+    lt_dt_pairs = [(i, death_threshold) for i in range(0, 9+1)]
     n_subset = 30
     
     # individuals with fixed lt and dt
