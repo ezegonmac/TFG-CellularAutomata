@@ -5,6 +5,7 @@ import matplotlib.pyplot as plt
 from matplotlib.ticker import MaxNLocator
 from matplotlib import cm
 import numpy as np
+from matplotlib.lines import Line2D
 
 DENSITIES_FIGURES_FOLDER = f'{FIGURES_FOLDER}/statistics/densities'
 
@@ -86,7 +87,7 @@ def create_dataset_density_evolution_per_lt_plot(dataset, show=False, title="Den
     
     plot_density_evolutions_per_lt(density_evolutions_by_lt, lts, title)
     
-    plt.show() if show else plt.savefig(f'{DENSITIES_FIGURES_FOLDER}/density_evolution_lt_{dataset}.png', dpi=300)
+    plt.show() if show else plt.savefig(f'{DENSITIES_FIGURES_FOLDER}/density_evolution_lt_{dataset}.png', dpi=300, bbox_inches='tight')
     plt.close()
     
 
@@ -108,6 +109,13 @@ def plot_density_evolutions_per_lt(density_evolutions_by_lt, lts, title):
     ax.spines.top.set_visible(False)
     # integer x axis
     ax.xaxis.set_major_locator(MaxNLocator(integer=True))
+    # legend
+    custom_lines = [Line2D([0], [0], color=color, lw=4)
+                    for color in colors]
+    ax.legend(title="Life Threshold",fancybox=True,
+              handles=custom_lines, 
+              labels=range(0, 10),
+              loc='center left', bbox_to_anchor=(1, 0.5))
 
 # density evolution per life threshold
 
@@ -124,7 +132,7 @@ def create_dataset_density_evolution_per_dt_plot(dataset, show=False, title="Den
     
     plot_density_evolutions_per_dt(density_evolutions_by_dt, dts, title)
     
-    plt.show() if show else plt.savefig(f'{DENSITIES_FIGURES_FOLDER}/density_evolution_dt_{dataset}.png', dpi=300)
+    plt.show() if show else plt.savefig(f'{DENSITIES_FIGURES_FOLDER}/density_evolution_dt_{dataset}.png', dpi=300, bbox_inches='tight')
     plt.close()
     
 
@@ -146,3 +154,10 @@ def plot_density_evolutions_per_dt(density_evolutions_by_dt, dts, title):
     ax.spines.top.set_visible(False)
     # integer x axis
     ax.xaxis.set_major_locator(MaxNLocator(integer=True))
+    # legend
+    custom_lines = [Line2D([0], [0], color=color, lw=4)
+                    for color in colors]
+    ax.legend(title="Life Threshold",fancybox=True,
+              handles=custom_lines, 
+              labels=range(0, 10),
+              loc='center left', bbox_to_anchor=(1, 0.5))
