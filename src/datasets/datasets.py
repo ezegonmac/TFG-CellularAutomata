@@ -76,6 +76,7 @@ def generate_dataset2() -> None:
     Generate dataset2.
     
     Some cells die some become alive.
+    Fixed rules pairs.
     
     Variables:
     - fixed size: 10x10
@@ -117,6 +118,7 @@ def generate_dataset3() -> None:
     Generate dataset3.
         
     Some cells die some become alive.
+    Free thresholds.
     
     Variables:
     - fixed size: 10x10
@@ -157,5 +159,91 @@ def generate_dataset3() -> None:
         iterations=iterations, 
         file=f'{individuals_folder}/ca_{id}',
         ) for id in range(n_individuals)]
+    
+    generate_dataset_files_from_individuals(individuals, dataset_folder, individuals_folder)
+
+def generate_dataset4() -> None:
+    """
+    Generate dataset4.
+    
+    Some cells die some become alive.
+    Fixed life threshold.
+    
+    Variables:
+    - fixed size: 10x10
+    - fixed density: 0.5
+    - fixed iterations: 3
+    - fixed life_threshold and death_threshold: (0, 0), (0, 1), ... (0, 9)
+    """
+    
+    dataset_name = 'dataset4'
+    
+    # fixed attributes
+    size = 10
+    density = 0.5
+    iterations = 10
+    
+    # folders
+    dataset_folder = f'{DATA_FOLDER}/{dataset_name}'
+    individuals_folder = f'{dataset_folder}/individuals'
+    
+    life_threshold = 0
+    lt_dt_pairs = [(life_threshold, i) for i in range(0, 10)]
+    n_subset = 30
+    
+    # individuals with fixed lt and dt
+    np.random.seed(NP_RANDOM_SEED)
+    individuals = [CA_LD_individual(
+        id=id,
+        life_threshold=lt_dt_pairs[pair][0], 
+        death_threshold=lt_dt_pairs[pair][1], 
+        size=size, 
+        density=density, 
+        iterations=iterations, 
+        file=f'{individuals_folder}/ca_pair_{pair}_{id}',
+        ) for pair in range(len(lt_dt_pairs)) for id in range(n_subset)]
+    
+    generate_dataset_files_from_individuals(individuals, dataset_folder, individuals_folder)
+
+def generate_dataset5() -> None:
+    """
+    Generate dataset5.
+    
+    Some cells die some become alive.
+    Fixed death threshold.
+    
+    Variables:
+    - fixed size: 10x10
+    - fixed density: 0.5
+    - fixed iterations: 3
+    - fixed life_threshold and death_threshold: (0, 0), (1, 0), ... (9, 0)
+    """
+    
+    dataset_name = 'dataset5'
+    
+    # fixed attributes
+    size = 10
+    density = 0.5
+    iterations = 10
+    
+    # folders
+    dataset_folder = f'{DATA_FOLDER}/{dataset_name}'
+    individuals_folder = f'{dataset_folder}/individuals'
+    
+    death_threshold = 0
+    lt_dt_pairs = [(i, death_threshold) for i in range(0, 10)]
+    n_subset = 30
+    
+    # individuals with fixed lt and dt
+    np.random.seed(NP_RANDOM_SEED)
+    individuals = [CA_LD_individual(
+        id=id,
+        life_threshold=lt_dt_pairs[pair][0], 
+        death_threshold=lt_dt_pairs[pair][1], 
+        size=size, 
+        density=density, 
+        iterations=iterations, 
+        file=f'{individuals_folder}/ca_pair_{pair}_{id}',
+        ) for pair in range(len(lt_dt_pairs)) for id in range(n_subset)]
     
     generate_dataset_files_from_individuals(individuals, dataset_folder, individuals_folder)
