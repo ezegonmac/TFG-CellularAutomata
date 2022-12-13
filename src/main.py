@@ -27,3 +27,9 @@ if __name__ == '__main__':
     create_dataset_density_evolution_per_lt_plot(DATASET3)
     create_dataset_density_evolution_per_lt_plot(DATASET4)
     create_dataset_density_evolution_per_lt_plot(DATASET5)
+    
+    create_dataset_density_evolution_per_dt_plot(DATASET1)
+    create_dataset_density_evolution_per_dt_plot(DATASET2)
+    create_dataset_density_evolution_per_dt_plot(DATASET3)
+    create_dataset_density_evolution_per_dt_plot(DATASET4)
+    create_dataset_density_evolution_per_dt_plot(DATASET5)
