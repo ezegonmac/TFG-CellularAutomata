@@ -95,9 +95,7 @@ def create_dataset_density_evolution_per_lt_plot(dataset, show=False, title="Den
 def plot_density_evolutions_per_lt(density_evolutions_by_lt, lts, title):
     ax = plt.subplot(111)
     
-    cmap = cm.get_cmap('jet')
-    colors = cmap(np.linspace(0, 1, len(lts)))
-    colors_by_lt = {lts[i]: colors[i] for i in range(len(lts))}
+    colors_by_lt = get_colors_by_threshold()
     for lt in lts:
         density_evolutions = density_evolutions_by_lt[lt]
         color = colors_by_lt[lt]
@@ -112,7 +110,7 @@ def plot_density_evolutions_per_lt(density_evolutions_by_lt, lts, title):
     ax.xaxis.set_major_locator(MaxNLocator(integer=True))
     # legend
     custom_lines = [Line2D([0], [0], color=color, lw=4)
-                    for color in colors]
+                    for color in colors_by_lt.values()]
     ax.legend(title="Life Threshold",fancybox=True,
               handles=custom_lines, 
               labels=range(0, 10),
