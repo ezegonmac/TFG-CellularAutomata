@@ -23,11 +23,11 @@ def generate_dataset1() -> None:
     Variables:
     - fixed size: 10x10
     - fixed density: 0.5
-    - fixed iterations: 3
+    - fixed iterations: 10
     - fixed life_threshold and death_threshold: (0, 9), (9, 0)
     """
     
-    dataset_name = 'dataset1'
+    dataset_name = DATASET1
     
     # fixed attributes
     size = 10
@@ -81,11 +81,11 @@ def generate_dataset2() -> None:
     Variables:
     - fixed size: 10x10
     - fixed density: 0.5
-    - fixed iterations: 3
+    - fixed iterations: 10
     - fixed life_threshold and death_threshold: (1, 8), (3, 6), (5, 5), (6, 3), (8, 1)
     """
     
-    dataset_name = 'dataset2'
+    dataset_name = DATASET2
     
     # fixed attributes
     size = 10
@@ -129,7 +129,7 @@ def generate_dataset3() -> None:
     """
     
     # subsets with all attributes
-    dataset_name = 'dataset3'
+    dataset_name = DATASET3
     
     # fixed attributes
     size = 10
@@ -172,11 +172,75 @@ def generate_dataset4() -> None:
     Variables:
     - fixed size: 10x10
     - fixed density: 0.5
-    - fixed iterations: 3
+    - fixed iterations: 10
     - fixed life_threshold and death_threshold: (0, 0), (0, 1), ... (0, 9)
     """
     
-    dataset_name = 'dataset4'
+    dataset_name = DATASET4
+    
+    generate_fixed_lt_dataset(dataset_name, 0)
+    
+
+def generate_dataset5() -> None:
+    """
+    Generate dataset5.
+    
+    Some cells die some become alive.
+    Fixed death threshold.
+    
+    Variables:
+    - fixed size: 10x10
+    - fixed density: 0.5
+    - fixed iterations: 10
+    - fixed life_threshold and death_threshold: (0, 0), (1, 0), ... (9, 0)
+    """
+    
+    dataset_name = DATASET5
+    
+    generate_fixed_dt_dataset(dataset_name, 0)
+
+
+def generate_dataset6() -> None:
+    """
+    Generate dataset6.
+    
+    Some cells die some become alive.
+    Fixed life threshold.
+    
+    Variables:
+    - fixed size: 10x10
+    - fixed density: 0.5
+    - fixed iterations: 10
+    - fixed life_threshold and death_threshold: (9, 0), (9, 1), ... (9, 9)
+    """
+    
+    dataset_name = DATASET6
+    
+    generate_fixed_lt_dataset(dataset_name, 9)
+    
+
+def generate_dataset7() -> None:
+    """
+    Generate dataset7.
+    
+    Some cells die some become alive.
+    Fixed death threshold.
+    
+    Variables:
+    - fixed size: 10x10
+    - fixed density: 0.5
+    - fixed iterations: 10
+    - fixed life_threshold and death_threshold: (0, 9), (1, 9), ... (9, 9)
+    """
+    
+    dataset_name = DATASET7
+    
+    generate_fixed_dt_dataset(dataset_name, 9)
+
+
+# auxiliary functions
+
+def generate_fixed_lt_dataset(dataset_name, life_threshold) -> None:
     
     # fixed attributes
     size = 10
@@ -187,7 +251,6 @@ def generate_dataset4() -> None:
     dataset_folder = f'{DATA_FOLDER}/{dataset_name}'
     individuals_folder = f'{dataset_folder}/individuals'
     
-    life_threshold = 0
     lt_dt_pairs = [(life_threshold, i) for i in range(0, 9+1)]
     n_subset = 30
     
@@ -205,21 +268,8 @@ def generate_dataset4() -> None:
     
     generate_dataset_files_from_individuals(individuals, dataset_folder, individuals_folder)
 
-def generate_dataset5() -> None:
-    """
-    Generate dataset5.
-    
-    Some cells die some become alive.
-    Fixed death threshold.
-    
-    Variables:
-    - fixed size: 10x10
-    - fixed density: 0.5
-    - fixed iterations: 3
-    - fixed life_threshold and death_threshold: (0, 0), (1, 0), ... (9, 0)
-    """
-    
-    dataset_name = 'dataset5'
+
+def generate_fixed_dt_dataset(dataset_name, death_threshold) -> None:
     
     # fixed attributes
     size = 10
@@ -230,7 +280,6 @@ def generate_dataset5() -> None:
     dataset_folder = f'{DATA_FOLDER}/{dataset_name}'
     individuals_folder = f'{dataset_folder}/individuals'
     
-    death_threshold = 0
     lt_dt_pairs = [(i, death_threshold) for i in range(0, 9+1)]
     n_subset = 30
     

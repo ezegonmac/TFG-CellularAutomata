@@ -28,7 +28,7 @@ def plot_density_evolutions(density_evolutions, title):
     ax = plt.subplot(111)
     
     for densities in density_evolutions:
-        plt.plot(densities, alpha=0.5)
+        plt.plot(densities, alpha=0.3)
     
     ax.set(ylim=(0, 1.1), xlabel='Iterations', ylabel='Density', title=title)
     # remove right and top spines
@@ -64,7 +64,7 @@ def plot_density_variations(density_evolutions, title):
     ax = plt.subplot(111)
     
     for variation in density_variations:
-        plt.plot(variation, alpha=0.5)
+        plt.plot(variation, alpha=0.3)
     
     ax.set(ylim=(-1.1, 1.1), xlabel='Iterations', ylabel='Density variation', title=title)
     # remove right and top spines
@@ -86,6 +86,10 @@ def create_dataset_density_evolution_per_lt_plot(dataset, show=False, title="Den
         density_evolutions = df[df['life_threshold'] == lt]['density_evolution'].apply(literal_eval).values
         density_evolutions_by_lt[lt] = density_evolutions
     
+    title = title+', L=0' if dataset == DATASET4 else title
+    title = title+', D=0' if dataset == DATASET5 else title
+    title = title+', L=9' if dataset == DATASET6 else title
+    title = title+', D=9' if dataset == DATASET7 else title
     plot_density_evolutions_per_lt(density_evolutions_by_lt, lts, title)
     
     plt.show() if show else plt.savefig(f'{DENSITIES_FIGURES_FOLDER}/density_evolution_lt_{dataset}.png', dpi=300, bbox_inches='tight')
@@ -100,7 +104,7 @@ def plot_density_evolutions_per_lt(density_evolutions_by_lt, lts, title):
         density_evolutions = density_evolutions_by_lt[lt]
         color = colors_by_lt[lt]
         for densities in density_evolutions:
-            plt.plot(densities, c=color, alpha=0.5)
+            plt.plot(densities, c=color, alpha=0.3)
     
     ax.set(ylim=(0, 1.1), xlabel='Iterations', ylabel='Density', title=title)
     # remove right and top spines
@@ -111,14 +115,14 @@ def plot_density_evolutions_per_lt(density_evolutions_by_lt, lts, title):
     # legend
     custom_lines = [Line2D([0], [0], color=color, lw=4)
                     for color in colors_by_lt.values()]
-    ax.legend(title="Life Threshold",fancybox=True,
+    ax.legend(title="L",fancybox=True,
               handles=custom_lines, 
               labels=range(0, 10),
               loc='center left', bbox_to_anchor=(1, 0.5))
 
 # density evolution per life threshold
 
-def create_dataset_density_evolution_per_dt_plot(dataset, show=False, title="Density evolution per life threshold"):
+def create_dataset_density_evolution_per_dt_plot(dataset, show=False, title="Density evolution per death threshold"):
     
     dataset_file = f'{DATA_FOLDER}/{dataset}/dataset.csv'
     df = pd.read_csv(dataset_file)
@@ -129,6 +133,10 @@ def create_dataset_density_evolution_per_dt_plot(dataset, show=False, title="Den
         density_evolutions = df[df['death_threshold'] == dt]['density_evolution'].apply(literal_eval).values
         density_evolutions_by_dt[dt] = density_evolutions
     
+    title = title+', L=0' if dataset == DATASET4 else title
+    title = title+', D=0' if dataset == DATASET5 else title
+    title = title+', L=9' if dataset == DATASET6 else title
+    title = title+', D=9' if dataset == DATASET7 else title
     plot_density_evolutions_per_dt(density_evolutions_by_dt, dts, title)
     
     plt.show() if show else plt.savefig(f'{DENSITIES_FIGURES_FOLDER}/density_evolution_dt_{dataset}.png', dpi=300, bbox_inches='tight')
@@ -143,7 +151,7 @@ def plot_density_evolutions_per_dt(density_evolutions_by_dt, dts, title):
         density_evolutions = density_evolutions_by_dt[dt]
         color = colors_by_threshold[dt]
         for densities in density_evolutions:
-            plt.plot(densities, c=color, alpha=0.5)
+            plt.plot(densities, c=color, alpha=0.3)
     
     ax.set(ylim=(0, 1.1), xlabel='Iterations', ylabel='Density', title=title)
     # remove right and top spines
@@ -154,7 +162,7 @@ def plot_density_evolutions_per_dt(density_evolutions_by_dt, dts, title):
     # legend
     custom_lines = [Line2D([0], [0], color=color, lw=4)
                     for color in colors_by_threshold.values()]
-    ax.legend(title="Life Threshold",fancybox=True,
+    ax.legend(title="D",fancybox=True,
               handles=custom_lines, 
               labels=range(0, 10),
               loc='center left', bbox_to_anchor=(1, 0.5))
