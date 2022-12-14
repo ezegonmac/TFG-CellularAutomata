@@ -1,6 +1,7 @@
 from constants import *
 from datasets.datasets import *
 from statistics.densities import *
+from statistics.states import *
 
 if __name__ == '__main__':
 
@@ -11,31 +12,5 @@ if __name__ == '__main__':
     # generate_dataset5()
     # generate_dataset6()
     # generate_dataset7()
-    
-    # create_dataset_density_evolution_plot(DATASET1)
-    # create_dataset_density_evolution_plot(DATASET2)
-    # create_dataset_density_evolution_plot(DATASET3)
-    # create_dataset_density_evolution_plot(DATASET4)
-    # create_dataset_density_evolution_plot(DATASET5)
 
-    # create_dataset_density_variation_plot(DATASET1)
-    # create_dataset_density_variation_plot(DATASET2)
-    # create_dataset_density_variation_plot(DATASET3)
-    # create_dataset_density_variation_plot(DATASET4)
-    # create_dataset_density_variation_plot(DATASET5)
-
-    # create_dataset_density_evolution_per_lt_plot(DATASET1)
-    # create_dataset_density_evolution_per_lt_plot(DATASET2)
-    # create_dataset_density_evolution_per_lt_plot(DATASET3)
-    # create_dataset_density_evolution_per_lt_plot(DATASET4)
-    # create_dataset_density_evolution_per_lt_plot(DATASET5)
-    # create_dataset_density_evolution_per_lt_plot(DATASET6)
-    # create_dataset_density_evolution_per_lt_plot(DATASET7)
-    
-    # create_dataset_density_evolution_per_dt_plot(DATASET1)
-    # create_dataset_density_evolution_per_dt_plot(DATASET2)
-    # create_dataset_density_evolution_per_dt_plot(DATASET3)
-    # create_dataset_density_evolution_per_dt_plot(DATASET4)
-    # create_dataset_density_evolution_per_dt_plot(DATASET5)
-    # create_dataset_density_evolution_per_dt_plot(DATASET6)
-    # create_dataset_density_evolution_per_dt_plot(DATASET7)
+    create_state_plot(DATASET1, 0, 0, show=False)
