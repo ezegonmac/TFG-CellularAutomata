@@ -27,6 +27,7 @@ def plot_state(state, title):
     
     plt.matshow(state, cmap='Greys', vmin=0, vmax=1, fignum=0)
     
+    # TODO: remove magic number?
     ticks = range(0, 9+1)
     ax.set(yticks=ticks, xticks=ticks, title=title)
     # grid
