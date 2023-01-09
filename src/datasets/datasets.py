@@ -296,3 +296,61 @@ def generate_fixed_dt_dataset(dataset_name, death_threshold) -> None:
         ) for pair in range(len(lt_dt_pairs)) for id in range(n_subset)]
     
     generate_dataset_files_from_individuals(individuals, dataset_folder, individuals_folder)
+
+def generate_dataset8() -> None:
+    """
+    Generate dataset8.
+    
+    Description:
+    All cells dies or become alive in the next iteration, for new rules.
+    
+    Variables:
+    - fixed size: 10x10
+    - fixed density: 0.5
+    - fixed iterations: 10
+    - fixed life_threshold and death_threshold: (0, 0), (9, 9)
+    """
+    
+    dataset_name = DATASET8
+    
+    # fixed attributes
+    size = 10
+    density = 0.5
+    iterations = 10
+    
+    # define subsets with same attributes
+    n_subset1 = 20
+    n_subset2 = 20
+    
+    # folders
+    dataset_folder = f'{DATA_FOLDER}/{dataset_name}'
+    individuals_folder = f'{dataset_folder}/individuals'
+    
+    # subsets
+    np.random.seed(NP_RANDOM_SEED)
+    subset1 = [CA_LD_individual(
+        id=id,
+        life_threshold=0, 
+        death_threshold=0, 
+        size=size, 
+        density=density, 
+        iterations=iterations, 
+        file=f'{individuals_folder}/all_live_{id}',
+        ) for id in range(n_subset1)]
+    
+    subset2 = [CA_LD_individual(
+        id=id,
+        life_threshold=9, 
+        death_threshold=9, 
+        size=size, 
+        density=density, 
+        iterations=iterations, 
+        file=f'{individuals_folder}/all_die_{id}',
+        ) for id in range(n_subset2)]
+
+    subsets = [subset1, subset2]
+    
+    # individuals contains all subset individuals
+    individuals = [individual for subset in subsets for individual in subset]
+    
+    generate_dataset_files_from_individuals(individuals, dataset_folder, individuals_folder)

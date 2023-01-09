@@ -11,7 +11,7 @@ class RulesStrategyBS(RulesStrategy):
     
     def update_cell(self, board, cell, i, j):
         alive = cell == 1
-        neighbours = self.get_neighbours(i, j)
+        neighbours = self.get_alive_neighbours(i, j)
         if alive:
             if neighbours in self.survival:
                 board[i][j] = 1
@@ -25,7 +25,7 @@ class RulesStrategyUPOPB(RulesStrategy):
     
     def update_cell(self, board, cell, i, j):
         alive = cell == 1
-        neighbours = self.get_neighbours(i, j)
+        neighbours = self.get_alive_neighbours(i, j)
         if alive:
             if neighbours < self.underpopulation or neighbours > self.overpopulation:
                 board[i][j] = 0
@@ -41,8 +41,8 @@ class RulesStrategyLD(RulesStrategy):
         alive = cell == 1
         neighbours = self.get_neighbours(i, j)
         if alive and neighbours >= self.death_threshold:
-            board[i][j] = 0
+            board[i][j] = 1
         elif not alive and neighbours >= self.life_threshold:
             board[i][j] = 1
         else:
-            board[i][j] = cell
+            board[i][j] = 0
