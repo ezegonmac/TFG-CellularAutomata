@@ -3,10 +3,10 @@ import numpy as np
 from constants import *
 
 class CA_LD_individual:
-    def __init__(self, id, life_threshold, death_threshold, size, density, iterations, file):
+    def __init__(self, id, B, S, size, density, iterations, file):
         self.id = id
-        self.life_threshold = life_threshold
-        self.death_threshold = death_threshold
+        self.B = B
+        self.S = S
         self.size = size
         self.density = density
         self.iterations = iterations
@@ -24,7 +24,7 @@ def generate_dataset1() -> None:
     - fixed size: 10x10
     - fixed density: 0.5
     - fixed iterations: 10
-    - fixed life_threshold and death_threshold: (0, 9), (9, 0)
+    - fixed B and S: (0, 9), (9, 0)
     """
     
     dataset_name = DATASET1
@@ -46,8 +46,8 @@ def generate_dataset1() -> None:
     np.random.seed(NP_RANDOM_SEED)
     subset1 = [CA_LD_individual(
         id=id,
-        life_threshold=0, 
-        death_threshold=9, 
+        B=0, 
+        S=9, 
         size=size, 
         density=density, 
         iterations=iterations, 
@@ -56,8 +56,8 @@ def generate_dataset1() -> None:
     
     subset2 = [CA_LD_individual(
         id=id,
-        life_threshold=9, 
-        death_threshold=0, 
+        B=9, 
+        S=0, 
         size=size, 
         density=density, 
         iterations=iterations, 
@@ -82,7 +82,7 @@ def generate_dataset2() -> None:
     - fixed size: 10x10
     - fixed density: 0.5
     - fixed iterations: 10
-    - fixed life_threshold and death_threshold: (1, 8), (3, 6), (5, 5), (6, 3), (8, 1)
+    - fixed B and S: (1, 8), (3, 6), (5, 5), (6, 3), (8, 1)
     """
     
     dataset_name = DATASET2
@@ -103,8 +103,8 @@ def generate_dataset2() -> None:
     np.random.seed(NP_RANDOM_SEED)
     individuals = [CA_LD_individual(
         id=id,
-        life_threshold=lt_dt_pairs[pair][0], 
-        death_threshold=lt_dt_pairs[pair][1], 
+        B=lt_dt_pairs[pair][0], 
+        S=lt_dt_pairs[pair][1], 
         size=size, 
         density=density, 
         iterations=iterations, 
@@ -124,8 +124,8 @@ def generate_dataset3() -> None:
     - fixed size: 10x10
     - fixed density: 0.5
     - fixed iterations: 5
-    - free life_threshold : [0, 9]
-    - free death_threshold: [0, 9]
+    - free B : [0, 9]
+    - free S: [0, 9]
     """
     
     # subsets with all attributes
@@ -152,8 +152,8 @@ def generate_dataset3() -> None:
     np.random.seed(NP_RANDOM_SEED)
     individuals = [CA_LD_individual(
         id=id,
-        life_threshold=np.random.randint(lt_min, lt_max+1), 
-        death_threshold=np.random.randint(dt_min, dt_max+1), 
+        B=np.random.randint(lt_min, lt_max+1), 
+        S=np.random.randint(dt_min, dt_max+1), 
         size=size, 
         density=density, 
         iterations=iterations, 
@@ -173,7 +173,7 @@ def generate_dataset4() -> None:
     - fixed size: 10x10
     - fixed density: 0.5
     - fixed iterations: 10
-    - fixed life_threshold and death_threshold: (0, 0), (0, 1), ... (0, 9)
+    - fixed B and S: (0, 0), (0, 1), ... (0, 9)
     """
     
     dataset_name = DATASET4
@@ -192,7 +192,7 @@ def generate_dataset5() -> None:
     - fixed size: 10x10
     - fixed density: 0.5
     - fixed iterations: 10
-    - fixed life_threshold and death_threshold: (0, 0), (1, 0), ... (9, 0)
+    - fixed B and S: (0, 0), (1, 0), ... (9, 0)
     """
     
     dataset_name = DATASET5
@@ -211,7 +211,7 @@ def generate_dataset6() -> None:
     - fixed size: 10x10
     - fixed density: 0.5
     - fixed iterations: 10
-    - fixed life_threshold and death_threshold: (9, 0), (9, 1), ... (9, 9)
+    - fixed B and S: (9, 0), (9, 1), ... (9, 9)
     """
     
     dataset_name = DATASET6
@@ -230,7 +230,7 @@ def generate_dataset7() -> None:
     - fixed size: 10x10
     - fixed density: 0.5
     - fixed iterations: 10
-    - fixed life_threshold and death_threshold: (0, 9), (1, 9), ... (9, 9)
+    - fixed B and S: (0, 9), (1, 9), ... (9, 9)
     """
     
     dataset_name = DATASET7
@@ -240,7 +240,7 @@ def generate_dataset7() -> None:
 
 # auxiliary functions
 
-def generate_fixed_lt_dataset(dataset_name, life_threshold) -> None:
+def generate_fixed_lt_dataset(dataset_name, B) -> None:
     
     # fixed attributes
     size = 10
@@ -251,15 +251,15 @@ def generate_fixed_lt_dataset(dataset_name, life_threshold) -> None:
     dataset_folder = f'{DATA_FOLDER}/{dataset_name}'
     individuals_folder = f'{dataset_folder}/individuals'
     
-    lt_dt_pairs = [(life_threshold, i) for i in range(0, 9+1)]
+    lt_dt_pairs = [(B, i) for i in range(0, 9+1)]
     n_subset = 30
     
     # individuals with fixed lt and dt
     np.random.seed(NP_RANDOM_SEED)
     individuals = [CA_LD_individual(
         id=id,
-        life_threshold=lt_dt_pairs[pair][0], 
-        death_threshold=lt_dt_pairs[pair][1], 
+        B=lt_dt_pairs[pair][0], 
+        S=lt_dt_pairs[pair][1], 
         size=size, 
         density=density, 
         iterations=iterations, 
@@ -269,7 +269,7 @@ def generate_fixed_lt_dataset(dataset_name, life_threshold) -> None:
     generate_dataset_files_from_individuals(individuals, dataset_folder, individuals_folder)
 
 
-def generate_fixed_dt_dataset(dataset_name, death_threshold) -> None:
+def generate_fixed_dt_dataset(dataset_name, S) -> None:
     
     # fixed attributes
     size = 10
@@ -280,15 +280,15 @@ def generate_fixed_dt_dataset(dataset_name, death_threshold) -> None:
     dataset_folder = f'{DATA_FOLDER}/{dataset_name}'
     individuals_folder = f'{dataset_folder}/individuals'
     
-    lt_dt_pairs = [(i, death_threshold) for i in range(0, 9+1)]
+    lt_dt_pairs = [(i, S) for i in range(0, 9+1)]
     n_subset = 30
     
     # individuals with fixed lt and dt
     np.random.seed(NP_RANDOM_SEED)
     individuals = [CA_LD_individual(
         id=id,
-        life_threshold=lt_dt_pairs[pair][0], 
-        death_threshold=lt_dt_pairs[pair][1], 
+        B=lt_dt_pairs[pair][0], 
+        S=lt_dt_pairs[pair][1], 
         size=size, 
         density=density, 
         iterations=iterations, 
@@ -308,7 +308,7 @@ def generate_dataset8() -> None:
     - fixed size: 10x10
     - fixed density: 0.5
     - fixed iterations: 10
-    - fixed life_threshold and death_threshold: (0, 0), (9, 9)
+    - fixed B and S: (0, 0), (9, 9)
     """
     
     dataset_name = DATASET8
@@ -330,8 +330,8 @@ def generate_dataset8() -> None:
     np.random.seed(NP_RANDOM_SEED)
     subset1 = [CA_LD_individual(
         id=id,
-        life_threshold=0, 
-        death_threshold=0, 
+        B=0, 
+        S=0, 
         size=size, 
         density=density, 
         iterations=iterations, 
@@ -340,8 +340,8 @@ def generate_dataset8() -> None:
     
     subset2 = [CA_LD_individual(
         id=id,
-        life_threshold=9, 
-        death_threshold=9, 
+        B=9, 
+        S=9, 
         size=size, 
         density=density, 
         iterations=iterations, 

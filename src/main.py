@@ -6,18 +6,18 @@ from figures.doc import *
 
 if __name__ == '__main__':
 
-    # generate_dataset1()
+    generate_dataset1()
     # generate_dataset2()
     # generate_dataset3()
     # generate_dataset4()
     # generate_dataset5()
     # generate_dataset6()
     # generate_dataset7()
-    generate_dataset8()
+    # generate_dataset8()
 
-    # create_dataset_density_evolution_per_dt_plot(DATASET1)
-    # create_dataset_density_evolution_per_lt_plot(DATASET1)
-    # print('dataset1 done')
+    create_dataset_density_evolution_per_dt_plot(DATASET1)
+    create_dataset_density_evolution_per_lt_plot(DATASET1)
+    print('dataset1 done')
     # create_dataset_density_evolution_plot(DATASET3)
     # create_dataset_density_evolution_per_dt_plot(DATASET3)
     # create_dataset_density_evolution_per_lt_plot(DATASET3)
@@ -34,9 +34,9 @@ if __name__ == '__main__':
     # create_dataset_density_evolution_per_dt_plot(DATASET7)
     # create_dataset_density_evolution_per_lt_plot(DATASET7)
     # print('dataset7 done')
-    create_dataset_density_evolution_per_dt_plot(DATASET8)
-    create_dataset_density_evolution_per_lt_plot(DATASET8)
-    print('dataset8 done')
+    # create_dataset_density_evolution_per_dt_plot(DATASET8)
+    # create_dataset_density_evolution_per_lt_plot(DATASET8)
+    # print('dataset8 done')
 
 
 

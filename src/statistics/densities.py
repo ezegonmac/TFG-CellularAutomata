@@ -79,17 +79,17 @@ def create_dataset_density_evolution_per_lt_plot(dataset, show=False, title="Den
     
     dataset_file = f'{DATA_FOLDER}/{dataset}/dataset.csv'
     df = pd.read_csv(dataset_file)
-    lts = df['life_threshold'].unique().tolist()
+    lts = df['B'].unique().tolist()
     
     density_evolutions_by_lt = {}
     for lt in lts:
-        density_evolutions = df[df['life_threshold'] == lt]['density_evolution'].apply(literal_eval).values
+        density_evolutions = df[df['B'] == lt]['density_evolution'].apply(literal_eval).values
         density_evolutions_by_lt[lt] = density_evolutions
     
-    title = title+', L=0' if dataset == DATASET4 else title
-    title = title+', D=0' if dataset == DATASET5 else title
-    title = title+', L=9' if dataset == DATASET6 else title
-    title = title+', D=9' if dataset == DATASET7 else title
+    title = title+', B=0' if dataset == DATASET4 else title
+    title = title+', S=0' if dataset == DATASET5 else title
+    title = title+', B=9' if dataset == DATASET6 else title
+    title = title+', S=9' if dataset == DATASET7 else title
     plot_density_evolutions_per_lt(density_evolutions_by_lt, lts, title)
     
     plt.show() if show else plt.savefig(f'{DENSITIES_FIGURES_FOLDER}/density_evolution_lt_{dataset}.png', dpi=300, bbox_inches='tight')
@@ -115,7 +115,7 @@ def plot_density_evolutions_per_lt(density_evolutions_by_lt, lts, title):
     # legend
     custom_lines = [Line2D([0], [0], color=color, lw=4)
                     for color in colors_by_lt.values()]
-    ax.legend(title="L",fancybox=True,
+    ax.legend(title="B",fancybox=True,
               handles=custom_lines, 
               labels=range(0, 10),
               loc='center left', bbox_to_anchor=(1, 0.5))
@@ -126,17 +126,17 @@ def create_dataset_density_evolution_per_dt_plot(dataset, show=False, title="Den
     
     dataset_file = f'{DATA_FOLDER}/{dataset}/dataset.csv'
     df = pd.read_csv(dataset_file)
-    dts = df['death_threshold'].unique().tolist()
+    dts = df['S'].unique().tolist()
     
     density_evolutions_by_dt = {}
     for dt in dts:
-        density_evolutions = df[df['death_threshold'] == dt]['density_evolution'].apply(literal_eval).values
+        density_evolutions = df[df['S'] == dt]['density_evolution'].apply(literal_eval).values
         density_evolutions_by_dt[dt] = density_evolutions
     
-    title = title+', L=0' if dataset == DATASET4 else title
-    title = title+', D=0' if dataset == DATASET5 else title
-    title = title+', L=9' if dataset == DATASET6 else title
-    title = title+', D=9' if dataset == DATASET7 else title
+    title = title+', B=0' if dataset == DATASET4 else title
+    title = title+', S=0' if dataset == DATASET5 else title
+    title = title+', B=9' if dataset == DATASET6 else title
+    title = title+', S=9' if dataset == DATASET7 else title
     plot_density_evolutions_per_dt(density_evolutions_by_dt, dts, title)
     
     plt.show() if show else plt.savefig(f'{DENSITIES_FIGURES_FOLDER}/density_evolution_dt_{dataset}.png', dpi=300, bbox_inches='tight')
@@ -162,7 +162,7 @@ def plot_density_evolutions_per_dt(density_evolutions_by_dt, dts, title):
     # legend
     custom_lines = [Line2D([0], [0], color=color, lw=4)
                     for color in colors_by_threshold.values()]
-    ax.legend(title="D",fancybox=True,
+    ax.legend(title="S",fancybox=True,
               handles=custom_lines, 
               labels=range(0, 10),
               loc='center left', bbox_to_anchor=(1, 0.5))

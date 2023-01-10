@@ -27,9 +27,9 @@ def generate_dataset_files_from_individuals(individuals, dataset_folder, individ
 
 def generate_file_from_individual(individual):
     
-    ca1 = CAFactory.create_CA_LB(
-        life_threshold=individual.life_threshold,
-        death_threshold=individual.death_threshold,
+    ca1 = CAFactory.create_CA_BTST(
+        B=individual.B,
+        S=individual.S,
         size=individual.size,
         density=individual.density,
         iterations=individual.iterations)

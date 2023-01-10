@@ -10,54 +10,67 @@ class CAFactory():
     """
 
     @staticmethod
-    def create_CA_BS(birth=[2,3], survival=[3], size=None, density=None, board=None, iterations=None):
+    def create_CA_BS(B=[2,3], S=[3], size=None, density=None, board=None, iterations=None):
         """CA with B/S rule strategy.
 
         Args:
-            birth (list, optional): List of of all the numbers of live neighbors that cause a dead cell to come alive (be born). Defaults to [2,3].
-            survival (list, optional): List of all the numbers of live neighbors that cause a live cell to remain alive (survive). Defaults to [3].
-            size (int, optional): Size of the square board to be generated. Defaults to None.
-            density (float, optional): Density of the square board to be generated. Defaults to None.
-            board (np.Array, optional): Board given by input. Defaults to None.
-            iterations (int, optional): Number of iterations. Defaults to None.
+            B (list, optional): (Birth) List of live neighbors values that a dead cell has to become alive. Defaults to [2,3].
+            S (list, optional): (Survival) List of live neighbors values that an alive cell has to have stay alive. Defaults to [3].
+            
+            iterations (int, optional): number of iterations to be conmputed. Defaults to 10.
+            
+            If you want the board to be generated automatically: 
+            size (int, optional): width and height of the board. Defaults to None.
+            density (int, optional): initial configuration average density. Defaults to None.
+            
+            If you want to specify the board:
+            board (np.array, optional): specify initial configuration board. Defaults to None.
 
         Returns:
             CA: CA object with the specified B/S rule strategy.
         """
-        return CA(birth=birth, survival=survival, rules_strategy=RulesStrategyBS, size=size, density=density, board=board, iterations=iterations)
+        return CA(B=B, S=S, rules_strategy=RulesStrategyBS, size=size, density=density, board=board, iterations=iterations)
 
     @staticmethod
-    def create_CA_UPOPB(underpopulation=2, overpopulation=3, birth=[3], size=None, density=None, board=None, iterations=None):
-        """CA with UPOPB rule strategy.
+    def create_CA_BISI(B=(2,4), S=(7,8), size=None, density=None, board=None, iterations=None):
+        """CA with BI/SI rule strategy.
 
         Args:
-            underpopulation (int, optional): Number of live neighbors up to which a dead cell die (becouse of underpopulation). Defaults to 2.
-            overpopulation (int, optional): Number of live neighbors from which a live cell die (becouse of overpopulation). Defaults to 3.
-            birth (list, optional): List of all the numbers of life neighbors that cause a dead cell to become alive (be born). Defaults to [3].
-            size (int, optional): Size of the square board to be generated. Defaults to None.
-            density (float, optional): Density of the square board to be generated. Defaults to None.
-            board (np.Array, optional): Board given by input. Defaults to None.
-            iterations (int, optional): Number of iterations. Defaults to None.
+            B (tuple, optional): (Birth) Tuple (Bl, Bt) defining the interval of live neighbors that a dead cell has to have stay become alive. Defaults to (2,4).
+            S (tuple, optional): (Survival) Tuple (Sl, St) defining the interval of live neighbors that an alive cell has to have stay alive. Defaults to (7,8).
+
+            iterations (int, optional): number of iterations to be conmputed. Defaults to 10.
+            
+            If you want the board to be generated automatically: 
+            size (int, optional): width and height of the board. Defaults to None.
+            density (int, optional): initial configuration average density. Defaults to None.
+            
+            If you want to specify the board:
+            board (np.array, optional): specify initial configuration board. Defaults to None.
 
         Returns:
-            CA: CA object with the specified UPOPB rule strategy.
+            CA: CA object with the specified BI/SI rule strategy.
         """
-        return CA(overpopulation=overpopulation, underpopulation=underpopulation, birth=birth, rules_strategy=RulesStrategyUPOPB, size=size, density=density, board=board, iterations=iterations)
+        return CA(S=S, B=B, rules_strategy=RulesStrategyBISI, size=size, density=density, board=board, iterations=iterations)
 
     @staticmethod
-    def create_CA_LB(life_threshold=7, death_threshold=4, size=None, density=None, board=None, iterations=None):
-        """CA with LB rule strategy.
+    def create_CA_BTST(B=7, S=4, size=None, density=None, board=None, iterations=None):
+        """CA with BT/ST rule strategy.
 
         Args:
-            life_threshold (int, optional): Number of live neighbors from which a dead cell become alive. Defaults to 7.
-            death_threshold (int, optional): Number of live neighbors from which a live cell die. Defaults to 4.
-            size (int, optional): Size of the square board to be generated. Defaults to None.
-            density (float, optional): Density of the square board to be generated. Defaults to None.
-            board (np.Array, optional): Board given by input. Defaults to None.
-            iterations (int, optional): Number of iterations. Defaults to None.
-
-        Returns:
-            CA: CA object with the specified LB rule strategy.
-        """
-        return CA(life_threshold=life_threshold, death_threshold=death_threshold, rules_strategy=RulesStrategyLD, size=size, density=density, board=board, iterations=iterations)
+            B (int, optional): (Birth) Number of live neighbors from which a dead cell become alive. Defaults to 7.
+            S (int, optional): (Survival) Number of live neighbors from which an alive cell stay alive. Defaults to 4.
     
+            iterations (int, optional): number of iterations to be conmputed. Defaults to 10.
+            
+            If you want the board to be generated automatically: 
+            size (int, optional): width and height of the board. Defaults to None.
+            density (int, optional): initial configuration average density. Defaults to None.
+            
+            If you want to specify the board:
+            board (np.array, optional): specify initial configuration board. Defaults to None.
+
+        Returns:
+            CA: CA object with the specified BT/ST rule strategy.
+        """
+        return CA(B=B, S=S, rules_strategy=RulesStrategyBTST, size=size, density=density, board=board, iterations=iterations)

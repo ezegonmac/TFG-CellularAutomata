@@ -1,4 +1,4 @@
-,id,life_threshold,death_threshold,size,density,iterations,file,density_evolution
+,id,B,S,size,density,iterations,file,density_evolution
 0,0,0,9,10,0.5,10,./data/dataset1/individuals/all_live_0,"[0.51, 1.0, 1.0, 1.0, 1.0, 1.0, 1.0, 1.0, 1.0, 1.0]"
 1,1,0,9,10,0.5,10,./data/dataset1/individuals/all_live_1,"[0.43, 1.0, 1.0, 1.0, 1.0, 1.0, 1.0, 1.0, 1.0, 1.0]"
 2,2,0,9,10,0.5,10,./data/dataset1/individuals/all_live_2,"[0.5, 1.0, 1.0, 1.0, 1.0, 1.0, 1.0, 1.0, 1.0, 1.0]"

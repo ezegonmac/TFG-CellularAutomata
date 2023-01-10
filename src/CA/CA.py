@@ -7,7 +7,26 @@ SLEEP_PLOT_TIME = 1
 
 class CA:
     
-    def __init__(self, rules_strategy: RulesStrategy, size=None, density=None, board=None, iterations=10, **kwargs):
+    def __init__(self, rules_strategy: RulesStrategy, iterations:int = 10, size:int = None, density:int = None, board:np.array = None, **kwargs):
+        """Cellular Automata object. It can be used to compute the evolution of a CA board with a specified rule strategy.
+
+        Args:
+            rules_strategy (RulesStrategy): rules strategy to be used for cell update function
+            iterations (int, optional): number of iterations to be conmputed. Defaults to 10.
+            
+            If you want the board to be generated automatically: 
+            size (int, optional): width and height of the board. Defaults to None.
+            density (int, optional): initial configuration average density. Defaults to None.
+            
+            If you want to specify the board:
+            board (np.array, optional): specify initial configuration board. Defaults to None.
+        Extra args (depending on rules_strategy specified):
+            B (list, tuple or int): (Birth)
+            S (list, tuple or int): (Survival)
+        Raises:
+            ValueError: Board and size cannot be both specified. When size is specified the board is auto generated.
+            ValueError: Board and density cannot be both specified. When density is specified the board is auto generated.
+        """
         
         # GENERAL PARAMETERS
         self._rules_strategy = rules_strategy
