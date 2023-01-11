@@ -1,4 +1,5 @@
 NP_RANDOM_SEED = 0
+SKLEARN_RANDOM_SEED = 0
 
 # folders
 DATA_FOLDER = './data2'
