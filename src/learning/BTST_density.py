@@ -5,10 +5,11 @@ from sklearn.model_selection import train_test_split
 from sklearn.neighbors import KNeighborsRegressor
 import matplotlib.pyplot as plt
 from sklearn.model_selection import cross_val_score
+from learning.scoring import *
 
 
 def main():
-    df = load_dataset8_density()
+    df = load_dataset_density(DATASET8)
     
     iterations = [str(i) for i in range(1, 10)]
     X = df[['B', 'S', '0']]
@@ -19,11 +20,16 @@ def main():
     knn_model = KNeighborsRegressor(n_neighbors=5)
     knn_model.fit(X_train, y_train)
     
-    y_ = knn_model.predict(X_test)
+    y_pred = knn_model.predict(X_test)
 
     print_random_checks(X_test, y_test, knn_model)
     print_overall_score(X_test, y_test, knn_model)
     print_cross_val_score(X, y, knn_model)
+    mse_by_iteration = get_mse_by_iteration(y_test, y_pred)
+    score_by_iteration = get_r2_by_iteration(y_test, y_pred)
+    
+    print('MSE by iteration:' + str(mse_by_iteration))
+    print('R2 by iteration:' + str(score_by_iteration))
 
 
 def print_cross_val_score(X, y, model):
@@ -58,8 +64,8 @@ def generate_BS_scatter_plot(df):
     plt.show()
 
 
-def load_dataset8_density():
-    dataset_name = DATASET8 + '_density'
+def load_dataset_density(dataset):
+    dataset_name = dataset + '_density'
     dataset_folder = f'{DATA_FOLDER}/{dataset_name}'
     file = f'{dataset_folder}/density_dataset.csv'
     
