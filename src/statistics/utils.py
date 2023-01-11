@@ -2,6 +2,11 @@ import numpy as np
 from matplotlib import cm
 
 def get_colors_by_threshold():
+    """
+
+    Returns:
+        colors_by_threshold: dictionary of threshold value and color
+    """
     
     thresholds = range(0, 10)
     

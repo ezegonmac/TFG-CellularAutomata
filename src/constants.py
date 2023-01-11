@@ -12,4 +12,7 @@ DATASET4 = 'dataset4'
 DATASET5 = 'dataset5'
 DATASET6 = 'dataset6'
 DATASET7 = 'dataset7'
-DATASET8 = 'dataset8'
+DATASET8 = 'dataset8' # dataset 1 en el documento
+
+# colors 
+COLOR_PRIMARY = '#0061FF'

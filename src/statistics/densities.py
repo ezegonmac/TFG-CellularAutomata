@@ -12,7 +12,7 @@ DENSITIES_FIGURES_FOLDER = f'{FIGURES_FOLDER}/statistics/densities'
 
 # density evolution
 
-def create_dataset_density_evolution_plot(dataset, show=False, title="Density evolution"):
+def create_dataset_density_evolution_plot(dataset, show=False, title="Evolución de la densidad"):
     
     dataset_file = f'{DATA_FOLDER}/{dataset}/dataset.csv'
     df = pd.read_csv(dataset_file)
@@ -22,24 +22,65 @@ def create_dataset_density_evolution_plot(dataset, show=False, title="Density ev
     
     plt.show() if show else plt.savefig(f'{DENSITIES_FIGURES_FOLDER}/density_evolution_{dataset}.png', dpi=300)
     plt.close()
-    
+
 
 def plot_density_evolutions(density_evolutions, title):
     ax = plt.subplot(111)
     
-    for densities in density_evolutions:
-        plt.plot(densities, alpha=0.3)
+    n = 20
+    colors = plt.cm.jet(np.linspace(0,1,n))
+    for i in range(len(density_evolutions)):
+        densities = density_evolutions[i]
+        plt.plot(densities, alpha=0.5, color=colors[i%len(colors)])
     
-    ax.set(ylim=(0, 1.1), xlabel='Iterations', ylabel='Density', title=title)
+    ax.set(ylim=(0, 1.1), xlabel='Iteraciones', ylabel='Densidad', title=title)
     # remove right and top spines
     ax.spines.right.set_visible(False)
     ax.spines.top.set_visible(False)
     # integer x axis
     ax.xaxis.set_major_locator(MaxNLocator(integer=True))
 
+# density histograms
+
+def create_dataset_density_histograms_plot(dataset, show=False, title="Histogramas de densidad por iteración"):
+    
+    dataset_file = f'{DATA_FOLDER}/{dataset}/dataset.csv'
+    df = pd.read_csv(dataset_file)
+    density_evolutions = df['density_evolution'].apply(literal_eval).values
+    density_evolutions = np.stack(density_evolutions, axis=0)
+
+    densities_per_iteration = np.transpose(density_evolutions)
+    
+    fig, axes = plt.subplots(3, 3, figsize=(10, 10), sharex=True, sharey=True, constrained_layout=True)
+    iterations = range(0, 9)
+    for iteration, ax in zip(iterations, axes.flatten()):
+        plot_density_histogram(ax, densities_per_iteration[iteration], iteration)
+    
+    fig.suptitle(title, fontsize=20)
+    plt.tight_layout(w_pad=2, h_pad=3)
+    
+    plt.show() if show else plt.savefig(f'{DENSITIES_FIGURES_FOLDER}/density_histograms_{dataset}.png', dpi=300, bbox_inches='tight')
+    plt.close()
+
+
+def plot_density_histogram(ax, densities, iteration):
+    
+    title = f'It. {iteration}'
+    ax.hist(densities, bins=20, range=[0, 1], density=True, color=COLOR_PRIMARY)  # , color='blue'
+    ax.set(ylim=(0, 10), title=title)
+    ax.set(xlabel='Densidad', ylabel='Frecuencia')
+    # plt.grid(color='white', lw=0.5, axis='x', which='both')
+    
+    # ax.set(ylim=(0, 1.1), xlabel='Iteraciones', ylabel='Densidad', title=title)
+    # remove right and top spines
+    ax.spines.right.set_visible(False)
+    ax.spines.top.set_visible(False)
+    # integer x axis
+    # ax.xaxis.set_major_locator(MaxNLocator(integer=True))
+
 # density variation
 
-def create_dataset_density_variation_plot(dataset, show=False, title="Density variations"):
+def create_dataset_density_variation_plot(dataset, show=False, title="Variación de la densidad"):
     
     dataset_file = f'{DATA_FOLDER}/{dataset}/dataset.csv'
     df = pd.read_csv(dataset_file)
@@ -66,47 +107,47 @@ def plot_density_variations(density_evolutions, title):
     for variation in density_variations:
         plt.plot(variation, alpha=0.3)
     
-    ax.set(ylim=(-1.1, 1.1), xlabel='Iterations', ylabel='Density variation', title=title)
+    ax.set(ylim=(-1.1, 1.1), xlabel='Iteraciones', ylabel='Variación de la densidad', title=title)
     # remove right and top spines
     ax.spines.right.set_visible(False)
     ax.spines.top.set_visible(False)
     # integer x axis
     ax.xaxis.set_major_locator(MaxNLocator(integer=True))
 
-# density evolution per life threshold
+# density evolution per B
 
-def create_dataset_density_evolution_per_lt_plot(dataset, show=False, title="Density evolution per life threshold"):
+def create_dataset_density_evolution_per_B_plot(dataset, show=False, title="Evolución de la densidad por umbral de vida (B)"):
     
     dataset_file = f'{DATA_FOLDER}/{dataset}/dataset.csv'
     df = pd.read_csv(dataset_file)
-    lts = df['B'].unique().tolist()
+    Bs = df['B'].unique().tolist()
     
-    density_evolutions_by_lt = {}
-    for lt in lts:
-        density_evolutions = df[df['B'] == lt]['density_evolution'].apply(literal_eval).values
-        density_evolutions_by_lt[lt] = density_evolutions
+    density_evolutions_by_B = {}
+    for B in Bs:
+        density_evolutions = df[df['B'] == B]['density_evolution'].apply(literal_eval).values
+        density_evolutions_by_B[B] = density_evolutions
     
     title = title+', B=0' if dataset == DATASET4 else title
     title = title+', S=0' if dataset == DATASET5 else title
     title = title+', B=9' if dataset == DATASET6 else title
     title = title+', S=9' if dataset == DATASET7 else title
-    plot_density_evolutions_per_lt(density_evolutions_by_lt, lts, title)
+    plot_density_evolutions_per_B(density_evolutions_by_B, Bs, title)
     
-    plt.show() if show else plt.savefig(f'{DENSITIES_FIGURES_FOLDER}/density_evolution_lt_{dataset}.png', dpi=300, bbox_inches='tight')
+    plt.show() if show else plt.savefig(f'{DENSITIES_FIGURES_FOLDER}/density_evolution_B_{dataset}.png', dpi=300, bbox_inches='tight')
     plt.close()
     
 
-def plot_density_evolutions_per_lt(density_evolutions_by_lt, lts, title):
+def plot_density_evolutions_per_B(density_evolutions_by_B, Bs, title):
     ax = plt.subplot(111)
     
-    colors_by_lt = get_colors_by_threshold()
-    for lt in lts:
-        density_evolutions = density_evolutions_by_lt[lt]
-        color = colors_by_lt[lt]
+    colors_by_B = get_colors_by_threshold()
+    for B in Bs:
+        density_evolutions = density_evolutions_by_B[B]
+        color = colors_by_B[B]
         for densities in density_evolutions:
             plt.plot(densities, c=color, alpha=0.3)
     
-    ax.set(ylim=(0, 1.1), xlabel='Iterations', ylabel='Density', title=title)
+    ax.set(ylim=(0, 1.1), xlabel='Iteraciones', ylabel='Densidad', title=title)
     # remove right and top spines
     ax.spines.right.set_visible(False)
     ax.spines.top.set_visible(False)
@@ -114,46 +155,46 @@ def plot_density_evolutions_per_lt(density_evolutions_by_lt, lts, title):
     ax.xaxis.set_major_locator(MaxNLocator(integer=True))
     # legend
     custom_lines = [Line2D([0], [0], color=color, lw=4)
-                    for color in colors_by_lt.values()]
+                    for color in colors_by_B.values()]
     ax.legend(title="B",fancybox=True,
               handles=custom_lines, 
               labels=range(0, 10),
               loc='center left', bbox_to_anchor=(1, 0.5))
 
-# density evolution per life threshold
+# density evolution per S
 
-def create_dataset_density_evolution_per_dt_plot(dataset, show=False, title="Density evolution per death threshold"):
+def create_dataset_density_evolution_per_S_plot(dataset, show=False, title="Evolución de la densidad por umbral de supervivencia (S)"):
     
     dataset_file = f'{DATA_FOLDER}/{dataset}/dataset.csv'
     df = pd.read_csv(dataset_file)
-    dts = df['S'].unique().tolist()
+    Ss = df['S'].unique().tolist()
     
-    density_evolutions_by_dt = {}
-    for dt in dts:
-        density_evolutions = df[df['S'] == dt]['density_evolution'].apply(literal_eval).values
-        density_evolutions_by_dt[dt] = density_evolutions
+    density_evolutions_by_S = {}
+    for S in Ss:
+        density_evolutions = df[df['S'] == S]['density_evolution'].apply(literal_eval).values
+        density_evolutions_by_S[S] = density_evolutions
     
     title = title+', B=0' if dataset == DATASET4 else title
     title = title+', S=0' if dataset == DATASET5 else title
     title = title+', B=9' if dataset == DATASET6 else title
     title = title+', S=9' if dataset == DATASET7 else title
-    plot_density_evolutions_per_dt(density_evolutions_by_dt, dts, title)
+    plot_density_evolutions_per_S(density_evolutions_by_S, Ss, title)
     
-    plt.show() if show else plt.savefig(f'{DENSITIES_FIGURES_FOLDER}/density_evolution_dt_{dataset}.png', dpi=300, bbox_inches='tight')
+    plt.show() if show else plt.savefig(f'{DENSITIES_FIGURES_FOLDER}/density_evolution_S_{dataset}.png', dpi=300, bbox_inches='tight')
     plt.close()
-    
 
-def plot_density_evolutions_per_dt(density_evolutions_by_dt, dts, title):
+
+def plot_density_evolutions_per_S(density_evolutions_by_S, Ss, title):
     ax = plt.subplot(111)
     
     colors_by_threshold = get_colors_by_threshold()
-    for dt in dts:
-        density_evolutions = density_evolutions_by_dt[dt]
-        color = colors_by_threshold[dt]
+    for S in Ss:
+        density_evolutions = density_evolutions_by_S[S]
+        color = colors_by_threshold[S]
         for densities in density_evolutions:
             plt.plot(densities, c=color, alpha=0.3)
     
-    ax.set(ylim=(0, 1.1), xlabel='Iterations', ylabel='Density', title=title)
+    ax.set(ylim=(0, 1.1), xlabel='Iteraciones', ylabel='Densidad', title=title)
     # remove right and top spines
     ax.spines.right.set_visible(False)
     ax.spines.top.set_visible(False)
@@ -166,3 +207,54 @@ def plot_density_evolutions_per_dt(density_evolutions_by_dt, dts, title):
               handles=custom_lines, 
               labels=range(0, 10),
               loc='center left', bbox_to_anchor=(1, 0.5))
+
+# density evolution per B and S
+
+def plot_density_evolutions_per_B_and_S(density_evolutions_by_B_and_S, BSs, title):
+    ax = plt.subplot(111)
+    
+    colors_by_threshold = get_colors_by_threshold()
+    for BS in BSs:
+        B = BS[0]
+        S = BS[1]
+        density_evolutions = density_evolutions_by_B_and_S[BS]
+        color = colors_by_threshold[B]
+        for densities in density_evolutions:
+            plt.plot(densities, c=color, alpha=0.3)
+    
+    ax.set(ylim=(0, 1.1), xlabel='Iteraciones', ylabel='Densidad', title=title)
+    # remove right and top spines
+    ax.spines.right.set_visible(False)
+    ax.spines.top.set_visible(False)
+    # integer x axis
+    ax.xaxis.set_major_locator(MaxNLocator(integer=True))
+    # legend
+    custom_lines = [Line2D([0], [0], color=color, lw=4)
+                    for color in colors_by_threshold.values()]
+    # only first and last
+    custom_lines = [custom_lines[0], custom_lines[-1]]
+    ax.legend(title="(B, S)",fancybox=True,
+              handles=custom_lines, 
+              labels=[(0, 0), (9, 9)],
+              loc='center left', bbox_to_anchor=(0.9, 0.5))
+
+def create_dataset_density_evolution_per_B_and_S_plot(dataset, show=False, title="Evolución de la densidad por umbral de vida (B) y supervivencia (S)"):
+    # Used only for equal values of B and S
+    # Sometimes only takes B in account
+    
+    dataset_file = f'{DATA_FOLDER}/{dataset}/dataset.csv'
+    df = pd.read_csv(dataset_file)
+    Bs = df['B'].unique().tolist()
+    Ss = df['S'].unique().tolist()
+    BSs = list(zip(Bs, Ss))
+    
+    density_evolutions_by_B_and_S = {}
+    for B, S in BSs:
+        # Only takes b in account
+        density_evolutions = df[df['B'] == B]['density_evolution'].apply(literal_eval).values
+        density_evolutions_by_B_and_S[(B,S)] = density_evolutions
+    
+    plot_density_evolutions_per_B_and_S(density_evolutions_by_B_and_S, BSs, title)
+    
+    plt.show() if show else plt.savefig(f'{DENSITIES_FIGURES_FOLDER}/density_evolution_B_and_S_{dataset}.png', dpi=300, bbox_inches='tight')
+    plt.close()
