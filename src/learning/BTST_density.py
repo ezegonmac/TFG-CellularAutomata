@@ -2,7 +2,7 @@ from constants import *
 import pandas as pd
 from sklearn.model_selection import train_test_split
 from sklearn.neighbors import KNeighborsRegressor
-from learning.evaluation import print_evaluation
+from learning.test import print_evaluation
 
 
 def main():
