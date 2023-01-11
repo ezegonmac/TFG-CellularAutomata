@@ -1,17 +1,8 @@
+from datasets.CA_LD_individual import CA_LD_individual
 from datasets.LD_datasets import generate_dataset_files_from_individuals
 import numpy as np
 from constants import *
 
-class CA_LD_individual:
-    def __init__(self, id, B, S, size, density, iterations, file):
-        self.id = id
-        self.B = B
-        self.S = S
-        self.size = size
-        self.density = density
-        self.iterations = iterations
-        self.file = file
-        self.density_evolution = None
 
 def generate_dataset1() -> None:
     """
@@ -71,6 +62,7 @@ def generate_dataset1() -> None:
     
     generate_dataset_files_from_individuals(individuals, dataset_folder, individuals_folder)
 
+
 def generate_dataset2() -> None:
     """
     Generate dataset2.
@@ -112,6 +104,7 @@ def generate_dataset2() -> None:
         ) for pair in range(len(lt_dt_pairs)) for id in range(n_subset)]
     
     generate_dataset_files_from_individuals(individuals, dataset_folder, individuals_folder)
+
 
 def generate_dataset3() -> None:
     """
@@ -161,6 +154,7 @@ def generate_dataset3() -> None:
         ) for id in range(n_individuals)]
     
     generate_dataset_files_from_individuals(individuals, dataset_folder, individuals_folder)
+
 
 def generate_dataset4() -> None:
     """
@@ -297,6 +291,7 @@ def generate_fixed_dt_dataset(dataset_name, S) -> None:
     
     generate_dataset_files_from_individuals(individuals, dataset_folder, individuals_folder)
 
+
 def generate_dataset8() -> None:
     """
     Generate dataset8.
@@ -354,3 +349,15 @@ def generate_dataset8() -> None:
     individuals = [individual for subset in subsets for individual in subset]
     
     generate_dataset_files_from_individuals(individuals, dataset_folder, individuals_folder)
+
+
+def generate_datasets():
+    
+    generate_dataset1()
+    generate_dataset2()
+    generate_dataset3()
+    generate_dataset4()
+    generate_dataset5()
+    generate_dataset6()
+    generate_dataset7()
+    generate_dataset8()

@@ -90,6 +90,13 @@ class CA:
                 self._rules_strategy.update_cell(self, new_board, cell, i, j)
 
         self.board = new_board
+    
+    def get_density_evolution(self):
+        density_evolution = np.zeros(self.iterations)
+        for i in range(self.iterations):
+            density_evolution[i] = np.count_nonzero(self.evolution[i]) / (self.size * self.size)
+
+        return density_evolution
         
     def draw(self):
         plt.matshow(self.board, cmap='Greys', vmin=0, vmax=1)

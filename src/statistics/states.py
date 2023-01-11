@@ -38,3 +38,28 @@ def plot_state(state, title):
         # tick.tick1On = tick.tick2On = False
         tick.tick1line.set_visible(False)
     ax.grid(which='minor', color='white', linewidth=1)
+
+
+def create_state_plots():
+    create_state_plot(DATASET1, individual=0, iteration=0)
+    create_state_plot(DATASET1, individual=0, iteration=1)
+    create_state_plot(DATASET1, individual=0, iteration=2)
+
+    create_state_plot(DATASET1, individual=20, iteration=0)
+    create_state_plot(DATASET1, individual=20, iteration=1)
+    create_state_plot(DATASET1, individual=20, iteration=2)
+
+    create_state_plot(DATASET3, individual=0, iteration=0)
+    create_state_plot(DATASET3, individual=0, iteration=1)
+    create_state_plot(DATASET3, individual=0, iteration=2)
+    create_state_plot(DATASET3, individual=0, iteration=3)
+
+    create_state_plot(DATASET3, individual=50, iteration=0)
+    create_state_plot(DATASET3, individual=50, iteration=1)
+    create_state_plot(DATASET3, individual=50, iteration=2)
+    create_state_plot(DATASET3, individual=50, iteration=3)
+
+    create_state_plot(DATASET3, individual=120, iteration=0)
+    create_state_plot(DATASET3, individual=120, iteration=1)
+    create_state_plot(DATASET3, individual=120, iteration=2)
+    create_state_plot(DATASET3, individual=120, iteration=3)

@@ -40,11 +40,12 @@ def calc_density_evolution_from_file(file):
     density_evolution = []
     
     evolution = np.load(file + '.npy')
-    
+
     iterations = evolution.shape[0]
     
     for it in range(0, iterations):
         state = evolution[it]
-        density_evolution.append(np.count_nonzero(state) / state.size)
+        density = np.count_nonzero(state) / state.size
+        density_evolution.append(density)
     
     return density_evolution
