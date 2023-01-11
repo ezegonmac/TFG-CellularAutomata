@@ -349,15 +349,3 @@ def generate_dataset8() -> None:
     individuals = [individual for subset in subsets for individual in subset]
     
     generate_dataset_files_from_individuals(individuals, dataset_folder, individuals_folder)
-
-
-def generate_datasets():
-    
-    generate_dataset1()
-    generate_dataset2()
-    generate_dataset3()
-    generate_dataset4()
-    generate_dataset5()
-    generate_dataset6()
-    generate_dataset7()
-    generate_dataset8()
