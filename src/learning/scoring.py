@@ -32,6 +32,7 @@ def get_cross_val_score_by_iteration(y_test, y_pred, scorer=mean_squared_error, 
             fold_size = len(y_test_i) // folds
             start = fold * fold_size
             end = start + fold_size
+            print(f'Start: {start}, end: {end}')
             y_test_fold = y_test_i.iloc[start:end]
             y_pred_fold = y_pred_i[start:end]
             score = scorer(y_test_fold, y_pred_fold)

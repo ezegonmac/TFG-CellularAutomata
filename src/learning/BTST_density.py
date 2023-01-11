@@ -6,7 +6,14 @@ from learning.evaluation import print_evaluation
 
 
 def main():
-    df = load_dataset_density(DATASET8)
+    
+    knn_model = KNeighborsRegressor(n_neighbors=5)
+    
+    evaluate_model_with_dataset(knn_model, DATASET8)
+
+
+def evaluate_model_with_dataset(model, dataset):
+    df = load_dataset_density(dataset)
     
     iterations = [str(i) for i in range(1, 10)]
     X = df[['B', 'S', '0']]
@@ -14,12 +21,11 @@ def main():
     
     X_train, X_test, y_train, y_test = train_test_split(X, y, test_size=0.2, random_state=SKLEARN_RANDOM_SEED)
     
-    knn_model = KNeighborsRegressor(n_neighbors=5)
-    knn_model.fit(X_train, y_train)
+    model.fit(X_train, y_train)
     
-    y_pred = knn_model.predict(X_test)
+    y_pred = model.predict(X_test)
 
-    print_evaluation(X, y, X_test, y_test, y_pred, knn_model)
+    print_evaluation(X, y, X_test, y_test, y_pred, model)
 
 
 def load_dataset_density(dataset):

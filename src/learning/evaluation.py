@@ -1,4 +1,4 @@
-from scoring import get_mse_by_iteration, get_r2_by_iteration
+from learning.scoring import get_mse_by_iteration, get_r2_by_iteration
 from sklearn.model_selection import cross_val_score
 import pandas as pd
 import numpy as np
@@ -14,6 +14,7 @@ def print_evaluation(X, y, X_test, y_test, y_pred, model):
     
     print('MSE by iteration:' + str(mse_by_iteration))
     print('R2 by iteration:' + str(score_by_iteration))
+
 
 def print_cross_val_score(X, y, model):
     scores = cross_val_score(model, X, y, cv=10)
