@@ -1,5 +1,5 @@
 
-class CA_LD_individual:
+class CA_BTST_individual:
     def __init__(self, id, B, S, size, density, iterations, file=None):
         self.id = id
         self.B = B

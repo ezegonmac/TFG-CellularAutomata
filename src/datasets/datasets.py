@@ -1,5 +1,5 @@
-from datasets.CA_LD_individual import CA_LD_individual
-from datasets.LD_datasets import generate_dataset_files_from_individuals
+from datasets.CA_BTST_individual import CA_BTST_individual
+from datasets.BTST_datasets import generate_dataset_files_from_individuals
 import numpy as np
 from constants import *
 
@@ -35,7 +35,7 @@ def generate_dataset1() -> None:
     
     # subsets
     np.random.seed(NP_RANDOM_SEED)
-    subset1 = [CA_LD_individual(
+    subset1 = [CA_BTST_individual(
         id=id,
         B=0, 
         S=9, 
@@ -45,7 +45,7 @@ def generate_dataset1() -> None:
         file=f'{individuals_folder}/all_live_{id}',
         ) for id in range(n_subset1)]
     
-    subset2 = [CA_LD_individual(
+    subset2 = [CA_BTST_individual(
         id=id,
         B=9, 
         S=0, 
@@ -93,7 +93,7 @@ def generate_dataset2() -> None:
     
     # individuals with fixed lt and dt
     np.random.seed(NP_RANDOM_SEED)
-    individuals = [CA_LD_individual(
+    individuals = [CA_BTST_individual(
         id=id,
         B=lt_dt_pairs[pair][0], 
         S=lt_dt_pairs[pair][1], 
@@ -143,7 +143,7 @@ def generate_dataset3() -> None:
     
     # individuals with random lt and dt
     np.random.seed(NP_RANDOM_SEED)
-    individuals = [CA_LD_individual(
+    individuals = [CA_BTST_individual(
         id=id,
         B=np.random.randint(lt_min, lt_max+1), 
         S=np.random.randint(dt_min, dt_max+1), 
@@ -250,7 +250,7 @@ def generate_fixed_lt_dataset(dataset_name, B) -> None:
     
     # individuals with fixed lt and dt
     np.random.seed(NP_RANDOM_SEED)
-    individuals = [CA_LD_individual(
+    individuals = [CA_BTST_individual(
         id=id,
         B=lt_dt_pairs[pair][0], 
         S=lt_dt_pairs[pair][1], 
@@ -279,7 +279,7 @@ def generate_fixed_dt_dataset(dataset_name, S) -> None:
     
     # individuals with fixed lt and dt
     np.random.seed(NP_RANDOM_SEED)
-    individuals = [CA_LD_individual(
+    individuals = [CA_BTST_individual(
         id=id,
         B=lt_dt_pairs[pair][0], 
         S=lt_dt_pairs[pair][1], 
@@ -323,7 +323,7 @@ def generate_dataset8() -> None:
     
     # subsets
     np.random.seed(NP_RANDOM_SEED)
-    subset1 = [CA_LD_individual(
+    subset1 = [CA_BTST_individual(
         id=id,
         B=0, 
         S=0, 
@@ -333,7 +333,7 @@ def generate_dataset8() -> None:
         file=f'{individuals_folder}/all_live_{id}',
         ) for id in range(n_subset1)]
     
-    subset2 = [CA_LD_individual(
+    subset2 = [CA_BTST_individual(
         id=id,
         B=9, 
         S=9, 

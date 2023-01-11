@@ -1,5 +1,5 @@
-from datasets.CA_LD_individual import CA_LD_individual
-from datasets.LD_density_datasets import generate_density_dataset_files_from_individuals
+from datasets.CA_BTST_individual import CA_BTST_individual
+from datasets.BTST_density_datasets import generate_density_dataset_files_from_individuals
 import numpy as np
 from constants import *
 
@@ -34,7 +34,7 @@ def generate_dataset8_density() -> None:
     
     # subsets
     np.random.seed(NP_RANDOM_SEED)
-    subset1 = [CA_LD_individual(
+    subset1 = [CA_BTST_individual(
         id=id,
         B=0, 
         S=0, 
@@ -44,7 +44,7 @@ def generate_dataset8_density() -> None:
         # file=f'{individuals_folder}/all_live_{id}',
         ) for id in range(n_subset1)]
     
-    subset2 = [CA_LD_individual(
+    subset2 = [CA_BTST_individual(
         id=id,
         B=9, 
         S=9, 
