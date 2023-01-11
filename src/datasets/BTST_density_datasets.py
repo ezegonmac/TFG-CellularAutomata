@@ -18,16 +18,17 @@ def generate_density_dataset_files_from_individuals(individuals, dataset_folder)
     Bs = np.zeros(num_individuals, dtype=int)
     Ss = np.zeros(num_individuals, dtype=int)
     densities = np.zeros((num_individuals, individuals[0].iterations))
-    for individual in individuals:
+    for i in range(num_individuals):
+        individual = individuals[i]
+        
         density_evolution = generate_density_evolution_from_individual(individual)
         density_evolution = np.array(density_evolution)
-        id = int(individual.id)
         
         # data = id|B|S|density_evolution
-        ids[id] = int(individual.id)
-        Bs[id] = individual.B
-        Ss[id] = individual.S
-        densities[id] = density_evolution
+        ids[i] = int(i)
+        Bs[i] = individual.B
+        Ss[i] = individual.S
+        densities[i] = density_evolution
     
     # data = id|B|S|0|1|2|3|...|9
     data = {
