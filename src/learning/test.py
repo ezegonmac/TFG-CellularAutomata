@@ -7,24 +7,22 @@ from constants import *
 from learning.scoring import *
 
 TEST_FIGURES_FOLDER = f'{FIGURES_FOLDER}/test'
-
+MODELS = ['KNN', 'DecisionTree', 'RandomForest']  # , 'NeuralNetwork']
 
 def generate_score_evolution_comparison_plots(dataset):
-    models = ['KNN', 'DecisionTree', 'RandomForest']  # , 'NeuralNetwork']
     metrics = ['MSE', 'R2']
 
-    for model in models:
+    for model in MODELS:
         for metric in metrics:
             generate_score_evolution_comparison_plot(dataset, metric=metric)
 
 
 def generate_score_evolution_comparison_plot(dataset, metric, suffix='', y_min=0, y_max=1.1, show=False):
     df = get_scores_by_dataset(dataset)
-    models = df['Model'].unique()
     color = 'blue' if metric == 'MSE' else 'red'
 
-    fig, axs = plt.subplots(1, len(models), figsize=(15, 5))
-    for i, model in enumerate(models):
+    fig, axs = plt.subplots(1, len(MODELS), figsize=(15, 5))
+    for i, model in enumerate(MODELS):
         axs[i].plot(df[df['Model'] == model][f'{metric} by iteration'].values[0].values(), color=color)
         axs[i].set(xlim=(1, 8), ylim=(y_min, y_max))
         axs[i].set(xlabel='Iteraciones', ylabel=metric, title=model)
@@ -37,10 +35,9 @@ def generate_score_evolution_comparison_plot(dataset, metric, suffix='', y_min=0
 
 
 def generate_score_evolution_plots(dataset):
-    models = ['KNN', 'DecisionTree', 'RandomForest']  # , 'NeuralNetwork']
     metrics = ['MSE', 'R2']
     
-    for model in models:
+    for model in MODELS:
         for metric in metrics:
             generate_score_evolution_plot(dataset, model_name=model, metric=metric)
 
@@ -72,6 +69,8 @@ def plot_score_evolution(dataset, model_name, metric):
 
 def generate_scores_model_comparison_plot(dataset, metric, suffix='', y_min=0, y_max=1.1, show=False):
     df = get_scores_by_dataset(dataset)
+    # filter by MODELS
+    df = df[df['Model'].isin(MODELS)]
     df = df.sort_values(by=[metric])
     df = df[['Model', metric]]
     df = df.set_index(['Model'])

@@ -60,9 +60,9 @@ def evaluate_dataset(dataset):
     print('Random Forest')
     print('---------')
     evaluate_model_with_dataset(rf_model, dataset, 'RandomForest')
-    print('Neural Network')
-    print('---------')
-    evaluate_model_with_dataset(nn_model, dataset, 'NeuralNetwork')
+    # print('Neural Network')
+    # print('---------')
+    # evaluate_model_with_dataset(nn_model, dataset, 'NeuralNetwork')
 
 
 def evaluate_model_with_dataset(model, dataset, model_name):
