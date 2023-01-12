@@ -21,14 +21,14 @@ def get_cross_val_R2(X, y, model):
     return scores.mean()
 
 
-def get_overall_MSE(X_test, y_test, model):
-    score = model.score(X_test, y_test)
-    return score
+def get_overall_MSE(y_test, y_pred):
+    mse = mean_squared_error(y_test, y_pred)
+    return mse
 
 
-def get_overall_R2(X_test, y_test, model):
-    score = model.score(X_test, y_test)
-    return score
+def get_overall_R2(y_test, y_pred):
+    r2 = r2_score(y_test, y_pred)
+    return r2
 
 
 def get_mse_by_iteration(y_test, y_pred):
@@ -51,9 +51,9 @@ def get_score_by_iteration(y_test, y_pred, scorer=mean_squared_error):
 
 
 def generate_scores_file(X, y, X_test, y_test, y_pred, model, dataset, model_name):
-    mse = get_overall_MSE(X_test, y_test, model)
+    mse = get_overall_MSE(y_test, y_pred)
     cv_mse = get_cross_val_MSE(X, y, model)
-    r2 = get_overall_R2(X_test, y_test, model)
+    r2 = get_overall_R2(y_test, y_pred)
     cv_r2 = get_cross_val_R2(X, y, model)
     mse_by_iteration = get_mse_by_iteration(y_test, y_pred)
     r2_by_iteration = get_r2_by_iteration(y_test, y_pred)

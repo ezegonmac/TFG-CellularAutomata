@@ -1,5 +1,5 @@
 from constants import *
-from learning.BTST_density import evaluate_dataset8, evaluate_dataset3
+from learning.BTST_density import *
 
 
 if __name__ == '__main__':

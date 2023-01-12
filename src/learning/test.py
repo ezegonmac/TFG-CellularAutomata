@@ -1,5 +1,3 @@
-from functools import partial
-
 import matplotlib.pyplot as plt
 import numpy as np
 import pandas as pd
@@ -12,7 +10,7 @@ TEST_FIGURES_FOLDER = f'{FIGURES_FOLDER}/test'
 
 
 def generate_score_evolution_comparison_plots(dataset):
-    models = ['KNN', 'DecisionTree', 'RandomForest']
+    models = ['KNN', 'DecisionTree', 'RandomForest']  # , 'NeuralNetwork']
     metrics = ['MSE', 'R2']
 
     for model in models:
@@ -39,7 +37,7 @@ def generate_score_evolution_comparison_plot(dataset, metric, suffix='', y_min=0
 
 
 def generate_score_evolution_plots(dataset):
-    models = ['KNN', 'DecisionTree', 'RandomForest']
+    models = ['KNN', 'DecisionTree', 'RandomForest']  # , 'NeuralNetwork']
     metrics = ['MSE', 'R2']
     
     for model in models:
@@ -72,20 +70,23 @@ def plot_score_evolution(dataset, model_name, metric):
     ax.xaxis.set_major_locator(MaxNLocator(integer=True))
 
 
-def generate_scores_model_comparison_plot(dataset, y_min=0.9, y_max=1.1, show=False):
+def generate_scores_model_comparison_plot(dataset, metric, suffix='', y_min=0, y_max=1.1, show=False):
     df = get_scores_by_dataset(dataset)
-    df = df.sort_values(by=['MSE'])
-    df = df[['Model', 'MSE', 'R2']]
+    df = df.sort_values(by=[metric])
+    df = df[['Model', metric]]
     df = df.set_index(['Model'])
     
-    df.plot.bar(figsize=(10, 10), colormap='jet', width=0.8, alpha=0.9)
+    color = 'blue' if metric == 'MSE' else 'red'
+    df.plot.bar(figsize=(10, 10), width=0.8, color=color)
 
     plt.xticks(rotation=0, fontsize=16)
     plt.ylim((y_min, y_max))
-    plt.title('Comparación de modelos', fontsize=20)
+    plt.title(f'Comparación de los modelos - {metric}', fontsize=20)
     plt.legend(fontsize=16)
 
-    plt.show() if show else plt.savefig(f'{TEST_FIGURES_FOLDER}/model_comparison_{dataset}.png', dpi=300)
+    suffix = f'_{suffix}' if suffix else ''
+    plt.show() if show else plt.savefig(f'{TEST_FIGURES_FOLDER}/model_comparison_{metric}_{dataset}{suffix}.png', dpi=300)
+
 
 def print_evaluation(dataset, model_name):
     row = get_scores_by_dataset_and_model(dataset, model_name)
