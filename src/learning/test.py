@@ -33,7 +33,8 @@ def generate_score_evolution_comparison_plot(dataset, metric, suffix='', y_min=0
         axs[i].spines.right.set_visible(False)
         axs[i].spines.top.set_visible(False)
 
-    plt.show() if show else plt.savefig(f'{TEST_FIGURES_FOLDER}/{metric}_evolution_comparison_{dataset}_{suffix}.png', dpi=300)
+    suffix = f'_{suffix}' if suffix else ''
+    plt.show() if show else plt.savefig(f'{TEST_FIGURES_FOLDER}/{metric}_evolution_comparison_{dataset}{suffix}.png', dpi=300)
     plt.close()
 
 def generate_score_evolution_plot(dataset, model_name, metric, show=False):
