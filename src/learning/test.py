@@ -11,23 +11,23 @@ from learning.scoring import *
 TEST_FIGURES_FOLDER = f'{FIGURES_FOLDER}/test'
 
 
-def generate_evaluation_plots(y_test, y_pred, dataset, model_name):
-    generate_score_evolution_plot(dataset, model_name=model_name, metric="MSE")
-    generate_score_evolution_plot(dataset, model_name=model_name, metric="R2")
+def generate_score_evolution_comparison_plots(dataset):
+    models = ['KNN', 'DecisionTree', 'RandomForest']
+    metrics = ['MSE', 'R2']
 
-    generate_score_evolution_comparison_plot(dataset, metric="MSE")
-    generate_score_evolution_comparison_plot(dataset, metric="R2")
-    
-    generate_score_evolution_comparison_plot(dataset, metric="MSE", y_max=0.03, suffix='scaled')
-    generate_score_evolution_comparison_plot(dataset, metric="R2", y_min=0.96, y_max=0.99, suffix='scaled')
+    for model in models:
+        for metric in metrics:
+            generate_score_evolution_comparison_plot(dataset, metric=metric)
+
 
 def generate_score_evolution_comparison_plot(dataset, metric, suffix='', y_min=0, y_max=1.1, show=False):
     df = get_scores_by_dataset(dataset)
     models = df['Model'].unique()
+    color = 'blue' if metric == 'MSE' else 'red'
 
     fig, axs = plt.subplots(1, len(models), figsize=(15, 5))
     for i, model in enumerate(models):
-        axs[i].plot(df[df['Model'] == model][f'{metric} by iteration'].values[0].values(), color='blue')
+        axs[i].plot(df[df['Model'] == model][f'{metric} by iteration'].values[0].values(), color=color)
         axs[i].set(xlim=(1, 8), ylim=(y_min, y_max))
         axs[i].set(xlabel='Iteraciones', ylabel=metric, title=model)
         axs[i].spines.right.set_visible(False)
@@ -36,6 +36,16 @@ def generate_score_evolution_comparison_plot(dataset, metric, suffix='', y_min=0
     suffix = f'_{suffix}' if suffix else ''
     plt.show() if show else plt.savefig(f'{TEST_FIGURES_FOLDER}/{metric}_evolution_comparison_{dataset}{suffix}.png', dpi=300)
     plt.close()
+
+
+def generate_score_evolution_plots(dataset):
+    models = ['KNN', 'DecisionTree', 'RandomForest']
+    metrics = ['MSE', 'R2']
+    
+    for model in models:
+        for metric in metrics:
+            generate_score_evolution_plot(dataset, model_name=model, metric=metric)
+
 
 def generate_score_evolution_plot(dataset, model_name, metric, show=False):
     plot_score_evolution(dataset, model_name, metric)

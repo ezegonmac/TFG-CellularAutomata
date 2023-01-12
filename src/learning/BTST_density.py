@@ -8,14 +8,29 @@ from constants import *
 from learning.scoring import *
 from learning.test import *
 
+def evaluate_dataset8():
+    dataset = DATASET8
+    evaluate_dataset(dataset)
+    
+    # score model comparison plots
+    generate_scores_model_comparison_plot(dataset)
 
-def main():
+    # score evolution plots
+    generate_score_evolution_plots(dataset)
+    generate_score_evolution_comparison_plots(dataset)
+
+def evaluate_dataset3():
+    dataset = DATASET3
+    evaluate_dataset(dataset)
     
-    evaluate_dataset(DATASET8)
-    evaluate_dataset(DATASET3)
+    # score model comparison plots
+    generate_scores_model_comparison_plot(dataset, y_min=0.95, y_max=1.0)
     
-    generate_scores_model_comparison_plot(DATASET8)
-    generate_scores_model_comparison_plot(DATASET3, y_min=0.95, y_max=1.0)
+    # score evolution plots
+    generate_score_evolution_plots(dataset)
+
+    generate_score_evolution_comparison_plot(dataset, metric="MSE", y_max=0.03, suffix='scaled')
+    generate_score_evolution_comparison_plot(dataset, metric="R2", y_min=0.96, y_max=0.99, suffix='scaled')
 
 
 def evaluate_dataset(dataset):
@@ -50,9 +65,8 @@ def evaluate_model_with_dataset(model, dataset, model_name):
     
     y_pred = model.predict(X_test)
 
-    # generate_scores_file(X, y, X_test, y_test, y_pred, model, dataset=dataset, model_name=model_name)
+    generate_scores_file(X, y, X_test, y_test, y_pred, model, dataset=dataset, model_name=model_name)
     print_evaluation(dataset, model_name)
-    generate_evaluation_plots(y_test, y_pred, dataset, model_name=model_name)
 
 
 def load_dataset_density(dataset):
