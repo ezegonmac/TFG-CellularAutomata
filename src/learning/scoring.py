@@ -1,10 +1,12 @@
-from constants import *
-from sklearn.metrics import mean_squared_error, r2_score
-import numpy as np
-from sklearn.model_selection import cross_val_score
 import os
-import pandas as pd
 from ast import literal_eval
+
+import numpy as np
+import pandas as pd
+from sklearn.metrics import mean_squared_error, r2_score
+from sklearn.model_selection import cross_val_score
+
+from constants import *
 
 SCORES_FILE = f'{DATA_LEARNING_FOLDER}/scores.csv'
 

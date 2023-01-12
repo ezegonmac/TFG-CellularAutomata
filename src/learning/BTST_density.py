@@ -1,17 +1,21 @@
-from constants import *
 import pandas as pd
+from sklearn.ensemble import RandomForestRegressor
 from sklearn.model_selection import train_test_split
 from sklearn.neighbors import KNeighborsRegressor
 from sklearn.tree import DecisionTreeRegressor
-from sklearn.ensemble import RandomForestRegressor
-from learning.test import print_evaluation, generate_evaluation_figs
+
+from constants import *
 from learning.scoring import *
+from learning.test import *
 
 
 def main():
     
     evaluate_dataset(DATASET8)
     evaluate_dataset(DATASET3)
+    
+    generate_scores_model_comparation_plot(DATASET8)
+    generate_scores_model_comparation_plot(DATASET3, y_min=0.95, y_max=1.0)
 
 
 def evaluate_dataset(dataset):
@@ -48,7 +52,7 @@ def evaluate_model_with_dataset(model, dataset, model_name):
 
     # generate_scores_file(X, y, X_test, y_test, y_pred, model, dataset=dataset, model_name=model_name)
     print_evaluation(dataset, model_name)
-    generate_evaluation_figs(y_test, y_pred, dataset, model_name=model_name)
+    generate_evaluation_plots(y_test, y_pred, dataset, model_name=model_name)
 
 
 def load_dataset_density(dataset):

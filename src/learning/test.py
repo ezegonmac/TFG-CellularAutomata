@@ -1,19 +1,22 @@
+from functools import partial
+
+import matplotlib.pyplot as plt
+import numpy as np
+import pandas as pd
+from matplotlib.ticker import MaxNLocator
+
 from constants import *
 from learning.scoring import *
-import pandas as pd
-import numpy as np
-import matplotlib.pyplot as plt
-from matplotlib.ticker import MaxNLocator
 
 TEST_FIGURES_FOLDER = f'{FIGURES_FOLDER}/test'
 
 
-def generate_evaluation_figs(y_test, y_pred, dataset, model_name):
-    generate_evaluation_fig(dataset, model_name=model_name, metric="MSE")
-    generate_evaluation_fig(dataset, model_name=model_name, metric="R2")
+def generate_evaluation_plots(y_test, y_pred, dataset, model_name):
+    generate_evaluation_plot(dataset, model_name=model_name, metric="MSE")
+    generate_evaluation_plot(dataset, model_name=model_name, metric="R2")
 
 
-def generate_evaluation_fig(dataset, model_name, metric, show=False):
+def generate_evaluation_plot(dataset, model_name, metric, show=False):
     plot_scores_evolution(dataset, model_name, metric)
 
     plt.show() if show else plt.savefig(f'{TEST_FIGURES_FOLDER}/{metric}_evolution_{model_name}_{dataset}.png', dpi=300)
@@ -24,7 +27,7 @@ def plot_scores_evolution(dataset, model_name, metric):
     df = get_scores_by_dataset_and_model(dataset, model_name)
     scores_evolution = df[f'{metric} by iteration'].values[0].values()
     
-    title = f'{dataset.capitalize()} - {metric}'
+    title = f'{metric}'
     ax = plt.subplot(111)
     color = 'blue' if metric == 'MSE' else 'red'
     ax.plot(scores_evolution, color=color)
@@ -36,6 +39,21 @@ def plot_scores_evolution(dataset, model_name, metric):
     # integer x axis
     ax.xaxis.set_major_locator(MaxNLocator(integer=True))
 
+
+def generate_scores_model_comparation_plot(dataset, y_min=0.9, y_max=1.1, show=False):
+    df = get_scores_by_dataset(dataset)
+    df = df.sort_values(by=['MSE'])
+    df = df[['Model', 'MSE', 'R2']]
+    df = df.set_index(['Model'])
+    
+    df.plot.bar(figsize=(10, 10), colormap='jet', width=0.8, alpha=0.9)
+
+    plt.xticks(rotation=0, fontsize=16)
+    plt.ylim((y_min, y_max))
+    plt.title('Comparación de modelos', fontsize=20)
+    plt.legend(fontsize=16)
+
+    plt.show() if show else plt.savefig(f'{TEST_FIGURES_FOLDER}/model_comparation_{dataset}.png', dpi=300)
 
 def print_evaluation(dataset, model_name):
     row = get_scores_by_dataset_and_model(dataset, model_name)
