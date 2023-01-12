@@ -14,8 +14,8 @@ def main():
     evaluate_dataset(DATASET8)
     evaluate_dataset(DATASET3)
     
-    generate_scores_model_comparation_plot(DATASET8)
-    generate_scores_model_comparation_plot(DATASET3, y_min=0.95, y_max=1.0)
+    generate_scores_model_comparison_plot(DATASET8)
+    generate_scores_model_comparison_plot(DATASET3, y_min=0.95, y_max=1.0)
 
 
 def evaluate_dataset(dataset):
