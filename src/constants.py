@@ -3,6 +3,7 @@ SKLEARN_RANDOM_SEED = 0
 
 # folders
 DATA_FOLDER = './data2'
+DATA_LEARNING_FOLDER = f'{DATA_FOLDER}/learning'
 FIGURES_FOLDER = './figures2'
 
 # datasets

@@ -5,12 +5,14 @@ from sklearn.neighbors import KNeighborsRegressor
 from sklearn.tree import DecisionTreeRegressor
 from sklearn.ensemble import RandomForestRegressor
 from learning.test import print_evaluation, generate_evaluation_figs
+from learning.scoring import *
 
 
 def main():
     
     evaluate_dataset(DATASET8)
     evaluate_dataset(DATASET3)
+
 
 def evaluate_dataset(dataset):
     knn_model = KNeighborsRegressor(n_neighbors=5)
@@ -31,7 +33,6 @@ def evaluate_dataset(dataset):
     evaluate_model_with_dataset(rf_model, dataset, 'RandomForest')
 
 
-
 def evaluate_model_with_dataset(model, dataset, model_name):
     df = load_dataset_density(dataset)
     
@@ -45,7 +46,8 @@ def evaluate_model_with_dataset(model, dataset, model_name):
     
     y_pred = model.predict(X_test)
 
-    print_evaluation(X, y, X_test, y_test, y_pred, model)
+    # generate_scores_file(X, y, X_test, y_test, y_pred, model, dataset=dataset, model_name=model_name)
+    print_evaluation(dataset, model_name)
     generate_evaluation_figs(y_test, y_pred, dataset, model_name=model_name)
 
 

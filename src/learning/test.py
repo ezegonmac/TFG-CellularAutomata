@@ -1,6 +1,5 @@
 from constants import *
-from learning.scoring import get_mse_by_iteration, get_r2_by_iteration
-from sklearn.model_selection import cross_val_score
+from learning.scoring import *
 import pandas as pd
 import numpy as np
 import matplotlib.pyplot as plt
@@ -8,26 +7,25 @@ from matplotlib.ticker import MaxNLocator
 
 TEST_FIGURES_FOLDER = f'{FIGURES_FOLDER}/test'
 
+
 def generate_evaluation_figs(y_test, y_pred, dataset, model_name):
-    
-    mse_by_iteration = get_mse_by_iteration(y_test, y_pred)
-    r2_by_iteration = get_r2_by_iteration(y_test, y_pred)
-    
-    generate_evaluation_fig(mse_by_iteration.values(), dataset, metric="MSE", model_name=model_name)
-    generate_evaluation_fig(r2_by_iteration.values(), dataset, metric="R2", model_name=model_name)
+    generate_evaluation_fig(dataset, model_name=model_name, metric="MSE")
+    generate_evaluation_fig(dataset, model_name=model_name, metric="R2")
 
-def generate_evaluation_fig(scores_by_iteration, dataset, metric, model_name, show=False):
 
-    plot_scores_evolution(scores_by_iteration, dataset=dataset, metric=metric)
+def generate_evaluation_fig(dataset, model_name, metric, show=False):
+    plot_scores_evolution(dataset, model_name, metric)
 
     plt.show() if show else plt.savefig(f'{TEST_FIGURES_FOLDER}/{metric}_evolution_{model_name}_{dataset}.png', dpi=300)
     plt.close()
 
-def plot_scores_evolution(scores_evolution, dataset, metric):
+
+def plot_scores_evolution(dataset, model_name, metric):
+    df = get_scores_by_dataset_and_model(dataset, model_name)
+    scores_evolution = df[f'{metric} by iteration'].values[0].values()
+    
     title = f'{dataset.capitalize()} - {metric}'
-    
     ax = plt.subplot(111)
-    
     color = 'blue' if metric == 'MSE' else 'red'
     ax.plot(scores_evolution, color=color)
     
@@ -39,29 +37,15 @@ def plot_scores_evolution(scores_evolution, dataset, metric):
     ax.xaxis.set_major_locator(MaxNLocator(integer=True))
 
 
-def print_evaluation(X, y, X_test, y_test, y_pred, model):
-    # print_random_checks(y_test, y_pred)
-    print_overall_score(X_test, y_test, model)
-    print_cross_val_score(X, y, model)
+def print_evaluation(dataset, model_name):
+    row = get_scores_by_dataset_and_model(dataset, model_name)
     
-    mse_by_iteration = get_mse_by_iteration(y_test, y_pred)
-    r2_by_iteration = get_r2_by_iteration(y_test, y_pred)
-    
-    print('MSE by iteration:' + str(mse_by_iteration))
-    print('R2 by iteration:' + str(r2_by_iteration))
-
-
-def print_cross_val_score(X, y, model):
-    scores = cross_val_score(model, X, y, cv=10)
-    
-    print(f'Cross validation scores: {scores}')
-    print(f'Cross validation mean score: {scores.mean()}')
-
-
-def print_overall_score(X_test, y_test, model):
-    score = model.score(X_test, y_test)
-    
-    print(f'Score: {score}')
+    print("MSE: " + str(row['MSE'].values[0]))
+    print("R2: " + str(row['R2'].values[0]))
+    print("CV MSE: " + str(row['CV MSE'].values[0]))
+    print("CV R2: " + str(row['CV R2'].values[0]))
+    print("MSE by iteration: " + str(row['MSE by iteration'].values[0]))
+    print("R2 by iteration: " + str(row['R2 by iteration'].values[0]))
 
 
 def print_random_checks(y_test, y_pred, iteration='1'):

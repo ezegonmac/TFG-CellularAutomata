@@ -1,5 +1,33 @@
+from constants import *
 from sklearn.metrics import mean_squared_error, r2_score
 import numpy as np
+from sklearn.model_selection import cross_val_score
+import os
+import pandas as pd
+from ast import literal_eval
+
+SCORES_FILE = f'{DATA_LEARNING_FOLDER}/scores.csv'
+
+
+def get_cross_val_MSE(X, y, model):
+    scores = cross_val_score(model, X, y, cv=10, scoring='neg_mean_squared_error')
+    return scores.mean()
+
+
+def get_cross_val_R2(X, y, model):
+    scores = cross_val_score(model, X, y, cv=10, scoring='r2')
+    return scores.mean()
+
+
+def get_overall_MSE(X_test, y_test, model):
+    score = model.score(X_test, y_test)
+    return score
+
+
+def get_overall_R2(X_test, y_test, model):
+    score = model.score(X_test, y_test)
+    return score
+
 
 def get_mse_by_iteration(y_test, y_pred):
     scores = get_score_by_iteration(y_test, y_pred, scorer=mean_squared_error)
@@ -18,6 +46,70 @@ def get_score_by_iteration(y_test, y_pred, scorer=mean_squared_error):
         score = scorer(y_test.iloc[:, i], y_pred[:, i])
         scores_by_iteration[str(i+1)] = score
     return scores_by_iteration
+
+
+def generate_scores_file(X, y, X_test, y_test, y_pred, model, dataset, model_name):
+    mse = get_overall_MSE(X_test, y_test, model)
+    cv_mse = get_cross_val_MSE(X, y, model)
+    r2 = get_overall_R2(X_test, y_test, model)
+    cv_r2 = get_cross_val_R2(X, y, model)
+    mse_by_iteration = get_mse_by_iteration(y_test, y_pred)
+    r2_by_iteration = get_r2_by_iteration(y_test, y_pred)
+
+    data = {
+        'Dataset': dataset, 
+        'Model': model_name, 
+        'MSE': mse, 
+        'R2': r2, 
+        'CV MSE': cv_mse, 
+        'CV R2': cv_r2,
+        'MSE by iteration': str(mse_by_iteration),
+        'R2 by iteration': str(r2_by_iteration),
+    }
+
+    # create csv file if not exists
+    if not os.path.isfile(SCORES_FILE):
+        df = pd.DataFrame.from_dict(data, orient='index').T
+    else:
+        df = pd.read_csv(SCORES_FILE)
+
+    # add data as row to csv file, or update if exists
+    row = df.loc[(df['Dataset'] == dataset) & (df['Model'] == model_name)]
+    if row.empty:
+        row = pd.DataFrame.from_dict(data, orient='index').T
+        df = df.append(row)
+    else:
+        for key, value in data.items():
+            df.loc[(df['Dataset'] == dataset) & (df['Model'] == model_name), key] = value
+
+    # save file
+    df.to_csv(SCORES_FILE, index=False)
+
+
+def load_scores_file():
+    df = pd.read_csv(SCORES_FILE)
+    df['MSE by iteration'] = df['MSE by iteration'].apply(lambda x: literal_eval(str(x)))
+    df['R2 by iteration'] = df['R2 by iteration'].apply(lambda x: literal_eval(str(x)))
+    return df
+
+
+def get_scores_by_dataset_and_model(dataset, model_name):
+    df = load_scores_file()
+    row = df.loc[(df['Dataset'] == dataset) & (df['Model'] == model_name)]
+    return row
+
+
+def get_scores_by_dataset(dataset):
+    df = load_scores_file()
+    rows = df.loc[df['Dataset'] == dataset]
+    return rows
+
+
+def get_scores_by_model(model_name):
+    df = load_scores_file()
+    rows = df.loc[df['Model'] == model_name]
+    return rows
+
 
 # Cross val score not right implemented
 # CVS is for validation, not testing?

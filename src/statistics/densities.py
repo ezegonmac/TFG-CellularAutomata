@@ -3,7 +3,6 @@ import pandas as pd
 from ast import literal_eval
 import matplotlib.pyplot as plt
 from matplotlib.ticker import MaxNLocator
-from matplotlib import cm
 import numpy as np
 from matplotlib.lines import Line2D
 from statistics.utils import *
