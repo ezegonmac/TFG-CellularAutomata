@@ -60,3 +60,52 @@ def generate_dataset8_density() -> None:
     individuals = [individual for subset in subsets for individual in subset]
     
     generate_density_dataset_files_from_individuals(individuals, dataset_folder)
+
+
+def generate_dataset3_density() -> None:
+    """
+    Generate dataset3.
+        
+    Some cells die some become alive.
+    Free thresholds.
+    
+    Variables:
+    - fixed size: 10x10
+    - fixed density: 0.5
+    - fixed iterations: 5
+    - free B : [0, 9]
+    - free S: [0, 9]
+    """
+    
+    # subsets with all attributes
+    dataset_name = DATASET3 + '_density'
+    
+    # fixed attributes
+    size = 10
+    density = 0.5
+    iterations = 10
+    
+    # free attributes
+    lt_min = 0
+    lt_max = 9
+    dt_min = 0
+    dt_max = 9
+      
+    n_individuals = 500
+    
+    # folders
+    dataset_folder = f'{DATA_FOLDER}/{dataset_name}'
+    
+    # individuals with random lt and dt
+    np.random.seed(NP_RANDOM_SEED)
+    individuals = [CA_BTST_individual(
+        id=id,
+        B=np.random.randint(lt_min, lt_max+1), 
+        S=np.random.randint(dt_min, dt_max+1), 
+        size=size, 
+        density=density, 
+        iterations=iterations, 
+        # file=f'{individuals_folder}/ca_{id}',
+        ) for id in range(n_individuals)]
+    
+    generate_density_dataset_files_from_individuals(individuals, dataset_folder)

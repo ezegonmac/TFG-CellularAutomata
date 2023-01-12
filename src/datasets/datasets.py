@@ -1,5 +1,5 @@
 from datasets.CA_BTST_individual import CA_BTST_individual
-from datasets.BTST_datasets import generate_dataset_files_from_individuals
+from datasets.LD_datasets import generate_dataset_files_from_individuals
 import numpy as np
 from constants import *
 
