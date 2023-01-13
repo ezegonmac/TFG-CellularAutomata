@@ -6,8 +6,15 @@ from matplotlib.ticker import MaxNLocator
 from constants import *
 from learning.scoring import *
 
-TEST_FIGURES_FOLDER = f'{FIGURES_FOLDER}/test'
-MODELS = ['KNN', 'DecisionTree', 'RandomForest']  # , 'NeuralNetwork']
+
+MODELS = ['KNN', 'DecisionTree', 'RandomForest']
+MODELS_WITH_NN = MODELS + ['NeuralNetwork']
+MODELS = MODELS_WITH_NN  # CHANGE THIS TO TEST WITH OR WITHOUT NEURAL NETWORK
+
+FIGURES_FOLDER_DEFAULT = f'{FIGURES_FOLDER}/test'
+FIGURES_FOLDER_WITH_NN = f'{FIGURES_FOLDER}/test_with_nn'
+TEST_FIGURES_FOLDER = FIGURES_FOLDER_WITH_NN if MODELS == MODELS_WITH_NN else FIGURES_FOLDER_DEFAULT
+
 
 def generate_score_evolution_comparison_plots(dataset):
     metrics = ['MSE', 'R2']

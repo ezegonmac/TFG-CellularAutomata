@@ -16,5 +16,10 @@ DATASET6 = 'dataset6'
 DATASET7 = 'dataset7'
 DATASET8 = 'dataset8' # dataset 1 en el documento
 
+# density datasets
+DATASET8_DENSITY = 'dataset8_density'
+DATASET3_DENSITY = 'dataset3_density'
+
 # colors 
-COLOR_PRIMARY = '#0061FF'
+COLOR_BLUE = '#0061FF'
+COLOR_PRIMARY = COLOR_BLUE
