@@ -9,4 +9,5 @@ if __name__ == '__main__':
     # generate_dataset3_density()
     
     # FREE DENSITY
-    generate_dataset9_density()
+    # generate_dataset9_density()
+    generate_dataset10_density()

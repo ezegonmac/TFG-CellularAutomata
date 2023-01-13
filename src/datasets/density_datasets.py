@@ -160,3 +160,57 @@ def generate_dataset9_density() -> None:
         ) for id in range(n_individuals)]
     
     generate_density_dataset_files_from_individuals(individuals, dataset_folder)
+
+
+def generate_dataset10_density() -> None:
+    """
+    Generate dataset10.
+    
+    Description:
+    (Same as dataset9 but with more iterations)
+    Some cells die some become alive.
+    Free thresholds.
+    Free density.
+    Increased number of iterations.
+    
+    Variables:
+    - fixed size: 10x10
+    - fixed iterations: 30
+    - free B : [0, 9]
+    - free S: [0, 9]
+    - free density: [0, 1]
+    """
+    
+    # subsets with all attributes
+    dataset_name = DATASET10_DENSITY
+    
+    # fixed attributes
+    size = 10
+    iterations = 30
+    
+    # free attributes
+    B_min = 0
+    B_max = 9
+    B_min = 0
+    S_max = 9
+    density_min = 0
+    density_max = 1
+    
+    n_individuals = 500
+    
+    # folders
+    dataset_folder = f'{DATA_DATASETS_FOLDER}/{dataset_name}'
+    
+    # individuals with random lt and dt
+    np.random.seed(NP_RANDOM_SEED)
+    individuals = [CA_BTST_individual(
+        id=id,
+        B=np.random.randint(B_min, B_max+1), 
+        S=np.random.randint(B_min, S_max+1), 
+        size=size, 
+        density=np.random.uniform(density_min, density_max),
+        iterations=iterations, 
+        # file=f'{individuals_folder}/ca_{id}',
+        ) for id in range(n_individuals)]
+    
+    generate_density_dataset_files_from_individuals(individuals, dataset_folder)
