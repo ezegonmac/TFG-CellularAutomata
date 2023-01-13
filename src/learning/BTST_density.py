@@ -9,12 +9,14 @@ from sklearn.tree import DecisionTreeRegressor
 from constants import *
 from learning.scoring import *
 from learning.test import *
+from learning.models import *
 
 
 def evaluate_dataset8():
     dataset = DATASET8_DENSITY
     evaluate_dataset(dataset)
     
+    # FIGURES
     # # score model comparison plots
     # generate_scores_model_comparison_plot(dataset, metric='MSE')
     # generate_scores_model_comparison_plot(dataset, metric='R2')
@@ -28,6 +30,7 @@ def evaluate_dataset3():
     dataset = DATASET3_DENSITY
     evaluate_dataset(dataset)
     
+    # FIGURES
     # # score model comparison plots
     # generate_scores_model_comparison_plot(dataset, metric='MSE')
     # generate_scores_model_comparison_plot(dataset, metric='R2')
@@ -47,20 +50,28 @@ def evaluate_dataset(dataset):
     knn_model = KNeighborsRegressor(n_neighbors=5)
     dtree_model = DecisionTreeRegressor(random_state=SKLEARN_RANDOM_SEED)
     rf_model = RandomForestRegressor(random_state=SKLEARN_RANDOM_SEED)
-    nn_model = MLPRegressor(hidden_layer_sizes=(9, 18, 9), max_iter=500, random_state=SKLEARN_RANDOM_SEED)
+    # nn_model = MLPRegressor(hidden_layer_sizes=(9, 18, 9), max_iter=500, random_state=SKLEARN_RANDOM_SEED)
+    nn_model = MLPRegressor(
+        hidden_layer_sizes=(9, 18, 9),
+        alpha=0.05,  # not important
+        learning_rate='invscaling',  # medium importance
+        max_iter=3000,
+        solver='lbfgs',  # important
+        random_state=SKLEARN_RANDOM_SEED
+        )
     
-    print('---------------------------------')
-    print(dataset.capitalize())
-    print('---------------------------------')
-    print('KNN')
-    print('---------')
-    generate_model_and_scores_files(knn_model, dataset, 'KNN')
-    print('Decision Tree')
-    print('---------')
-    generate_model_and_scores_files(dtree_model, dataset, 'DecisionTree')
-    print('Random Forest')
-    print('---------')
-    generate_model_and_scores_files(rf_model, dataset, 'RandomForest')
+    # print('---------------------------------')
+    # print(dataset.capitalize())
+    # print('---------------------------------')
+    # print('KNN')
+    # print('---------')
+    # generate_model_and_scores_files(knn_model, dataset, 'KNN')
+    # print('Decision Tree')
+    # print('---------')
+    # generate_model_and_scores_files(dtree_model, dataset, 'DecisionTree')
+    # print('Random Forest')
+    # print('---------')
+    # generate_model_and_scores_files(rf_model, dataset, 'RandomForest')
     print('Neural Network')
     print('---------')
     generate_model_and_scores_files(nn_model, dataset, 'NeuralNetwork')
@@ -89,35 +100,19 @@ def load_dataset_density(dataset):
     return df
 
 
-def get_dataset_density_train_test_split(dataset):
+def get_dataset_density_X_y_split(dataset):
     df = load_dataset_density(dataset)
     
     iterations = [str(i) for i in range(1, 10)]
     X = df[['B', 'S', '0']]
     y = df[iterations]
     
+    return X, y
+
+
+def get_dataset_density_train_test_split(dataset):
+    X, y = get_dataset_density_X_y_split(dataset)
+    
     X_train, X_test, y_train, y_test = train_test_split(X, y, test_size=0.2, random_state=SKLEARN_RANDOM_SEED)
     
     return X, y, X_train, X_test, y_train, y_test
-
-
-def generate_model_file(dataset, model, model_name):
-    model_folder = f'{DATA_LEARNING_FOLDER}/{dataset}'
-    model_file = f'{model_folder}/{model_name}_{dataset}.pkl'
-    # generate folder if not exists
-    if not os.path.exists(model_folder):
-        os.makedirs(model_folder)
-    
-    joblib.dump(model, model_file)
-
-
-def load_model_from_file(dataset, model_name):
-    model_folder = f'{DATA_LEARNING_FOLDER}/{dataset}'
-    model_file = f'{model_folder}/{model_name}_{dataset}.pkl'
-    # generate folder if not exists
-    if not os.path.exists(model_folder):
-        os.makedirs(model_folder)
-    
-    model = joblib.load(model_file)
-    
-    return model
