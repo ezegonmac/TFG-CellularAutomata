@@ -66,6 +66,26 @@ def evaluate_dataset9():
     # generate_score_evolution_comparison_plot(dataset, metric="R2", y_min=0.96, y_max=1, suffix='scaled')
 
 
+def evaluate_dataset10():
+    dataset = DATASET10_DENSITY
+    evaluate_dataset(dataset)
+    
+    # FIGURES
+    # score model comparison plots
+    generate_scores_model_comparison_plot(dataset, metric='MSE')
+    generate_scores_model_comparison_plot(dataset, metric='R2')
+    # generate_scores_model_comparison_plot(dataset, metric='MSE', y_min=0, y_max=0.02, suffix='scaled')
+    # generate_scores_model_comparison_plot(dataset, metric='R2', y_min=0.95, y_max=1.0, suffix='scaled')
+    
+    # score evolution plots
+    generate_score_evolution_plots(dataset)
+    
+    generate_score_evolution_comparison_plots(dataset)
+
+    # generate_score_evolution_comparison_plot(dataset, metric="MSE", y_max=0.01, suffix='scaled')
+    # generate_score_evolution_comparison_plot(dataset, metric="R2", y_min=0.96, y_max=1, suffix='scaled')
+
+
 def evaluate_dataset(dataset):
     knn_model = KNeighborsRegressor(n_neighbors=5)
     dtree_model = DecisionTreeRegressor(random_state=SKLEARN_RANDOM_SEED)
@@ -124,7 +144,8 @@ def load_dataset_density(dataset):
 def get_dataset_density_X_y_split(dataset):
     df = load_dataset_density(dataset)
     
-    iterations = [str(i) for i in range(1, 10)]
+    num_iterations = len(df.columns) - 3
+    iterations = [str(i) for i in range(1, num_iterations-1)]
     X = df[['B', 'S', '0']]
     y = df[iterations]
     

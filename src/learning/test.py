@@ -28,10 +28,11 @@ def generate_score_evolution_comparison_plot(dataset, metric, suffix='', y_min=0
     df = get_scores_by_dataset(dataset)
     color = 'blue' if metric == 'MSE' else 'red'
 
+    iterations = len(df[df['Model'] == MODELS[0]][f'{metric} by iteration'].values[0].values())
     fig, axs = plt.subplots(1, len(MODELS), figsize=(18, 5))
     for i, model in enumerate(MODELS):
         axs[i].plot(df[df['Model'] == model][f'{metric} by iteration'].values[0].values(), color=color)
-        axs[i].set(xlim=(1, 8), ylim=(y_min, y_max))
+        axs[i].set(xlim=(1, iterations), ylim=(y_min, y_max))
         axs[i].set(xlabel='Iteraciones', ylabel=metric, title=model)
         axs[i].spines.right.set_visible(False)
         axs[i].spines.top.set_visible(False)
@@ -66,7 +67,8 @@ def plot_score_evolution(dataset, model_name, metric):
     color = 'blue' if metric == 'MSE' else 'red'
     ax.plot(scores_evolution, color=color)
     
-    ax.set(xlim=(1, 8), ylim=(0, 1.1), xlabel='Iteraciones', ylabel=metric, title=title)
+    iterations = len(scores_evolution)
+    ax.set(xlim=(1, iterations), ylim=(0, 1.1), xlabel='Iteraciones', ylabel=metric, title=title)
     # remove right and top spines
     ax.spines.right.set_visible(False)
     ax.spines.top.set_visible(False)
