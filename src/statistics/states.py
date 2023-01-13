@@ -8,7 +8,7 @@ STATES_FIGURES_FOLDER = f'{FIGURES_FOLDER}/statistics/states'
 
 def create_state_plot(dataset, individual=0, iteration=0, show=False, title="State"):
     
-    dataset_folder = f'{DATA_FOLDER}/{dataset}'
+    dataset_folder = f'{DATA_DATASETS_FOLDER}/{dataset}'
     individuals_folder = f'{dataset_folder}/individuals'
     
     # load specified state

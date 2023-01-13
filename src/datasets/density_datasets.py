@@ -30,7 +30,7 @@ def generate_dataset8_density() -> None:
     n_subset2 = 200
     
     # folders
-    dataset_folder = f'{DATA_FOLDER}/{dataset_name}'
+    dataset_folder = f'{DATA_DATASETS_FOLDER}/{dataset_name}'
     
     # subsets
     np.random.seed(NP_RANDOM_SEED)
@@ -94,7 +94,7 @@ def generate_dataset3_density() -> None:
     n_individuals = 500
     
     # folders
-    dataset_folder = f'{DATA_FOLDER}/{dataset_name}'
+    dataset_folder = f'{DATA_DATASETS_FOLDER}/{dataset_name}'
     
     # individuals with random lt and dt
     np.random.seed(NP_RANDOM_SEED)

@@ -4,6 +4,7 @@ SKLEARN_RANDOM_SEED = 0
 # folders
 DATA_FOLDER = './data2'
 DATA_LEARNING_FOLDER = f'{DATA_FOLDER}/learning'
+DATA_DATASETS_FOLDER = f'{DATA_FOLDER}/datasets'
 FIGURES_FOLDER = './figures2'
 
 # datasets

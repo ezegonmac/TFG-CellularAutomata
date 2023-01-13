@@ -6,7 +6,7 @@ from constants import *
 
 
 def generate_model_file(dataset, model, model_name):
-    model_folder = f'{DATA_LEARNING_FOLDER}/{dataset}'
+    model_folder = f'{DATA_LEARNING_FOLDER}/{dataset}/models'
     model_file = f'{model_folder}/{model_name}_{dataset}.pkl'
     # generate folder if not exists
     if not os.path.exists(model_folder):
@@ -16,7 +16,7 @@ def generate_model_file(dataset, model, model_name):
 
 
 def load_model_from_file(dataset, model_name):
-    model_folder = f'{DATA_LEARNING_FOLDER}/{dataset}'
+    model_folder = f'{DATA_LEARNING_FOLDER}/{dataset}/models'
     model_file = f'{model_folder}/{model_name}_{dataset}.pkl'
     # generate folder if not exists
     if not os.path.exists(model_folder):

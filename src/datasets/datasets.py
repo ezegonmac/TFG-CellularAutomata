@@ -30,7 +30,7 @@ def generate_dataset1() -> None:
     n_subset2 = 20
     
     # folders
-    dataset_folder = f'{DATA_FOLDER}/{dataset_name}'
+    dataset_folder = f'{DATA_DATASETS_FOLDER}/{dataset_name}'
     individuals_folder = f'{dataset_folder}/individuals'
     
     # subsets
@@ -85,7 +85,7 @@ def generate_dataset2() -> None:
     iterations = 10
     
     # folders
-    dataset_folder = f'{DATA_FOLDER}/{dataset_name}'
+    dataset_folder = f'{DATA_DATASETS_FOLDER}/{dataset_name}'
     individuals_folder = f'{dataset_folder}/individuals'
     
     lt_dt_pairs = [(1, 8), (3, 6), (5, 5), (6, 3), (8, 1)]
@@ -138,7 +138,7 @@ def generate_dataset3() -> None:
     n_individuals = 300
     
     # folders
-    dataset_folder = f'{DATA_FOLDER}/{dataset_name}'
+    dataset_folder = f'{DATA_DATASETS_FOLDER}/{dataset_name}'
     individuals_folder = f'{dataset_folder}/individuals'
     
     # individuals with random lt and dt
@@ -242,7 +242,7 @@ def generate_fixed_lt_dataset(dataset_name, B) -> None:
     iterations = 10
     
     # folders
-    dataset_folder = f'{DATA_FOLDER}/{dataset_name}'
+    dataset_folder = f'{DATA_DATASETS_FOLDER}/{dataset_name}'
     individuals_folder = f'{dataset_folder}/individuals'
     
     lt_dt_pairs = [(B, i) for i in range(0, 9+1)]
@@ -271,7 +271,7 @@ def generate_fixed_dt_dataset(dataset_name, S) -> None:
     iterations = 10
     
     # folders
-    dataset_folder = f'{DATA_FOLDER}/{dataset_name}'
+    dataset_folder = f'{DATA_DATASETS_FOLDER}/{dataset_name}'
     individuals_folder = f'{dataset_folder}/individuals'
     
     lt_dt_pairs = [(i, S) for i in range(0, 9+1)]
@@ -318,7 +318,7 @@ def generate_dataset8() -> None:
     n_subset2 = 20
     
     # folders
-    dataset_folder = f'{DATA_FOLDER}/{dataset_name}'
+    dataset_folder = f'{DATA_DATASETS_FOLDER}/{dataset_name}'
     individuals_folder = f'{dataset_folder}/individuals'
     
     # subsets

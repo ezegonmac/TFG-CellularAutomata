@@ -13,7 +13,7 @@ DENSITIES_FIGURES_FOLDER = f'{FIGURES_FOLDER}/statistics/densities'
 
 def create_dataset_density_evolution_plot(dataset, show=False, title="Evolución de la densidad"):
     
-    dataset_file = f'{DATA_FOLDER}/{dataset}/dataset.csv'
+    dataset_file = f'{DATA_DATASETS_FOLDER}/{dataset}/dataset.csv'
     df = pd.read_csv(dataset_file)
     density_evolutions = df['density_evolution'].apply(literal_eval).values
     
@@ -43,7 +43,7 @@ def plot_density_evolutions(density_evolutions, title):
 
 def create_dataset_density_histograms_plot(dataset, show=False, title="Histogramas de densidad por iteración"):
     
-    dataset_file = f'{DATA_FOLDER}/{dataset}/dataset.csv'
+    dataset_file = f'{DATA_DATASETS_FOLDER}/{dataset}/dataset.csv'
     df = pd.read_csv(dataset_file)
     density_evolutions = df['density_evolution'].apply(literal_eval).values
     density_evolutions = np.stack(density_evolutions, axis=0)
@@ -81,7 +81,7 @@ def plot_density_histogram(ax, densities, iteration):
 
 def create_dataset_density_variation_plot(dataset, show=False, title="Variación de la densidad"):
     
-    dataset_file = f'{DATA_FOLDER}/{dataset}/dataset.csv'
+    dataset_file = f'{DATA_DATASETS_FOLDER}/{dataset}/dataset.csv'
     df = pd.read_csv(dataset_file)
     density_evolutions = df['density_evolution'].apply(literal_eval).values
     
@@ -117,7 +117,7 @@ def plot_density_variations(density_evolutions, title):
 
 def create_dataset_density_evolution_per_B_plot(dataset, show=False, title="Evolución de la densidad por umbral de vida (B)"):
     
-    dataset_file = f'{DATA_FOLDER}/{dataset}/dataset.csv'
+    dataset_file = f'{DATA_DATASETS_FOLDER}/{dataset}/dataset.csv'
     df = pd.read_csv(dataset_file)
     Bs = df['B'].unique().tolist()
     
@@ -164,7 +164,7 @@ def plot_density_evolutions_per_B(density_evolutions_by_B, Bs, title):
 
 def create_dataset_density_evolution_per_S_plot(dataset, show=False, title="Evolución de la densidad por umbral de supervivencia (S)"):
     
-    dataset_file = f'{DATA_FOLDER}/{dataset}/dataset.csv'
+    dataset_file = f'{DATA_DATASETS_FOLDER}/{dataset}/dataset.csv'
     df = pd.read_csv(dataset_file)
     Ss = df['S'].unique().tolist()
     
@@ -241,7 +241,7 @@ def create_dataset_density_evolution_per_B_and_S_plot(dataset, show=False, title
     # Used only for equal values of B and S
     # Sometimes only takes B in account
     
-    dataset_file = f'{DATA_FOLDER}/{dataset}/dataset.csv'
+    dataset_file = f'{DATA_DATASETS_FOLDER}/{dataset}/dataset.csv'
     df = pd.read_csv(dataset_file)
     Bs = df['B'].unique().tolist()
     Ss = df['S'].unique().tolist()

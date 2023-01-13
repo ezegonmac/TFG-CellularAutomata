@@ -14,36 +14,36 @@ from learning.models import *
 
 def evaluate_dataset8():
     dataset = DATASET8_DENSITY
-    evaluate_dataset(dataset)
+    # evaluate_dataset(dataset)
     
     # FIGURES
-    # # score model comparison plots
-    # generate_scores_model_comparison_plot(dataset, metric='MSE')
-    # generate_scores_model_comparison_plot(dataset, metric='R2')
+    # score model comparison plots
+    generate_scores_model_comparison_plot(dataset, metric='MSE')
+    generate_scores_model_comparison_plot(dataset, metric='R2')
 
-    # # score evolution plots
-    # generate_score_evolution_plots(dataset)
-    # generate_score_evolution_comparison_plots(dataset)
+    # score evolution plots
+    generate_score_evolution_plots(dataset)
+    generate_score_evolution_comparison_plots(dataset)
 
 
 def evaluate_dataset3():
     dataset = DATASET3_DENSITY
-    evaluate_dataset(dataset)
+    # evaluate_dataset(dataset)
     
     # FIGURES
-    # # score model comparison plots
-    # generate_scores_model_comparison_plot(dataset, metric='MSE')
-    # generate_scores_model_comparison_plot(dataset, metric='R2')
-    # generate_scores_model_comparison_plot(dataset, metric='MSE', y_min=0, y_max=0.05, suffix='scaled')
-    # generate_scores_model_comparison_plot(dataset, metric='R2', y_min=0.95, y_max=1.0, suffix='scaled')
+    # score model comparison plots
+    generate_scores_model_comparison_plot(dataset, metric='MSE')
+    generate_scores_model_comparison_plot(dataset, metric='R2')
+    generate_scores_model_comparison_plot(dataset, metric='MSE', y_min=0, y_max=0.02, suffix='scaled')
+    generate_scores_model_comparison_plot(dataset, metric='R2', y_min=0.95, y_max=1.0, suffix='scaled')
     
-    # # score evolution plots
-    # generate_score_evolution_plots(dataset)
+    # score evolution plots
+    generate_score_evolution_plots(dataset)
     
-    # generate_score_evolution_comparison_plots(dataset)
+    generate_score_evolution_comparison_plots(dataset)
 
-    # generate_score_evolution_comparison_plot(dataset, metric="MSE", y_max=0.03, suffix='scaled')
-    # generate_score_evolution_comparison_plot(dataset, metric="R2", y_min=0.96, y_max=0.99, suffix='scaled')
+    generate_score_evolution_comparison_plot(dataset, metric="MSE", y_max=0.01, suffix='scaled')
+    generate_score_evolution_comparison_plot(dataset, metric="R2", y_min=0.96, y_max=1, suffix='scaled')
 
 
 def evaluate_dataset(dataset):
@@ -57,21 +57,22 @@ def evaluate_dataset(dataset):
         learning_rate='invscaling',  # medium importance
         max_iter=3000,
         solver='lbfgs',  # important
+        activation='tanh',  # not important
         random_state=SKLEARN_RANDOM_SEED
         )
     
-    # print('---------------------------------')
-    # print(dataset.capitalize())
-    # print('---------------------------------')
-    # print('KNN')
-    # print('---------')
-    # generate_model_and_scores_files(knn_model, dataset, 'KNN')
-    # print('Decision Tree')
-    # print('---------')
-    # generate_model_and_scores_files(dtree_model, dataset, 'DecisionTree')
-    # print('Random Forest')
-    # print('---------')
-    # generate_model_and_scores_files(rf_model, dataset, 'RandomForest')
+    print('---------------------------------')
+    print(dataset.capitalize())
+    print('---------------------------------')
+    print('KNN')
+    print('---------')
+    generate_model_and_scores_files(knn_model, dataset, 'KNN')
+    print('Decision Tree')
+    print('---------')
+    generate_model_and_scores_files(dtree_model, dataset, 'DecisionTree')
+    print('Random Forest')
+    print('---------')
+    generate_model_and_scores_files(rf_model, dataset, 'RandomForest')
     print('Neural Network')
     print('---------')
     generate_model_and_scores_files(nn_model, dataset, 'NeuralNetwork')
@@ -92,7 +93,7 @@ def generate_model_and_scores_files(model, dataset, model_name):
 
 
 def load_dataset_density(dataset):
-    dataset_folder = f'{DATA_FOLDER}/{dataset}'
+    dataset_folder = f'{DATA_DATASETS_FOLDER}/{dataset}'
     file = f'{dataset_folder}/density_dataset.csv'
     
     df = pd.read_csv(file)

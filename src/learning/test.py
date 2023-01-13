@@ -28,7 +28,7 @@ def generate_score_evolution_comparison_plot(dataset, metric, suffix='', y_min=0
     df = get_scores_by_dataset(dataset)
     color = 'blue' if metric == 'MSE' else 'red'
 
-    fig, axs = plt.subplots(1, len(MODELS), figsize=(15, 5))
+    fig, axs = plt.subplots(1, len(MODELS), figsize=(18, 5))
     for i, model in enumerate(MODELS):
         axs[i].plot(df[df['Model'] == model][f'{metric} by iteration'].values[0].values(), color=color)
         axs[i].set(xlim=(1, 8), ylim=(y_min, y_max))
