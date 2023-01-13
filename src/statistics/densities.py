@@ -11,12 +11,17 @@ DENSITIES_FIGURES_FOLDER = f'{FIGURES_FOLDER}/statistics/densities'
 
 # density evolution
 
-def create_dataset_density_evolution_plot(dataset, show=False, title="Evolución de la densidad"):
+def create_dataset_density_evolution_plot(dataset, show=False, title="Evolución de la densidad", limit=None):
     
     dataset_file = f'{DATA_DATASETS_FOLDER}/{dataset}/dataset.csv'
     df = pd.read_csv(dataset_file)
-    density_evolutions = df['density_evolution'].apply(literal_eval).values
     
+    # limit to firsts rows (for df)
+    if limit is not None and len(df) > limit:
+        df = df[:limit]
+    
+    density_evolutions = df['density_evolution'].apply(literal_eval).values
+
     plot_density_evolutions(density_evolutions, title)
     
     plt.show() if show else plt.savefig(f'{DENSITIES_FIGURES_FOLDER}/density_evolution_{dataset}.png', dpi=300)
@@ -41,10 +46,15 @@ def plot_density_evolutions(density_evolutions, title):
 
 # density histograms
 
-def create_dataset_density_histograms_plot(dataset, show=False, title="Histogramas de densidad por iteración"):
+def create_dataset_density_histograms_plot(dataset, show=False, title="Histogramas de densidad por iteración", limit=None):
     
     dataset_file = f'{DATA_DATASETS_FOLDER}/{dataset}/dataset.csv'
     df = pd.read_csv(dataset_file)
+    
+    # limit to firsts rows (for df)
+    if limit is not None and len(df) > limit:
+        df = df[:limit]
+        
     density_evolutions = df['density_evolution'].apply(literal_eval).values
     density_evolutions = np.stack(density_evolutions, axis=0)
 
@@ -79,10 +89,15 @@ def plot_density_histogram(ax, densities, iteration):
 
 # density variation
 
-def create_dataset_density_variation_plot(dataset, show=False, title="Variación de la densidad"):
+def create_dataset_density_variation_plot(dataset, show=False, title="Variación de la densidad", limit=None):
     
     dataset_file = f'{DATA_DATASETS_FOLDER}/{dataset}/dataset.csv'
     df = pd.read_csv(dataset_file)
+    
+    # limit to firsts rows (for df)
+    if limit is not None and len(df) > limit:
+        df = df[:limit]
+        
     density_evolutions = df['density_evolution'].apply(literal_eval).values
     
     plot_density_variations(density_evolutions, title)
@@ -115,10 +130,15 @@ def plot_density_variations(density_evolutions, title):
 
 # density evolution per B
 
-def create_dataset_density_evolution_per_B_plot(dataset, show=False, title="Evolución de la densidad por umbral de vida (B)"):
+def create_dataset_density_evolution_per_B_plot(dataset, show=False, title="Evolución de la densidad por umbral de vida (B)", limit=None):
     
     dataset_file = f'{DATA_DATASETS_FOLDER}/{dataset}/dataset.csv'
     df = pd.read_csv(dataset_file)
+    
+    # limit to firsts rows (for df)
+    if limit is not None and len(df) > limit:
+        df = df[:limit]
+    
     Bs = df['B'].unique().tolist()
     
     density_evolutions_by_B = {}
@@ -162,12 +182,17 @@ def plot_density_evolutions_per_B(density_evolutions_by_B, Bs, title):
 
 # density evolution per S
 
-def create_dataset_density_evolution_per_S_plot(dataset, show=False, title="Evolución de la densidad por umbral de supervivencia (S)"):
+def create_dataset_density_evolution_per_S_plot(dataset, show=False, title="Evolución de la densidad por umbral de supervivencia (S)", limit=None):
     
     dataset_file = f'{DATA_DATASETS_FOLDER}/{dataset}/dataset.csv'
     df = pd.read_csv(dataset_file)
-    Ss = df['S'].unique().tolist()
     
+    # limit to firsts rows (for df)
+    if limit is not None and len(df) > limit:
+        df = df[:limit]
+    
+    Ss = df['S'].unique().tolist()
+        
     density_evolutions_by_S = {}
     for S in Ss:
         density_evolutions = df[df['S'] == S]['density_evolution'].apply(literal_eval).values
@@ -237,12 +262,17 @@ def plot_density_evolutions_per_B_and_S(density_evolutions_by_B_and_S, BSs, titl
               labels=[(0, 0), (9, 9)],
               loc='center left', bbox_to_anchor=(0.9, 0.5))
 
-def create_dataset_density_evolution_per_B_and_S_plot(dataset, show=False, title="Evolución de la densidad por umbral de vida (B) y supervivencia (S)"):
+def create_dataset_density_evolution_per_B_and_S_plot(dataset, show=False, title="Evolución de la densidad por umbral de vida (B) y supervivencia (S)", limit=None):
     # Used only for equal values of B and S
     # Sometimes only takes B in account
     
     dataset_file = f'{DATA_DATASETS_FOLDER}/{dataset}/dataset.csv'
     df = pd.read_csv(dataset_file)
+    
+    # limit to firsts rows (for df)
+    if limit is not None and len(df) > limit:
+        df = df[:limit]
+    
     Bs = df['B'].unique().tolist()
     Ss = df['S'].unique().tolist()
     BSs = list(zip(Bs, Ss))

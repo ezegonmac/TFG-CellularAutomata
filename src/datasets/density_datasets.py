@@ -18,7 +18,7 @@ def generate_dataset8_density() -> None:
     - fixed B and S: (0, 0), (9, 9)
     """
     
-    dataset_name = DATASET8 + '_density'
+    dataset_name = DATASET8_DENSITY
     
     # fixed attributes
     size = 10
@@ -72,13 +72,13 @@ def generate_dataset3_density() -> None:
     Variables:
     - fixed size: 10x10
     - fixed density: 0.5
-    - fixed iterations: 5
+    - fixed iterations: 10
     - free B : [0, 9]
     - free S: [0, 9]
     """
     
     # subsets with all attributes
-    dataset_name = DATASET3 + '_density'
+    dataset_name = DATASET3_DENSITY
     
     # fixed attributes
     size = 10
@@ -86,10 +86,10 @@ def generate_dataset3_density() -> None:
     iterations = 10
     
     # free attributes
-    lt_min = 0
-    lt_max = 9
-    dt_min = 0
-    dt_max = 9
+    B_min = 0
+    B_max = 9
+    B_min = 0
+    S_max = 9
       
     n_individuals = 500
     
@@ -100,10 +100,61 @@ def generate_dataset3_density() -> None:
     np.random.seed(NP_RANDOM_SEED)
     individuals = [CA_BTST_individual(
         id=id,
-        B=np.random.randint(lt_min, lt_max+1), 
-        S=np.random.randint(dt_min, dt_max+1), 
+        B=np.random.randint(B_min, B_max+1), 
+        S=np.random.randint(B_min, S_max+1), 
         size=size, 
         density=density, 
+        iterations=iterations, 
+        # file=f'{individuals_folder}/ca_{id}',
+        ) for id in range(n_individuals)]
+    
+    generate_density_dataset_files_from_individuals(individuals, dataset_folder)
+
+
+def generate_dataset9_density() -> None:
+    """
+    Generate dataset9.
+    
+    Some cells die some become alive.
+    Free thresholds.
+    Free density.
+    
+    Variables:
+    - fixed size: 10x10
+    - fixed iterations: 5
+    - free B : [0, 9]
+    - free S: [0, 9]
+    - free density: [0, 1]
+    """
+    
+    # subsets with all attributes
+    dataset_name = DATASET9_DENSITY
+    
+    # fixed attributes
+    size = 10
+    iterations = 10
+    
+    # free attributes
+    B_min = 0
+    B_max = 9
+    B_min = 0
+    S_max = 9
+    density_min = 0
+    density_max = 1
+      
+    n_individuals = 500
+    
+    # folders
+    dataset_folder = f'{DATA_DATASETS_FOLDER}/{dataset_name}'
+    
+    # individuals with random lt and dt
+    np.random.seed(NP_RANDOM_SEED)
+    individuals = [CA_BTST_individual(
+        id=id,
+        B=np.random.randint(B_min, B_max+1), 
+        S=np.random.randint(B_min, S_max+1), 
+        size=size, 
+        density=np.random.uniform(density_min, density_max),
         iterations=iterations, 
         # file=f'{individuals_folder}/ca_{id}',
         ) for id in range(n_individuals)]
