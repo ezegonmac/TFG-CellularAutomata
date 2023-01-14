@@ -13,7 +13,7 @@ from utils import *
 
 # density evolution
 
-def create_dataset_density_evolution_plot(dataset, show=False, title="Evolución de la densidad", limit=None):
+def create_dataset_density_evolution_plot(dataset, show=False, title="Evolución de la densidad", limit=None, suffix=''):
     
     data_datasets_folder = get_data_datasets_folder(dataset)
     dataset_file = f'{data_datasets_folder}/{dataset}/dataset.csv'
@@ -28,7 +28,8 @@ def create_dataset_density_evolution_plot(dataset, show=False, title="Evolución
     plot_density_evolutions(density_evolutions, title)
     
     density_figures_folder = get_density_figures_folder(dataset)
-    plt.show() if show else plt.savefig(f'{density_figures_folder}/density_evolution_{dataset}.png', dpi=300)
+    suffix = f'_{suffix}' if suffix else ''
+    plt.show() if show else plt.savefig(f'{density_figures_folder}/density_evolution_{dataset}_{suffix}.png', dpi=300)
     plt.close()
 
 
@@ -50,7 +51,7 @@ def plot_density_evolutions(density_evolutions, title):
 
 # density histograms
 
-def create_dataset_density_histograms_plot(dataset, show=False, title="Histogramas de densidad por iteración", limit=None):
+def create_dataset_density_histograms_plot(dataset, show=False, title="Histogramas de densidad por iteración", limit=None, suffix=''):
     
     dataset_file = f'{DATA_DATASETS_FOLDER}/{dataset}/dataset.csv'
     df = pd.read_csv(dataset_file)
@@ -73,7 +74,8 @@ def create_dataset_density_histograms_plot(dataset, show=False, title="Histogram
     plt.tight_layout(w_pad=2, h_pad=3)
     
     density_figures_folder = get_density_figures_folder(dataset)
-    plt.show() if show else plt.savefig(f'{density_figures_folder}/density_histograms_{dataset}.png', dpi=300, bbox_inches='tight')
+    suffix = f'_{suffix}' if suffix else ''
+    plt.show() if show else plt.savefig(f'{density_figures_folder}/density_histograms_{dataset}_{suffix}.png', dpi=300, bbox_inches='tight')
     plt.close()
 
 
@@ -94,7 +96,7 @@ def plot_density_histogram(ax, densities, iteration):
 
 # density variation
 
-def create_dataset_density_variation_plot(dataset, show=False, title="Variación de la densidad", limit=None):
+def create_dataset_density_variation_plot(dataset, show=False, title="Variación de la densidad", limit=None, suffix=''):
     
     data_datasets_folder = get_data_datasets_folder(dataset)
     dataset_file = f'{data_datasets_folder}/{dataset}/dataset.csv'
@@ -109,7 +111,8 @@ def create_dataset_density_variation_plot(dataset, show=False, title="Variación
     plot_density_variations(density_evolutions, title)
     
     density_figures_folder = get_density_figures_folder(dataset)
-    plt.show() if show else plt.savefig(f'{density_figures_folder}/density_variation_{dataset}.png', dpi=300)
+    suffix = f'_{suffix}' if suffix else ''
+    plt.show() if show else plt.savefig(f'{density_figures_folder}/density_variation_{dataset}_{suffix}.png', dpi=300)
     plt.close()
     
 
@@ -137,7 +140,7 @@ def plot_density_variations(density_evolutions, title):
 
 # density evolution per B
 
-def create_dataset_density_evolution_per_B_plot(dataset, show=False, title="Evolución de la densidad por umbral de vida (B)", limit=None):
+def create_dataset_density_evolution_per_B_plot(dataset, show=False, title="Evolución de la densidad por umbral de vida (B)", limit=None, suffix=''):
     
     data_datasets_folder = get_data_datasets_folder(dataset)
     dataset_file = f'{data_datasets_folder}/{dataset}/dataset.csv'
@@ -161,7 +164,8 @@ def create_dataset_density_evolution_per_B_plot(dataset, show=False, title="Evol
     plot_density_evolutions_per_B(density_evolutions_by_B, Bs, title)
     
     density_figures_folder = get_density_figures_folder(dataset)
-    plt.show() if show else plt.savefig(f'{density_figures_folder}/density_evolution_B_{dataset}.png', dpi=300, bbox_inches='tight')
+    suffix = f'_{suffix}' if suffix else ''
+    plt.show() if show else plt.savefig(f'{density_figures_folder}/density_evolution_B_{dataset}_{suffix}.png', dpi=300, bbox_inches='tight')
     plt.close()
     
 
@@ -191,7 +195,7 @@ def plot_density_evolutions_per_B(density_evolutions_by_B, Bs, title):
 
 # density evolution per S
 
-def create_dataset_density_evolution_per_S_plot(dataset, show=False, title="Evolución de la densidad por umbral de supervivencia (S)", limit=None):
+def create_dataset_density_evolution_per_S_plot(dataset, show=False, title="Evolución de la densidad por umbral de supervivencia (S)", limit=None, suffix=''):
     
     data_datasets_folder = get_data_datasets_folder(dataset)
     dataset_file = f'{data_datasets_folder}/{dataset}/dataset.csv'
@@ -215,7 +219,8 @@ def create_dataset_density_evolution_per_S_plot(dataset, show=False, title="Evol
     plot_density_evolutions_per_S(density_evolutions_by_S, Ss, title)
     
     density_figures_folder = get_density_figures_folder(dataset)
-    plt.show() if show else plt.savefig(f'{density_figures_folder}/density_evolution_S_{dataset}.png', dpi=300, bbox_inches='tight')
+    suffix = f'_{suffix}' if suffix else ''
+    plt.show() if show else plt.savefig(f'{density_figures_folder}/density_evolution_S_{dataset}_{suffix}.png', dpi=300, bbox_inches='tight')
     plt.close()
 
 
@@ -273,7 +278,7 @@ def plot_density_evolutions_per_B_and_S(density_evolutions_by_B_and_S, BSs, titl
               labels=[(0, 0), (9, 9)],
               loc='center left', bbox_to_anchor=(0.9, 0.5))
 
-def create_dataset_density_evolution_per_B_and_S_plot(dataset, show=False, title="Evolución de la densidad por umbral de vida (B) y supervivencia (S)", limit=None):
+def create_dataset_density_evolution_per_B_and_S_plot(dataset, show=False, title="Evolución de la densidad por umbral de vida (B) y supervivencia (S)", limit=None, suffix=''):
     # Used only for equal values of B and S
     # Sometimes only takes B in account
     
@@ -298,5 +303,6 @@ def create_dataset_density_evolution_per_B_and_S_plot(dataset, show=False, title
     plot_density_evolutions_per_B_and_S(density_evolutions_by_B_and_S, BSs, title)
     
     density_figures_folder = get_density_figures_folder(dataset)
-    plt.show() if show else plt.savefig(f'{density_figures_folder}/density_evolution_B_and_S_{dataset}.png', dpi=300, bbox_inches='tight')
+    suffix = f'_{suffix}' if suffix else ''
+    plt.show() if show else plt.savefig(f'{density_figures_folder}/density_evolution_B_and_S_{dataset}_{suffix}.png', dpi=300, bbox_inches='tight')
     plt.close()
