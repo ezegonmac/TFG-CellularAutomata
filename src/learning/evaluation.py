@@ -1,15 +1,12 @@
 from time import time
 
-import numpy as np
 import pandas as pd
 from sklearn.experimental import enable_halving_search_cv  # noqa
-from sklearn.model_selection import HalvingGridSearchCV, cross_val_score
+from sklearn.model_selection import HalvingGridSearchCV
 from sklearn.neural_network import MLPRegressor
 
 from constants import *
 from learning.BTST_density import get_dataset_density_X_y_split
-
-EVALUATION_FILE = f'{DATA_LEARNING_FOLDER}/evaluations.csv'
 
 
 def evaluate_nn_model_ds3_1():
@@ -50,12 +47,13 @@ def evaluate_nn_model_gsh(dataset, param_grid, suffix=''):
     
     results = gsh.cv_results_
     df = pd.DataFrame(results)
+    
     suffix = f'_{suffix}' if suffix else ''
-    df.to_csv(f'{DATA_LEARNING_FOLDER}/{dataset}/gsh_results_{dataset}{suffix}.csv')
+    data_learning_folder = get_data_learning_folder(dataset)
+    df.to_csv(f'{data_learning_folder}/{dataset}/gsh_results_{dataset}{suffix}.csv')
 
 
-
-def evaluate_nn_model_gs(dataset, param_grid):
+def evaluate_nn_model_gs(dataset, param_grid, suffix=''):
     
     X, y = get_dataset_density_X_y_split(dataset)
     
@@ -75,3 +73,9 @@ def evaluate_nn_model_gs(dataset, param_grid):
     print('Best params: ', best_params)
     score = gs.best_score_
     print('Best score: ', score)
+
+    results = gs.cv_results_
+    df = pd.DataFrame(results)
+    suffix = f'_{suffix}' if suffix else ''
+    data_learning_folder = get_data_learning_folder(dataset)
+    df.to_csv(f'{data_learning_folder}/{dataset}/gsh_results_{dataset}{suffix}.csv')

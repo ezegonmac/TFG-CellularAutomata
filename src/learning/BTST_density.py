@@ -1,4 +1,3 @@
-import joblib
 import pandas as pd
 from sklearn.ensemble import RandomForestRegressor
 from sklearn.model_selection import train_test_split
@@ -7,6 +6,7 @@ from sklearn.neural_network import MLPRegressor
 from sklearn.tree import DecisionTreeRegressor
 
 from constants import *
+from utils import *
 from learning.scoring import *
 from learning.test import *
 from learning.models import *
@@ -133,7 +133,8 @@ def generate_model_and_scores_files(model, dataset, model_name):
 
 
 def load_dataset_density(dataset):
-    dataset_folder = f'{DATA_DATASETS_FOLDER}/{dataset}'
+    data_dataset_folder = get_data_datasets_folder(dataset)
+    dataset_folder = f'{data_dataset_folder}/{dataset}'
     file = f'{dataset_folder}/density_dataset.csv'
     
     df = pd.read_csv(file)

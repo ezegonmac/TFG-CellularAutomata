@@ -1,18 +1,20 @@
-from CA.CAFactory import CAFactory
 import os
+from shutil import rmtree
+
 import numpy as np
 import pandas as pd
-from shutil import rmtree
+
+from CA.CAFactory import CAFactory
+from utils import *
+
 
 def generate_dataset_files_from_individuals(individuals, dataset_folder, individuals_folder):
     # delete old dataset
     if os.path.exists(dataset_folder):
         rmtree(dataset_folder)
     # create new dataset folder
-    if not os.path.exists(dataset_folder):
-        os.mkdir(dataset_folder)
-    if not os.path.exists(individuals_folder):
-        os.mkdir(individuals_folder)
+    create_folder_if_not_exists(dataset_folder)
+    create_folder_if_not_exists(individuals_folder)
     
     # generate file and set evolution densities for each individual
     for individual in individuals:

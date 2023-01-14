@@ -5,15 +5,9 @@ from matplotlib.ticker import MaxNLocator
 
 from constants import *
 from learning.scoring import *
+from utils import *
 
-
-MODELS = ['KNN', 'DecisionTree', 'RandomForest']
-MODELS_WITH_NN = MODELS + ['NeuralNetwork']
-MODELS = MODELS_WITH_NN  # CHANGE THIS TO TEST WITH OR WITHOUT NEURAL NETWORK
-
-FIGURES_FOLDER_DEFAULT = f'{FIGURES_FOLDER}/test'
-FIGURES_FOLDER_WITH_NN = f'{FIGURES_FOLDER}/test_with_nn'
-TEST_FIGURES_FOLDER = FIGURES_FOLDER_WITH_NN if MODELS == MODELS_WITH_NN else FIGURES_FOLDER_DEFAULT
+MODELS = ['KNN', 'DecisionTree', 'RandomForest', 'NeuralNetwork']
 
 
 def generate_score_evolution_comparison_plots(dataset):
@@ -38,7 +32,8 @@ def generate_score_evolution_comparison_plot(dataset, metric, suffix='', y_min=0
         axs[i].spines.top.set_visible(False)
 
     suffix = f'_{suffix}' if suffix else ''
-    plt.show() if show else plt.savefig(f'{TEST_FIGURES_FOLDER}/{metric}_evolution_comparison_{dataset}{suffix}.png', dpi=300)
+    test_figures_folder = get_test_figures_folder(dataset)
+    plt.show() if show else plt.savefig(f'{test_figures_folder}/{metric}_evolution_comparison_{dataset}{suffix}.png', dpi=300)
     plt.close()
 
 
@@ -53,7 +48,8 @@ def generate_score_evolution_plots(dataset):
 def generate_score_evolution_plot(dataset, model_name, metric, show=False):
     plot_score_evolution(dataset, model_name, metric)
 
-    plt.show() if show else plt.savefig(f'{TEST_FIGURES_FOLDER}/{metric}_evolution_{model_name}_{dataset}.png', dpi=300)
+    test_figures_folder = get_test_figures_folder(dataset)
+    plt.show() if show else plt.savefig(f'{test_figures_folder}/{metric}_evolution_{model_name}_{dataset}.png', dpi=300)
     plt.close()
 
 
@@ -93,7 +89,8 @@ def generate_scores_model_comparison_plot(dataset, metric, suffix='', y_min=0, y
     plt.legend(fontsize=16)
 
     suffix = f'_{suffix}' if suffix else ''
-    plt.show() if show else plt.savefig(f'{TEST_FIGURES_FOLDER}/model_comparison_{metric}_{dataset}{suffix}.png', dpi=300)
+    test_figures_folder = get_test_figures_folder(dataset)
+    plt.show() if show else plt.savefig(f'{test_figures_folder}/model_comparison_{metric}_{dataset}{suffix}.png', dpi=300)
 
 
 def print_evaluation(dataset, model_name):

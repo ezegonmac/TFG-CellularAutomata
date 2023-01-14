@@ -1,7 +1,10 @@
-from datasets.CA_BTST_individual import CA_BTST_individual
-from datasets.BTST_density_datasets import generate_density_dataset_files_from_individuals
 import numpy as np
+
 from constants import *
+from datasets.BTST_density_datasets import \
+    generate_density_dataset_files_from_individuals
+from datasets.CA_BTST_individual import CA_BTST_individual
+from utils import *
 
 
 def generate_dataset8_density() -> None:
@@ -30,7 +33,8 @@ def generate_dataset8_density() -> None:
     n_subset2 = 200
     
     # folders
-    dataset_folder = f'{DATA_DATASETS_FOLDER}/{dataset_name}'
+    data_datasets_folder = get_data_datasets_folder(dataset_name)
+    dataset_folder = f'{data_datasets_folder}/{dataset_name}'
     
     # subsets
     np.random.seed(NP_RANDOM_SEED)
@@ -94,7 +98,8 @@ def generate_dataset3_density() -> None:
     n_individuals = 500
     
     # folders
-    dataset_folder = f'{DATA_DATASETS_FOLDER}/{dataset_name}'
+    data_datasets_folder = get_data_datasets_folder(dataset_name)
+    dataset_folder = f'{data_datasets_folder}/{dataset_name}'
     
     # individuals with random lt and dt
     np.random.seed(NP_RANDOM_SEED)
@@ -145,7 +150,8 @@ def generate_dataset9_density() -> None:
     n_individuals = 500
     
     # folders
-    dataset_folder = f'{DATA_DATASETS_FOLDER}/{dataset_name}'
+    data_datasets_folder = get_data_datasets_folder(dataset_name)
+    dataset_folder = f'{data_datasets_folder}/{dataset_name}'
     
     # individuals with random lt and dt
     np.random.seed(NP_RANDOM_SEED)
@@ -199,7 +205,8 @@ def generate_dataset10_density() -> None:
     n_individuals = 500
     
     # folders
-    dataset_folder = f'{DATA_DATASETS_FOLDER}/{dataset_name}'
+    data_datasets_folder = get_data_datasets_folder(dataset_name)
+    dataset_folder = f'{data_datasets_folder}/{dataset_name}'
     
     # individuals with random lt and dt
     np.random.seed(NP_RANDOM_SEED)

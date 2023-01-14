@@ -1,14 +1,17 @@
-import matplotlib.pyplot as plt
-from constants import *
 import os
+
+import matplotlib.pyplot as plt
 import numpy as np
 from matplotlib.ticker import AutoMinorLocator
 
-STATES_FIGURES_FOLDER = f'{FIGURES_FOLDER}/statistics/states'
+from constants import *
+from utils import *
+
 
 def create_state_plot(dataset, individual=0, iteration=0, show=False, title="State"):
     
-    dataset_folder = f'{DATA_DATASETS_FOLDER}/{dataset}'
+    data_datasets_folder = get_data_datasets_folder(dataset)
+    dataset_folder = f'{data_datasets_folder}/{dataset}'
     individuals_folder = f'{dataset_folder}/individuals'
     
     # load specified state
@@ -19,7 +22,8 @@ def create_state_plot(dataset, individual=0, iteration=0, show=False, title="Sta
     
     plot_state(state, title)
 
-    plt.show() if show else plt.savefig(f'{STATES_FIGURES_FOLDER}/state_it_{iteration}_individual_{individual}_{dataset}.png', dpi=300, bbox_inches='tight')
+    states_figures_folder = get_states_figures_folder(dataset)
+    plt.show() if show else plt.savefig(f'{states_figures_folder}/state_it_{iteration}_individual_{individual}_{dataset}.png', dpi=200, bbox_inches='tight')
     plt.close()
 
 def plot_state(state, title):
@@ -28,7 +32,8 @@ def plot_state(state, title):
     plt.matshow(state, cmap='Greys', vmin=0, vmax=1, fignum=0)
     
     # TODO: remove magic number?
-    ticks = range(0, 9+1)
+    iterations = state.shape[0]
+    ticks = range(0, iterations)
     ax.set(yticks=ticks, xticks=ticks, title=title)
     # grid
     ax.xaxis.set_minor_locator(AutoMinorLocator(2))

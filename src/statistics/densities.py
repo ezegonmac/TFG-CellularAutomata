@@ -1,19 +1,22 @@
-from constants import *
-import pandas as pd
 from ast import literal_eval
-import matplotlib.pyplot as plt
-from matplotlib.ticker import MaxNLocator
-import numpy as np
-from matplotlib.lines import Line2D
 from statistics.utils import *
 
-DENSITIES_FIGURES_FOLDER = f'{FIGURES_FOLDER}/statistics/densities'
+import matplotlib.pyplot as plt
+import numpy as np
+import pandas as pd
+from matplotlib.lines import Line2D
+from matplotlib.ticker import MaxNLocator
+
+from constants import *
+from utils import *
+
 
 # density evolution
 
 def create_dataset_density_evolution_plot(dataset, show=False, title="Evolución de la densidad", limit=None):
     
-    dataset_file = f'{DATA_DATASETS_FOLDER}/{dataset}/dataset.csv'
+    data_datasets_folder = get_data_datasets_folder(dataset)
+    dataset_file = f'{data_datasets_folder}/{dataset}/dataset.csv'
     df = pd.read_csv(dataset_file)
     
     # limit to firsts rows (for df)
@@ -24,7 +27,8 @@ def create_dataset_density_evolution_plot(dataset, show=False, title="Evolución
 
     plot_density_evolutions(density_evolutions, title)
     
-    plt.show() if show else plt.savefig(f'{DENSITIES_FIGURES_FOLDER}/density_evolution_{dataset}.png', dpi=300)
+    density_figures_folder = get_density_figures_folder(dataset)
+    plt.show() if show else plt.savefig(f'{density_figures_folder}/density_evolution_{dataset}.png', dpi=300)
     plt.close()
 
 
@@ -68,7 +72,8 @@ def create_dataset_density_histograms_plot(dataset, show=False, title="Histogram
     fig.suptitle(title, fontsize=20)
     plt.tight_layout(w_pad=2, h_pad=3)
     
-    plt.show() if show else plt.savefig(f'{DENSITIES_FIGURES_FOLDER}/density_histograms_{dataset}.png', dpi=300, bbox_inches='tight')
+    density_figures_folder = get_density_figures_folder(dataset)
+    plt.show() if show else plt.savefig(f'{density_figures_folder}/density_histograms_{dataset}.png', dpi=300, bbox_inches='tight')
     plt.close()
 
 
@@ -91,7 +96,8 @@ def plot_density_histogram(ax, densities, iteration):
 
 def create_dataset_density_variation_plot(dataset, show=False, title="Variación de la densidad", limit=None):
     
-    dataset_file = f'{DATA_DATASETS_FOLDER}/{dataset}/dataset.csv'
+    data_datasets_folder = get_data_datasets_folder(dataset)
+    dataset_file = f'{data_datasets_folder}/{dataset}/dataset.csv'
     df = pd.read_csv(dataset_file)
     
     # limit to firsts rows (for df)
@@ -102,7 +108,8 @@ def create_dataset_density_variation_plot(dataset, show=False, title="Variación
     
     plot_density_variations(density_evolutions, title)
     
-    plt.show() if show else plt.savefig(f'{DENSITIES_FIGURES_FOLDER}/density_variation_{dataset}.png', dpi=300)
+    density_figures_folder = get_density_figures_folder(dataset)
+    plt.show() if show else plt.savefig(f'{density_figures_folder}/density_variation_{dataset}.png', dpi=300)
     plt.close()
     
 
@@ -132,7 +139,8 @@ def plot_density_variations(density_evolutions, title):
 
 def create_dataset_density_evolution_per_B_plot(dataset, show=False, title="Evolución de la densidad por umbral de vida (B)", limit=None):
     
-    dataset_file = f'{DATA_DATASETS_FOLDER}/{dataset}/dataset.csv'
+    data_datasets_folder = get_data_datasets_folder(dataset)
+    dataset_file = f'{data_datasets_folder}/{dataset}/dataset.csv'
     df = pd.read_csv(dataset_file)
     
     # limit to firsts rows (for df)
@@ -152,7 +160,8 @@ def create_dataset_density_evolution_per_B_plot(dataset, show=False, title="Evol
     title = title+', S=9' if dataset == DATASET7 else title
     plot_density_evolutions_per_B(density_evolutions_by_B, Bs, title)
     
-    plt.show() if show else plt.savefig(f'{DENSITIES_FIGURES_FOLDER}/density_evolution_B_{dataset}.png', dpi=300, bbox_inches='tight')
+    density_figures_folder = get_density_figures_folder(dataset)
+    plt.show() if show else plt.savefig(f'{density_figures_folder}/density_evolution_B_{dataset}.png', dpi=300, bbox_inches='tight')
     plt.close()
     
 
@@ -184,7 +193,8 @@ def plot_density_evolutions_per_B(density_evolutions_by_B, Bs, title):
 
 def create_dataset_density_evolution_per_S_plot(dataset, show=False, title="Evolución de la densidad por umbral de supervivencia (S)", limit=None):
     
-    dataset_file = f'{DATA_DATASETS_FOLDER}/{dataset}/dataset.csv'
+    data_datasets_folder = get_data_datasets_folder(dataset)
+    dataset_file = f'{data_datasets_folder}/{dataset}/dataset.csv'
     df = pd.read_csv(dataset_file)
     
     # limit to firsts rows (for df)
@@ -204,7 +214,8 @@ def create_dataset_density_evolution_per_S_plot(dataset, show=False, title="Evol
     title = title+', S=9' if dataset == DATASET7 else title
     plot_density_evolutions_per_S(density_evolutions_by_S, Ss, title)
     
-    plt.show() if show else plt.savefig(f'{DENSITIES_FIGURES_FOLDER}/density_evolution_S_{dataset}.png', dpi=300, bbox_inches='tight')
+    density_figures_folder = get_density_figures_folder(dataset)
+    plt.show() if show else plt.savefig(f'{density_figures_folder}/density_evolution_S_{dataset}.png', dpi=300, bbox_inches='tight')
     plt.close()
 
 
@@ -266,7 +277,8 @@ def create_dataset_density_evolution_per_B_and_S_plot(dataset, show=False, title
     # Used only for equal values of B and S
     # Sometimes only takes B in account
     
-    dataset_file = f'{DATA_DATASETS_FOLDER}/{dataset}/dataset.csv'
+    data_datasets_folder = get_data_datasets_folder(dataset)
+    dataset_file = f'{data_datasets_folder}/{dataset}/dataset.csv'
     df = pd.read_csv(dataset_file)
     
     # limit to firsts rows (for df)
@@ -285,5 +297,6 @@ def create_dataset_density_evolution_per_B_and_S_plot(dataset, show=False, title
     
     plot_density_evolutions_per_B_and_S(density_evolutions_by_B_and_S, BSs, title)
     
-    plt.show() if show else plt.savefig(f'{DENSITIES_FIGURES_FOLDER}/density_evolution_B_and_S_{dataset}.png', dpi=300, bbox_inches='tight')
+    density_figures_folder = get_density_figures_folder(dataset)
+    plt.show() if show else plt.savefig(f'{density_figures_folder}/density_evolution_B_and_S_{dataset}.png', dpi=300, bbox_inches='tight')
     plt.close()

@@ -7,8 +7,7 @@ from sklearn.metrics import mean_squared_error, r2_score
 from sklearn.model_selection import cross_val_score
 
 from constants import *
-
-SCORES_FILE = f'{DATA_LEARNING_FOLDER}/scores.csv'
+from utils import *
 
 
 def get_cross_val_MSE(X, y, model):
@@ -70,10 +69,12 @@ def generate_scores_file(X, y, X_test, y_test, y_pred, model, dataset, model_nam
     }
 
     # create csv file if not exists
-    if not os.path.isfile(SCORES_FILE):
+    data_learning_folder = get_data_learning_folder(dataset)
+    scores_file = f'{data_learning_folder}/scores.csv'
+    if not os.path.isfile(scores_file):
         df = pd.DataFrame.from_dict(data, orient='index').T
     else:
-        df = pd.read_csv(SCORES_FILE)
+        df = pd.read_csv(scores_file)
 
     # add data as row to csv file, or update if exists
     row = df.loc[(df['Dataset'] == dataset) & (df['Model'] == model_name)]
@@ -85,30 +86,32 @@ def generate_scores_file(X, y, X_test, y_test, y_pred, model, dataset, model_nam
             df.loc[(df['Dataset'] == dataset) & (df['Model'] == model_name), key] = value
 
     # save file
-    df.to_csv(SCORES_FILE, index=False)
+    df.to_csv(scores_file, index=False)
 
 
-def load_scores_file():
-    df = pd.read_csv(SCORES_FILE)
+def load_scores_file(dataset):
+    data_learning_folder = get_data_learning_folder(dataset)
+    scores_file = f'{data_learning_folder}/scores.csv'
+    df = pd.read_csv(scores_file)
     df['MSE by iteration'] = df['MSE by iteration'].apply(lambda x: literal_eval(str(x)))
     df['R2 by iteration'] = df['R2 by iteration'].apply(lambda x: literal_eval(str(x)))
     return df
 
 
 def get_scores_by_dataset_and_model(dataset, model_name):
-    df = load_scores_file()
+    df = load_scores_file(dataset)
     row = df.loc[(df['Dataset'] == dataset) & (df['Model'] == model_name)]
     return row
 
 
 def get_scores_by_dataset(dataset):
-    df = load_scores_file()
+    df = load_scores_file(dataset)
     rows = df.loc[df['Dataset'] == dataset]
     return rows
 
 
 def get_scores_by_model(model_name):
-    df = load_scores_file()
+    df = load_scores_file(dataset)
     rows = df.loc[df['Model'] == model_name]
     return rows
 

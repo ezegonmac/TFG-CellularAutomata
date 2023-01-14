@@ -1,7 +1,8 @@
 import matplotlib.pyplot as plt
-from constants import FIGURES_FOLDER
 import numpy as np
 from matplotlib.ticker import AutoMinorLocator
+
+from constants import FIGURES_FOLDER
 
 BASIC_FIGURES_FOLDER = f'{FIGURES_FOLDER}/doc'
 

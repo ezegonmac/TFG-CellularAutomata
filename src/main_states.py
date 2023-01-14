@@ -4,13 +4,13 @@ from statistics.states import *
 
 if __name__ == '__main__':
 
-    create_state_plot(DATASET1, individual=0, iteration=0)
+    create_state_plot(DATASET8, individual=0, iteration=0)
     create_state_plot(DATASET1, individual=0, iteration=1)
     create_state_plot(DATASET1, individual=0, iteration=2)
 
-    create_state_plot(DATASET1, individual=20, iteration=0)
-    create_state_plot(DATASET1, individual=20, iteration=1)
-    create_state_plot(DATASET1, individual=20, iteration=2)
+    create_state_plot(DATASET8, individual=20, iteration=0)
+    create_state_plot(DATASET8, individual=20, iteration=1)
+    create_state_plot(DATASET8, individual=20, iteration=2)
 
     create_state_plot(DATASET3, individual=0, iteration=0)
     create_state_plot(DATASET3, individual=0, iteration=1)
