@@ -100,7 +100,7 @@ def generate_dataset12(save_individuals=False) -> None:
     S_min = 0
     S_max = 9
       
-    n_individuals = 700
+    n_individuals = 100
     
     # folders
     data_datasets_folder = get_data_datasets_folder(dataset_name)
@@ -169,7 +169,7 @@ def generate_dataset13(save_individuals=False) -> None:
     density_min = 0
     density_max = 1
     
-    n_individuals = 1000
+    n_individuals = 100
     
     # folders
     data_datasets_folder = get_data_datasets_folder(dataset_name)
