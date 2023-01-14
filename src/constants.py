@@ -32,8 +32,8 @@ DATASET9 = 'dataset9'
 DATASET10 = 'dataset10'
 #  - BISI
 DATASET11 = 'dataset11'
+DATASET11 = 'dataset11'
 DATASET12 = 'dataset12'
-DATASET13 = 'dataset13'
 
 # density datasets
 # - BTST
@@ -43,8 +43,8 @@ DATASET9_DENSITY = DATASET9 + '_density'
 DATASET10_DENSITY = DATASET10 + '_density'
 # - BISI
 DATASET11_DENSITY = DATASET11 + '_density'
+DATASET11_DENSITY = DATASET11 + '_density'
 DATASET12_DENSITY = DATASET12 + '_density'
-DATASET13_DENSITY = DATASET13 + '_density'
 
 # datasets clasification
 DATASETS_BY_TYPE = {
@@ -65,10 +65,10 @@ DATASETS_BY_TYPE = {
     
     DATASET11: 'BISI',
     DATASET11_DENSITY: 'BISI',
+    DATASET11: 'BISI',
+    DATASET11_DENSITY: 'BISI',
     DATASET12: 'BISI',
     DATASET12_DENSITY: 'BISI',
-    DATASET13: 'BISI',
-    DATASET13_DENSITY: 'BISI',
 }
 
 
