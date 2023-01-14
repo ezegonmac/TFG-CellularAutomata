@@ -1,4 +1,5 @@
 import os
+import sys
 from shutil import rmtree
 
 import numpy as np
@@ -40,7 +41,6 @@ def generate_ca_from_individual(individual, rule_type):
         sys.modules[__name__], 
         f'generate_{rule_type}_ca_from_individual'
         )
-    print(__name__)
     ca = generate_ca_from_individual_for_rule_type(individual)
     return ca
 
