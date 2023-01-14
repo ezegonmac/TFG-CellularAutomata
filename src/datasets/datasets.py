@@ -6,7 +6,7 @@ from datasets.CA_BTST_individual import CA_BTST_individual
 from utils import *
 
 
-def generate_dataset1() -> None:
+def generate_dataset1(save_individuals=False) -> None:
     """
     Generate dataset1.
     
@@ -63,10 +63,10 @@ def generate_dataset1() -> None:
     # individuals contains all subset individuals
     individuals = [individual for subset in subsets for individual in subset]
     
-    generate_dataset_files_from_individuals(individuals, dataset_folder, individuals_folder)
+    generate_dataset_files_from_individuals(individuals, dataset_folder, individuals_folder, save_individuals=save_individuals)
 
 
-def generate_dataset2() -> None:
+def generate_dataset2(save_individuals=False) -> None:
     """
     Generate dataset2.
     
@@ -107,10 +107,10 @@ def generate_dataset2() -> None:
         file=f'{individuals_folder}/ca_pair_{pair}_{id}',
         ) for pair in range(len(lt_dt_pairs)) for id in range(n_subset)]
     
-    generate_dataset_files_from_individuals(individuals, dataset_folder, individuals_folder)
+    generate_dataset_files_from_individuals(individuals, dataset_folder, individuals_folder, save_individuals=save_individuals)
 
 
-def generate_dataset3() -> None:
+def generate_dataset3(save_individuals=False) -> None:
     """
     Generate dataset3.
         
@@ -158,10 +158,10 @@ def generate_dataset3() -> None:
         file=f'{individuals_folder}/ca_{id}',
         ) for id in range(n_individuals)]
     
-    generate_dataset_files_from_individuals(individuals, dataset_folder, individuals_folder)
+    generate_dataset_files_from_individuals(individuals, dataset_folder, individuals_folder, save_individuals=save_individuals)
 
 
-def generate_dataset4() -> None:
+def generate_dataset4(save_individuals=False) -> None:
     """
     Generate dataset4.
     
@@ -180,7 +180,7 @@ def generate_dataset4() -> None:
     generate_fixed_lt_dataset(dataset_name, 0)
     
 
-def generate_dataset5() -> None:
+def generate_dataset5(save_individuals=False) -> None:
     """
     Generate dataset5.
     
@@ -199,7 +199,7 @@ def generate_dataset5() -> None:
     generate_fixed_dt_dataset(dataset_name, 0)
 
 
-def generate_dataset6() -> None:
+def generate_dataset6(save_individuals=False) -> None:
     """
     Generate dataset6.
     
@@ -218,7 +218,7 @@ def generate_dataset6() -> None:
     generate_fixed_lt_dataset(dataset_name, 9)
     
 
-def generate_dataset7() -> None:
+def generate_dataset7(save_individuals=False) -> None:
     """
     Generate dataset7.
     
@@ -266,7 +266,7 @@ def generate_fixed_lt_dataset(dataset_name, B) -> None:
         file=f'{individuals_folder}/ca_pair_{pair}_{id}',
         ) for pair in range(len(lt_dt_pairs)) for id in range(n_subset)]
     
-    generate_dataset_files_from_individuals(individuals, dataset_folder, individuals_folder)
+    generate_dataset_files_from_individuals(individuals, dataset_folder, individuals_folder, save_individuals=save_individuals)
 
 
 def generate_fixed_dt_dataset(dataset_name, S) -> None:
@@ -296,10 +296,10 @@ def generate_fixed_dt_dataset(dataset_name, S) -> None:
         file=f'{individuals_folder}/ca_pair_{pair}_{id}',
         ) for pair in range(len(lt_dt_pairs)) for id in range(n_subset)]
     
-    generate_dataset_files_from_individuals(individuals, dataset_folder, individuals_folder)
+    generate_dataset_files_from_individuals(individuals, dataset_folder, individuals_folder, save_individuals=save_individuals)
 
 
-def generate_dataset8() -> None:
+def generate_dataset8(save_individuals=False) -> None:
     """
     Generate dataset8.
     
@@ -356,10 +356,10 @@ def generate_dataset8() -> None:
     # individuals contains all subset individuals
     individuals = [individual for subset in subsets for individual in subset]
     
-    generate_dataset_files_from_individuals(individuals, dataset_folder, individuals_folder)
+    generate_dataset_files_from_individuals(individuals, dataset_folder, individuals_folder, save_individuals=save_individuals)
 
 
-def generate_dataset9() -> None:
+def generate_dataset9(save_individuals=False) -> None:
     """
     Generate dataset9.
     
@@ -410,10 +410,10 @@ def generate_dataset9() -> None:
         file=f'{individuals_folder}/ca_{id}',
         ) for id in range(n_individuals)]
     
-    generate_dataset_files_from_individuals(individuals, dataset_folder, individuals_folder)
+    generate_dataset_files_from_individuals(individuals, dataset_folder, individuals_folder, save_individuals=save_individuals)
 
 
-def generate_dataset10() -> None:
+def generate_dataset10(save_individuals=False) -> None:
     """
     Generate dataset10.
     
@@ -466,4 +466,4 @@ def generate_dataset10() -> None:
         file=f'{individuals_folder}/ca_{id}',
         ) for id in range(n_individuals)]
     
-    generate_dataset_files_from_individuals(individuals, dataset_folder, individuals_folder)
+    generate_dataset_files_from_individuals(individuals, dataset_folder, individuals_folder, save_individuals=save_individuals)

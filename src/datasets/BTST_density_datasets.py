@@ -4,8 +4,8 @@ from shutil import rmtree
 import numpy as np
 import pandas as pd
 
-from CA.CAFactory import CAFactory
 from utils import *
+from datasets.BTST_datasets import generate_BTST_ca_from_individual
 
 
 def generate_density_dataset_files_from_individuals(individuals, dataset_folder):
@@ -24,8 +24,10 @@ def generate_density_dataset_files_from_individuals(individuals, dataset_folder)
     for i in range(num_individuals):
         individual = individuals[i]
         
-        density_evolution = generate_density_evolution_from_individual(individual)
-        density_evolution = np.array(density_evolution)
+        ca = generate_BTST_ca_from_individual(individual)
+        
+        density_evolution = np.array(ca.get_density_evolution())
+        individual.density_evolution = density_evolution
         
         # data = id|B|S|density_evolution
         ids[i] = int(i)
@@ -44,14 +46,3 @@ def generate_density_dataset_files_from_individuals(individuals, dataset_folder)
     # save density evolutions to csv
     df = pd.DataFrame(data)
     df.to_csv(f'{dataset_folder}/density_dataset.csv')
-
-def generate_density_evolution_from_individual(individual):
-    
-    ca1 = CAFactory.create_CA_BTST(
-        B=individual.B,
-        S=individual.S,
-        size=individual.size,
-        density=individual.density,
-        iterations=individual.iterations)
-    
-    return ca1.get_density_evolution()
