@@ -1,9 +1,8 @@
 import numpy as np
 
 from constants import *
-from datasets.BTST_density_datasets import \
-    generate_density_dataset_files_from_individuals
-from datasets.CA_BTST_individual import CA_BTST_individual
+from datasets.dataset_density_generation import generate_density_dataset_files_from_individuals
+from datasets.CA_individual import CA_individual
 from utils import *
 
 
@@ -38,7 +37,7 @@ def generate_dataset8_density() -> None:
     
     # subsets
     np.random.seed(NP_RANDOM_SEED)
-    subset1 = [CA_BTST_individual(
+    subset1 = [CA_individual(
         id=id,
         B=0, 
         S=0, 
@@ -48,7 +47,7 @@ def generate_dataset8_density() -> None:
         # file=f'{individuals_folder}/all_live_{id}',
         ) for id in range(n_subset1)]
     
-    subset2 = [CA_BTST_individual(
+    subset2 = [CA_individual(
         id=id,
         B=9, 
         S=9, 
@@ -103,7 +102,7 @@ def generate_dataset3_density() -> None:
     
     # individuals with random lt and dt
     np.random.seed(NP_RANDOM_SEED)
-    individuals = [CA_BTST_individual(
+    individuals = [CA_individual(
         id=id,
         B=np.random.randint(B_min, B_max+1), 
         S=np.random.randint(B_min, S_max+1), 
@@ -155,7 +154,7 @@ def generate_dataset9_density() -> None:
     
     # individuals with random lt and dt
     np.random.seed(NP_RANDOM_SEED)
-    individuals = [CA_BTST_individual(
+    individuals = [CA_individual(
         id=id,
         B=np.random.randint(B_min, B_max+1), 
         S=np.random.randint(B_min, S_max+1), 
@@ -210,7 +209,7 @@ def generate_dataset10_density() -> None:
     
     # individuals with random lt and dt
     np.random.seed(NP_RANDOM_SEED)
-    individuals = [CA_BTST_individual(
+    individuals = [CA_individual(
         id=id,
         B=np.random.randint(B_min, B_max+1), 
         S=np.random.randint(B_min, S_max+1), 

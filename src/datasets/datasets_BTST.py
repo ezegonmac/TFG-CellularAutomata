@@ -1,8 +1,8 @@
 import numpy as np
 
 from constants import *
-from datasets.BTST_datasets import generate_dataset_files_from_individuals
-from datasets.CA_BTST_individual import CA_BTST_individual
+from datasets.dataset_generation import generate_dataset_files_from_individuals
+from datasets.CA_individual import CA_individual
 from utils import *
 
 
@@ -38,7 +38,7 @@ def generate_dataset1(save_individuals=False) -> None:
     
     # subsets
     np.random.seed(NP_RANDOM_SEED)
-    subset1 = [CA_BTST_individual(
+    subset1 = [CA_individual(
         id=id,
         B=0, 
         S=9, 
@@ -48,7 +48,7 @@ def generate_dataset1(save_individuals=False) -> None:
         file=f'{individuals_folder}/all_live_{id}',
         ) for id in range(n_subset1)]
     
-    subset2 = [CA_BTST_individual(
+    subset2 = [CA_individual(
         id=id,
         B=9, 
         S=0, 
@@ -97,7 +97,7 @@ def generate_dataset2(save_individuals=False) -> None:
     
     # individuals with fixed lt and dt
     np.random.seed(NP_RANDOM_SEED)
-    individuals = [CA_BTST_individual(
+    individuals = [CA_individual(
         id=id,
         B=lt_dt_pairs[pair][0], 
         S=lt_dt_pairs[pair][1], 
@@ -148,7 +148,7 @@ def generate_dataset3(save_individuals=False) -> None:
     
     # individuals with random lt and dt
     np.random.seed(NP_RANDOM_SEED)
-    individuals = [CA_BTST_individual(
+    individuals = [CA_individual(
         id=id,
         B=np.random.randint(lt_min, lt_max+1), 
         S=np.random.randint(dt_min, dt_max+1), 
@@ -256,7 +256,7 @@ def generate_fixed_lt_dataset(dataset_name, B) -> None:
     
     # individuals with fixed lt and dt
     np.random.seed(NP_RANDOM_SEED)
-    individuals = [CA_BTST_individual(
+    individuals = [CA_individual(
         id=id,
         B=lt_dt_pairs[pair][0], 
         S=lt_dt_pairs[pair][1], 
@@ -286,7 +286,7 @@ def generate_fixed_dt_dataset(dataset_name, S) -> None:
     
     # individuals with fixed lt and dt
     np.random.seed(NP_RANDOM_SEED)
-    individuals = [CA_BTST_individual(
+    individuals = [CA_individual(
         id=id,
         B=lt_dt_pairs[pair][0], 
         S=lt_dt_pairs[pair][1], 
@@ -331,7 +331,7 @@ def generate_dataset8(save_individuals=False) -> None:
     
     # subsets
     np.random.seed(NP_RANDOM_SEED)
-    subset1 = [CA_BTST_individual(
+    subset1 = [CA_individual(
         id=id,
         B=0, 
         S=0, 
@@ -341,7 +341,7 @@ def generate_dataset8(save_individuals=False) -> None:
         file=f'{individuals_folder}/all_live_{id}',
         ) for id in range(n_subset1)]
     
-    subset2 = [CA_BTST_individual(
+    subset2 = [CA_individual(
         id=id,
         B=9, 
         S=9, 
@@ -400,7 +400,7 @@ def generate_dataset9(save_individuals=False) -> None:
     
     # individuals with random lt and dt
     np.random.seed(NP_RANDOM_SEED)
-    individuals = [CA_BTST_individual(
+    individuals = [CA_individual(
         id=id,
         B=np.random.randint(B_min, B_max+1), 
         S=np.random.randint(B_min, S_max+1), 
@@ -456,7 +456,7 @@ def generate_dataset10(save_individuals=False) -> None:
     
     # individuals with random lt and dt
     np.random.seed(NP_RANDOM_SEED)
-    individuals = [CA_BTST_individual(
+    individuals = [CA_individual(
         id=id,
         B=np.random.randint(B_min, B_max+1), 
         S=np.random.randint(B_min, S_max+1), 

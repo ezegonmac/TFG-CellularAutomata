@@ -5,7 +5,7 @@ import numpy as np
 import pandas as pd
 
 from utils import *
-from datasets.BTST_datasets import generate_BTST_ca_from_individual
+from datasets_BTST.BTST_datasets import generate_BTST_ca_from_individual
 
 
 def generate_density_dataset_files_from_individuals(individuals, dataset_folder):

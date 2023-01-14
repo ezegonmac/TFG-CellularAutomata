@@ -1,5 +1,5 @@
 from constants import *
-from datasets.density_datasets import *
+from datasets.density_datasets_BTST import *
 
 
 if __name__ == '__main__':
