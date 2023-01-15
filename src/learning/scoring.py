@@ -87,6 +87,7 @@ def generate_scores_file(X, y, X_test, y_test, y_pred, model, dataset, model_nam
 
     # save file
     df.to_csv(scores_file, index=False)
+    print(f'Scores saved to {scores_file}')
 
 
 def load_scores_file(dataset):

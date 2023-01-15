@@ -13,11 +13,9 @@ from learning.models import *
 from learning.density_dataset import *
 
 
-def evaluate_dataset11():
+def generate_evaluation_plots_dataset11_density():
     dataset = DATASET11_DENSITY
-    evaluate_dataset(dataset)
     
-    # FIGURES
     # score model comparison plots
     generate_scores_model_comparison_plot(dataset, metric='MSE')
     generate_scores_model_comparison_plot(dataset, metric='R2')
@@ -33,31 +31,28 @@ def evaluate_dataset11():
     # generate_score_evolution_comparison_plot(dataset, metric="R2", y_min=0.96, y_max=1, suffix='scaled')
 
 
-def evaluate_dataset12():
+def generate_evaluation_plots_dataset12_density():
     dataset = DATASET12_DENSITY
-    evaluate_dataset(dataset)
     
-    # FIGURES
     # score model comparison plots
-    generate_scores_model_comparison_plot(dataset, metric='MSE', suffix='3')
-    generate_scores_model_comparison_plot(dataset, metric='R2', suffix='3')
+    generate_scores_model_comparison_plot(dataset, metric='MSE', suffix='a')
+    generate_scores_model_comparison_plot(dataset, metric='R2', suffix='a')
     # generate_scores_model_comparison_plot(dataset, metric='MSE', y_min=0, y_max=0.02, suffix='scaled')
     # generate_scores_model_comparison_plot(dataset, metric='R2', y_min=0.95, y_max=1.0, suffix='scaled')
     
     # score evolution plots
     generate_score_evolution_plots(dataset)
     
-    generate_score_evolution_comparison_plots(dataset, suffix='3')
+    generate_score_evolution_comparison_plots(dataset, suffix='a')
 
     # generate_score_evolution_comparison_plot(dataset, metric="MSE", y_max=0.01, suffix='scaled')
     # generate_score_evolution_comparison_plot(dataset, metric="R2", y_min=0.96, y_max=1, suffix='scaled')
 
 
-def evaluate_dataset(dataset):
+def train_models(dataset):
     knn_model = KNeighborsRegressor(n_neighbors=5)
     dtree_model = DecisionTreeRegressor(random_state=SKLEARN_RANDOM_SEED)
     rf_model = RandomForestRegressor(random_state=SKLEARN_RANDOM_SEED)
-    # nn_model = MLPRegressor(hidden_layer_sizes=(9, 18, 9), max_iter=500, random_state=SKLEARN_RANDOM_SEED)
     nn_model = MLPRegressor(
         hidden_layer_sizes=(50, 50, 50, 50),
         alpha=0.3,  # not important

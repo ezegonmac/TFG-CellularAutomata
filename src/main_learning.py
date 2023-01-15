@@ -6,12 +6,14 @@ from learning.evaluation import *
 
 if __name__ == '__main__':
     
-    # evaluate_dataset3()
-    # evaluate_dataset8()
-    # evaluate_dataset9()
-    # evaluate_dataset10()
-    # evaluate_dataset11()
-    evaluate_dataset12()
+    # train_and_evaluate_dataset3()
+    # train_and_evaluate_dataset8()
+    # train_and_evaluate_dataset9()
+    # train_and_evaluate_dataset10()
+    # train_dataset11()
+    # generate_evaluation_plots_dataset11_density()
+    train_models(DATASET12_DENSITY)
+    generate_evaluation_plots_dataset12_density()
     
     # evaluate_nn_model_ds3_1()
     # evaluate_nn_model_ds12_2()

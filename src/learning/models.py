@@ -12,6 +12,7 @@ def generate_model_file(dataset, model, model_name):
     create_folder_if_not_exists(model_folder)
     
     dump(model, model_file)
+    print(f'Model saved to {model_file}.')
 
 
 def load_model_from_file(dataset, model_name):
