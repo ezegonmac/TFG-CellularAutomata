@@ -53,7 +53,8 @@ def plot_density_evolutions(density_evolutions, title):
 
 def create_dataset_density_histograms_plot(dataset, show=False, title="Histogramas de densidad por iteración", limit=None, suffix=''):
     
-    dataset_file = f'{DATA_DATASETS_FOLDER}/{dataset}/dataset.csv'
+    data_datasets_folder = get_data_datasets_folder(dataset)
+    dataset_file = f'{data_datasets_folder}/{dataset}/dataset.csv'
     df = pd.read_csv(dataset_file)
     
     # limit to firsts rows (for df)

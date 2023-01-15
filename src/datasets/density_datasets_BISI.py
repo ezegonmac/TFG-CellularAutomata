@@ -6,7 +6,7 @@ from datasets.CA_individual import CA_individual
 from utils import *
 
 
-def generate_dataset11_density(save_individuals=False) -> None:
+def generate_dataset11_density() -> None:
     """
     Generate dataset11.
     
@@ -71,7 +71,7 @@ def generate_dataset11_density(save_individuals=False) -> None:
         )
 
 
-def generate_dataset12_density(save_individuals=False) -> None:
+def generate_dataset12_density() -> None:
     """
     Generate dataset12.
     
@@ -139,7 +139,7 @@ def generate_dataset12_density(save_individuals=False) -> None:
         )
 
 
-def generate_dataset13_density(save_individuals=False) -> None:
+def generate_dataset13_density() -> None:
     """
     Generate dataset13.
     
