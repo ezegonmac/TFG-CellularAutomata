@@ -33,6 +33,10 @@ def generate_density_dataset_files_from_individuals(individuals, dataset_folder,
         density_evolution = np.array(ca.get_density_evolution())
         individual.density_evolution = density_evolution
         
+        if i % 100 == 0:
+            print(f'Individual {i}')
+            print('...')
+        
         # data = id|B|S|density_evolution
         ids[i] = int(i)
         Bs[i] = individual.B
