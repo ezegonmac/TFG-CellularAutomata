@@ -81,21 +81,15 @@ def train_models(dataset):
 
 
 def generate_model_and_scores_files(model, dataset, model_name):
-    X, y, X_train, X_test, y_train, y_test = get_dataset_density_train_test_split(dataset)
-    
-    xscaler = StandardScaler().fit(X_train)
-    X_train = xscaler.transform(X_train)
-    yscaler = StandardScaler().fit(y_train)
-    y_train = yscaler.transform(y_train)
+    split = get_dataset_density_train_test_split(dataset, scaled=True)
+    X, y, X_train, X_test, y_train, y_test = split
     
     model.fit(X_train, y_train)
     
     # model
     generate_model_file(dataset, model, model_name)
     
-    # scores 
-    X_test = pd.DataFrame(xscaler.transform(X_test))
-    y_test = pd.DataFrame(yscaler.transform(y_test))
+    # scores
     y_pred = model.predict(X_test)
     generate_scores_file(X, y, X_test, y_test, y_pred, model, dataset=dataset, model_name=model_name)
     print_evaluation(dataset, model_name)

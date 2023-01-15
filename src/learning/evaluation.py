@@ -111,7 +111,8 @@ def evaluate_nn_model_ds12_6():
 
 def evaluate_nn_model_gsh(dataset, param_grid, suffix=''):
     
-    X, y, X_train, X_test, y_train, y_test = get_dataset_density_train_test_split(dataset)
+    split = get_dataset_density_train_test_split(dataset, scaled=True)
+    X, y, X_train, X_test, y_train, y_test = split
     
     xscaler = StandardScaler().fit(X_train)
     X_train = xscaler.transform(X_train)
@@ -146,7 +147,8 @@ def evaluate_nn_model_gsh(dataset, param_grid, suffix=''):
 
 def evaluate_nn_model_gs(dataset, param_grid, suffix=''):
     
-    X, y = get_dataset_density_X_y_split(dataset)
+    split = get_dataset_density_train_test_split(dataset, scaled=True)
+    X, y, X_train, X_test, y_train, y_test = split
     
     nn_model = MLPRegressor(random_state=SKLEARN_RANDOM_SEED)
     
@@ -156,7 +158,7 @@ def evaluate_nn_model_gs(dataset, param_grid, suffix=''):
         estimator=nn_model, param_grid=param_grid, random_state=SKLEARN_RANDOM_SEED,
         verbose=1, n_jobs=-1, cv=5
     )
-    gs.fit(X, y)
+    gs.fit(X_train, y_train)
     
     gs_time = time() - tic
     print('GS time: ', gs_time)

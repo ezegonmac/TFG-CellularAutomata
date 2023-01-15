@@ -1,5 +1,6 @@
 import pandas as pd
 from sklearn.model_selection import train_test_split
+from sklearn.preprocessing import StandardScaler
 
 from constants import *
 from learning.test import *
@@ -31,9 +32,18 @@ def get_dataset_density_X_y_split(dataset):
     return X, y
 
 
-def get_dataset_density_train_test_split(dataset):
+def get_dataset_density_train_test_split(dataset, scaled=False):
     X, y = get_dataset_density_X_y_split(dataset)
     
     X_train, X_test, y_train, y_test = train_test_split(X, y, test_size=0.2, random_state=SKLEARN_RANDOM_SEED)
+    
+    if scaled:
+        xscaler = pd.DataFrame(StandardScaler().fit(X_train))
+        X_train = pd.DataFrame(xscaler.transform(X_train))
+        X_test = pd.DataFrame(xscaler.transform(X_test))
+        
+        yscaler = pd.DataFrame(StandardScaler().fit(y_train))
+        y_train = pd.DataFrame(yscaler.transform(y_train))
+        y_test = pd.DataFrame(yscaler.transform(y_test))
     
     return X, y, X_train, X_test, y_train, y_test

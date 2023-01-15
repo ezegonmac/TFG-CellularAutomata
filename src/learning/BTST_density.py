@@ -118,7 +118,8 @@ def evaluate_dataset(dataset):
 
 
 def generate_model_and_scores_files(model, dataset, model_name):
-    X, y, X_train, X_test, y_train, y_test = get_dataset_density_train_test_split(dataset)
+    split = get_dataset_density_train_test_split(dataset, scaled=False)
+    X, y, X_train, X_test, y_train, y_test = split
     
     model.fit(X_train, y_train)
     
