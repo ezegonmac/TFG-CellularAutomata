@@ -103,7 +103,7 @@ def generate_dataset12_density(save_individuals=False) -> None:
     density_min = 0
     density_max = 1
     
-    n_individuals = 1000
+    n_individuals = 5000
     
     # folders
     data_datasets_folder = get_data_datasets_folder(dataset_name)

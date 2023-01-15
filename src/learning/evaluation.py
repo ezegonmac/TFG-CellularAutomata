@@ -107,6 +107,49 @@ def evaluate_nn_model_ds12_6():
     
     evaluate_nn_model_gsh(dataset, param_grid, suffix='6')
 
+
+def evaluate_nn_model_ds12_7():
+    # not parallel
+    dataset = DATASET12_DENSITY
+    model_name = 'Neural Network'
+    model = MLPRegressor(
+        # parameters
+        hidden_layer_sizes=(50, 50, 50, 50),
+        alpha=0.3,  # not important
+        learning_rate='invscaling',  # medium importance
+        max_iter=10000,
+        solver='lbfgs',  # important
+        activation='tanh',  # not important
+        
+        random_state=SKLEARN_RANDOM_SEED,
+        # batch_size=300,
+        early_stopping=True,
+        verbose=False,
+        )
+    
+    print('Neural Network')
+    print('---------')
+    split = get_dataset_density_train_test_split(dataset, scaled=True)
+    X, y, X_train, X_test, y_train, y_test = split
+    
+    tic = time()
+    model.fit(X_train, y_train)
+    fit_time = time() - tic
+    print(f'fit time: {fit_time}')
+    
+    # model
+    generate_model_file(dataset, model, model_name)
+    
+    # scores
+    tic = time()
+    y_pred = model.predict(X_test)
+    test_time = time() - tic
+    print(f'test time: {test_time}')
+    
+    generate_scores_file(X, y, X_test, y_test, y_pred, model, dataset=dataset, model_name=model_name)
+    print_evaluation(dataset, model_name)
+
+
 # grid search and halving grid search
 
 def evaluate_nn_model_gsh(dataset, param_grid, suffix=''):

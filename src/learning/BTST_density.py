@@ -97,7 +97,11 @@ def evaluate_dataset(dataset):
         max_iter=3000,
         solver='lbfgs',  # important
         activation='tanh',  # not important
-        random_state=SKLEARN_RANDOM_SEED
+        
+        random_state=SKLEARN_RANDOM_SEED,
+        batch_size=300,
+        early_stopping=True,
+        verbose=True
         )
     
     print('---------------------------------')

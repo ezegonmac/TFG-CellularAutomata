@@ -1,5 +1,13 @@
+# Plots
 matplotlib==3.6.2
 # seaborn==0.12.1
+
+# Data
 pandas==1.5.2
-scikit-learn==1.2.0
 numpy==1.23.5
+
+# ML
+scikit-learn==1.2.0
+
+# Parallelization
+ray[default]==2.2.0

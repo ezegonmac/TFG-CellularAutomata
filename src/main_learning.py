@@ -21,3 +21,4 @@ if __name__ == '__main__':
     # evaluate_nn_model_ds12_4()
     # evaluate_nn_model_ds12_5()
     # evaluate_nn_model_ds12_6()
+    # evaluate_nn_model_ds12_7()
