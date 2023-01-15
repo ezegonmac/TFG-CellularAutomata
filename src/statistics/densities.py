@@ -40,7 +40,7 @@ def plot_density_evolutions(density_evolutions, title):
     colors = plt.cm.jet(np.linspace(0,1,n))
     for i in range(len(density_evolutions)):
         densities = density_evolutions[i]
-        plt.plot(densities, alpha=0.5, color=colors[i%len(colors)])
+        plt.plot(densities, alpha=0.9, color=colors[i%len(colors)])
     
     ax.set(ylim=(0, 1.1), xlabel='Iteraciones', ylabel='Densidad', title=title)
     # remove right and top spines
