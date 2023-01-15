@@ -10,12 +10,12 @@ from utils import *
 MODELS = ['KNN', 'DecisionTree', 'RandomForest', 'NeuralNetwork']
 
 
-def generate_score_evolution_comparison_plots(dataset):
+def generate_score_evolution_comparison_plots(dataset, suffix=''):
     metrics = ['MSE', 'R2']
 
     for model in MODELS:
         for metric in metrics:
-            generate_score_evolution_comparison_plot(dataset, metric=metric)
+            generate_score_evolution_comparison_plot(dataset, metric=metric, suffix=suffix)
 
 
 def generate_score_evolution_comparison_plot(dataset, metric, suffix='', y_min=0, y_max=1.1, show=False):

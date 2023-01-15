@@ -1,8 +1,7 @@
-import os
-
 from joblib import dump, load
 
 from constants import *
+from utils import *
 
 
 def generate_model_file(dataset, model, model_name):

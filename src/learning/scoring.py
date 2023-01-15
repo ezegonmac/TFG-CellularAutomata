@@ -80,7 +80,7 @@ def generate_scores_file(X, y, X_test, y_test, y_pred, model, dataset, model_nam
     row = df.loc[(df['Dataset'] == dataset) & (df['Model'] == model_name)]
     if row.empty:
         row = pd.DataFrame.from_dict(data, orient='index').T
-        df = df.append(row)
+        df = pd.concat([df, row], ignore_index=True)
     else:
         for key, value in data.items():
             df.loc[(df['Dataset'] == dataset) & (df['Model'] == model_name), key] = value

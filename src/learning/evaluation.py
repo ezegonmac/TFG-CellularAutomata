@@ -4,9 +4,10 @@ import pandas as pd
 from sklearn.experimental import enable_halving_search_cv  # noqa
 from sklearn.model_selection import HalvingGridSearchCV
 from sklearn.neural_network import MLPRegressor
+from sklearn.preprocessing import StandardScaler
 
 from constants import *
-from learning.BTST_density import get_dataset_density_X_y_split
+from learning.BTST_density import *
 
 
 def evaluate_nn_model_ds3_1():
@@ -23,9 +24,99 @@ def evaluate_nn_model_ds3_1():
     evaluate_nn_model_gsh(dataset, param_grid, suffix='1')
 
 
+def evaluate_nn_model_ds12_1():
+    dataset = DATASET12_DENSITY
+    param_grid = {
+        'hidden_layer_sizes': [(100, 100, 100), (9, 18, 9), (18, 18, 18), (18, 9, 18), (10, 18, 9)],
+        'activation': ['relu', 'tanh', 'logistic'],
+        'solver': ['lbfgs'],
+        'alpha': [0.05],
+        'learning_rate': ['invscaling'],
+        'max_iter': [10000],
+    }
+    
+    evaluate_nn_model_gsh(dataset, param_grid, suffix='1')
+
+
+def evaluate_nn_model_ds12_2():
+    dataset = DATASET12_DENSITY
+    param_grid = {
+        'hidden_layer_sizes': [(100, 100, 100)],
+        'activation': ['relu', 'tanh', 'logistic'],
+        'solver': ['lbfgs', 'sgd', 'adam'],
+        'alpha': [0.05, 0.1, 0.2, 0.3, 0.4, 0.5],
+        'learning_rate': ['invscaling'],
+        'max_iter': [10000],
+    }
+    
+    evaluate_nn_model_gsh(dataset, param_grid, suffix='2')
+
+
+def evaluate_nn_model_ds12_3():
+    dataset = DATASET12_DENSITY
+    param_grid = {
+        'hidden_layer_sizes': [(100, 100, 100), (100, 100, 100, 100), (50, 100, 50), (50, 50, 50), (50, 50, 50, 50)],
+        'activation': ['tanh'],
+        'solver': ['lbfgs'],
+        'alpha': [0.3],
+        'learning_rate': ['invscaling'],
+        'max_iter': [10000],
+    }
+    
+    evaluate_nn_model_gsh(dataset, param_grid, suffix='3')
+
+
+def evaluate_nn_model_ds12_4():
+    dataset = DATASET12_DENSITY
+    param_grid = {
+        'hidden_layer_sizes': [(50, 50, 50, 50), (50, 100, 100, 50), (25, 50, 50, 25), (50, 50, 50, 50, 50), (25, 50, 50, 50, 25)],
+        'activation': ['tanh'],
+        'solver': ['lbfgs'],
+        'alpha': [0.3],
+        'learning_rate': ['invscaling'],
+        'max_iter': [10000],
+    }
+    
+    evaluate_nn_model_gsh(dataset, param_grid, suffix='4')
+
+
+def evaluate_nn_model_ds12_5():
+    dataset = DATASET12_DENSITY
+    param_grid = {
+        'hidden_layer_sizes': [(25, 50, 50, 50, 25), (25, 50, 50, 50, 25, 25), (25, 50, 50, 50, 50, 25), (25, 50, 50, 50, 50, 25, 25)],
+        'activation': ['tanh'],
+        'solver': ['lbfgs'],
+        'alpha': [0.3],
+        'learning_rate': ['invscaling'],
+        'max_iter': [10000],
+    }
+    
+    evaluate_nn_model_gsh(dataset, param_grid, suffix='5')
+
+
+def evaluate_nn_model_ds12_6():
+    dataset = DATASET12_DENSITY
+    param_grid = {
+        'hidden_layer_sizes': [(25, 50, 50, 25, 25), (25, 50, 50, 25, 25, 25), (25, 50, 80, 50, 25), (20, 50, 50, 40, 20), (20, 50, 40, 20)],
+        'activation': ['tanh'],
+        'solver': ['lbfgs'],
+        'alpha': [0.3],
+        'learning_rate': ['invscaling'],
+        'max_iter': [10000],
+    }
+    
+    evaluate_nn_model_gsh(dataset, param_grid, suffix='6')
+
+# grid search and halving grid search
+
 def evaluate_nn_model_gsh(dataset, param_grid, suffix=''):
     
-    X, y = get_dataset_density_X_y_split(dataset)
+    X, y, X_train, X_test, y_train, y_test = get_dataset_density_train_test_split(dataset)
+    
+    xscaler = StandardScaler().fit(X_train)
+    X_train = xscaler.transform(X_train)
+    yscaler = StandardScaler().fit(y_train)
+    y_train = yscaler.transform(y_train)
     
     nn_model = MLPRegressor(random_state=SKLEARN_RANDOM_SEED)
     
@@ -33,10 +124,10 @@ def evaluate_nn_model_gsh(dataset, param_grid, suffix=''):
     tic = time()
     gsh = HalvingGridSearchCV(
         estimator=nn_model, param_grid=param_grid, factor=2, random_state=SKLEARN_RANDOM_SEED,
-        verbose=0, n_jobs=-1, cv=5,
+        verbose=1, n_jobs=-1, cv=5,
         aggressive_elimination=True
     )
-    gsh.fit(X, y)
+    gsh.fit(X_train, y_train)
     
     gsh_time = time() - tic
     print('HGS time: ', gsh_time)
@@ -63,7 +154,7 @@ def evaluate_nn_model_gs(dataset, param_grid, suffix=''):
     tic = time()
     gs = GridSearchCV(
         estimator=nn_model, param_grid=param_grid, random_state=SKLEARN_RANDOM_SEED,
-        verbose=0, n_jobs=-1, cv=5
+        verbose=1, n_jobs=-1, cv=5
     )
     gs.fit(X, y)
     

@@ -1,6 +1,4 @@
-import pandas as pd
 from sklearn.ensemble import RandomForestRegressor
-from sklearn.model_selection import train_test_split
 from sklearn.neighbors import KNeighborsRegressor
 from sklearn.neural_network import MLPRegressor
 from sklearn.tree import DecisionTreeRegressor
@@ -10,6 +8,7 @@ from utils import *
 from learning.scoring import *
 from learning.test import *
 from learning.models import *
+from learning.density_dataset import *
 
 
 def evaluate_dataset8():
@@ -130,32 +129,3 @@ def generate_model_and_scores_files(model, dataset, model_name):
     y_pred = model.predict(X_test)
     generate_scores_file(X, y, X_test, y_test, y_pred, model, dataset=dataset, model_name=model_name)
     print_evaluation(dataset, model_name)
-
-
-def load_dataset_density(dataset):
-    data_dataset_folder = get_data_datasets_folder(dataset)
-    dataset_folder = f'{data_dataset_folder}/{dataset}'
-    file = f'{dataset_folder}/density_dataset.csv'
-    
-    df = pd.read_csv(file)
-    
-    return df
-
-
-def get_dataset_density_X_y_split(dataset):
-    df = load_dataset_density(dataset)
-    
-    num_iterations = len(df.columns) - 3
-    iterations = [str(i) for i in range(1, num_iterations-1)]
-    X = df[['B', 'S', '0']]
-    y = df[iterations]
-    
-    return X, y
-
-
-def get_dataset_density_train_test_split(dataset):
-    X, y = get_dataset_density_X_y_split(dataset)
-    
-    X_train, X_test, y_train, y_test = train_test_split(X, y, test_size=0.2, random_state=SKLEARN_RANDOM_SEED)
-    
-    return X, y, X_train, X_test, y_train, y_test
