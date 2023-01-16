@@ -75,6 +75,14 @@ DATASETS_BY_TYPE = {
     DATASET13_DENSITY: 'BISI',
 }
 
+#----------------#
+#     MODELS     #
+#----------------#
+KNN = 'KNN'
+DECISION_TREE = 'DecisionTree'
+RANDOM_FOREST = 'RandomForest'
+NEURAL_NETWORK = 'NeuralNetwork'
+
 
 #----------------#
 #     STYLES     #

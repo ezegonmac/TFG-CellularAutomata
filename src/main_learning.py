@@ -24,3 +24,11 @@ if __name__ == '__main__':
     # evaluate_nn_model_ds12_5()
     # evaluate_nn_model_ds12_6()
     # evaluate_nn_model_ds12_7()
+
+    for i in range(1, 11):
+        generate_individual_real_vs_predicted_plot(
+            DATASET12_DENSITY, 
+            NEURAL_NETWORK, 
+            individual=i, 
+            suffix=''
+            )

@@ -2,12 +2,15 @@ import matplotlib.pyplot as plt
 import numpy as np
 import pandas as pd
 from matplotlib.ticker import MaxNLocator
+from sklearn.preprocessing import StandardScaler
 
 from constants import *
 from learning.scoring import *
 from utils import *
+from learning.density_dataset import *
+from learning.models import *
 
-MODELS = ['KNN', 'DecisionTree', 'RandomForest', 'NeuralNetwork']
+MODELS = [KNN, DECISION_TREE, RANDOM_FOREST, NEURAL_NETWORK]
 
 
 def generate_score_evolution_comparison_plots(dataset, suffix=''):
@@ -114,3 +117,33 @@ def print_random_checks(y_test, y_pred, iteration='1'):
     
     print('Some random checks:')
     print(predict_df)
+
+
+def generate_individual_real_vs_predicted_plot(dataset, model_name, individual, iterations=10, suffix=None, show=False):
+
+    X, y, X_train, X_test, y_train, y_test = get_dataset_density_train_test_split(dataset, scaled=True)
+    _, yscaler = get_x_y_scalers(dataset)  # TODO: get scaler differently
+    
+    model = load_model_from_file(dataset, model_name)
+
+    individual_real = y_test.iloc[individual]
+    individual_pred = model.predict(X_test.iloc[individual].values.reshape(1, -1))
+    
+    # ValueError: non-broadcastable output operand with shape (9,1) doesn't match the broadcast shape (9,9)
+    individual_real = individual_real
+    individual_pred = yscaler.inverse_transform(individual_pred)
+
+    densities_real = individual_real.values
+    densities_pred = individual_pred[0]
+
+    colors = plt.cm.jet(np.linspace(0,1,2))
+    plt.plot(densities_real, alpha=0.9, color=colors[0])
+    plt.plot(densities_pred, alpha=0.9, color=colors[1])
+    plt.legend(['Real', 'Pred'])
+    plt.ylim((0, 1.1))
+    
+    suffix = f'_{suffix}' if suffix else ''
+    test_figures_folder = get_test_figures_folder(dataset)
+    individuals_folder = f'{test_figures_folder}/individuals'
+    plt.show() if show else plt.savefig(f'{individuals_folder}/individual_rvsp_{dataset}_{model_name}_i{individual}_{suffix}.png', dpi=300)
+    plt.close()

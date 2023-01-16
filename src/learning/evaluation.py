@@ -111,7 +111,7 @@ def evaluate_nn_model_ds12_6():
 def evaluate_nn_model_ds12_7():
     # not parallel
     dataset = DATASET12_DENSITY
-    model_name = 'Neural Network'
+    model_name = 'NeuralNetwork'
     model = MLPRegressor(
         # parameters
         hidden_layer_sizes=(50, 50, 50, 50),
