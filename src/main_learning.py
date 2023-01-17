@@ -2,6 +2,7 @@ from constants import *
 from learning.BTST_density import *
 from learning.BISI_density import *
 from learning.evaluation import *
+from learning.individuals import *
 
 
 if __name__ == '__main__':
@@ -24,11 +25,7 @@ if __name__ == '__main__':
     # evaluate_nn_model_ds12_5()
     # evaluate_nn_model_ds12_6()
     # evaluate_nn_model_ds12_7()
-
-    for i in range(1, 11):
-        generate_individual_real_vs_predicted_plot(
-            DATASET12_DENSITY, 
-            NEURAL_NETWORK, 
-            individual=i, 
-            suffix=''
-            )
+    
+    generate_dataset3_individuals_plots()
+    # generate_dataset8_individuals_plots()
+    # generate_dataset12_individuals_plots()

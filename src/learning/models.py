@@ -21,7 +21,7 @@ def load_model_from_file(dataset, model_name):
     model_file = f'{model_folder}/{model_name}_{dataset}.pkl'
 
     create_folder_if_not_exists(model_folder)
-    
+    print(model_file)
     model = load(model_file)
     
     return model

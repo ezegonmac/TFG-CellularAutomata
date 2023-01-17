@@ -6,6 +6,8 @@ from constants import *
 from learning.test import *
 from utils import *
 
+TEST_SIZE = 0.2
+
 
 def load_dataset_density(dataset):
     data_dataset_folder = get_data_datasets_folder(dataset)
@@ -21,11 +23,16 @@ def get_dataset_density_X_y_split(dataset):
     df = load_dataset_density(dataset)
     
     dataset_type = DATASETS_BY_TYPE[dataset]
-    x_columns = ['B', 'S', '0'] if dataset_type == 'BTST' else None
-    x_columns = ['Bl', 'Bt', 'Sl', 'St', '0'] if dataset_type == 'BISI' else None
+    x_columns = []
+    if dataset_type == 'BTST':
+        x_columns = ['B', 'S', '0']
+    if dataset_type == 'BISI':
+        x_columns = ['Bl', 'Bt', 'Sl', 'St', '0']
     
+    print(df.columns)
+    print(x_columns)
     num_iterations = len(df.columns) - len(x_columns) - 2
-    iterations = [str(i) for i in range(1, num_iterations-1)]
+    iterations = [str(i) for i in range(1, num_iterations + 1)]
     X = df[x_columns]
     y = df[iterations]
     
@@ -35,7 +42,7 @@ def get_dataset_density_X_y_split(dataset):
 def get_dataset_density_train_test_split(dataset, scaled=False):
     X, y = get_dataset_density_X_y_split(dataset)
     
-    X_train, X_test, y_train, y_test = train_test_split(X, y, test_size=0.2, random_state=SKLEARN_RANDOM_SEED)
+    X_train, X_test, y_train, y_test = train_test_split(X, y, test_size=TEST_SIZE, random_state=SKLEARN_RANDOM_SEED)
     
     if scaled:
         xscaler, yscaler = get_x_y_scalers(dataset)
@@ -51,7 +58,7 @@ def get_dataset_density_train_test_split(dataset, scaled=False):
 
 def get_x_y_scalers(dataset):
     X, y = get_dataset_density_X_y_split(dataset)
-    X_train, X_test, y_train, y_test = train_test_split(X, y, test_size=0.2, random_state=SKLEARN_RANDOM_SEED)
+    X_train, X_test, y_train, y_test = train_test_split(X, y, test_size=TEST_SIZE, random_state=SKLEARN_RANDOM_SEED)
     
     xscaler = StandardScaler().fit(X_train)
     yscaler = StandardScaler().fit(y_train)
