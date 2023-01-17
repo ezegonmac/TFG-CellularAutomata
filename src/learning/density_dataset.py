@@ -23,15 +23,16 @@ def get_dataset_density_X_y_split(dataset):
     df = load_dataset_density(dataset)
     
     dataset_type = DATASETS_BY_TYPE[dataset]
+    
     x_columns = []
+    num_iterations = 0
     if dataset_type == 'BTST':
         x_columns = ['B', 'S', '0']
+        num_iterations = len(df.columns) - len(x_columns) - 2 # 2 from Unnamed and id
     if dataset_type == 'BISI':
         x_columns = ['Bl', 'Bt', 'Sl', 'St', '0']
+        num_iterations = len(df.columns) - len(x_columns) - 4 # from Unnamed, id, B, S 
     
-    print(df.columns)
-    print(x_columns)
-    num_iterations = len(df.columns) - len(x_columns) - 2
     iterations = [str(i) for i in range(1, num_iterations + 1)]
     X = df[x_columns]
     y = df[iterations]

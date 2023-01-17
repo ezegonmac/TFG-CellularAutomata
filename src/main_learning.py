@@ -26,6 +26,7 @@ if __name__ == '__main__':
     # evaluate_nn_model_ds12_6()
     # evaluate_nn_model_ds12_7()
     
-    generate_dataset3_individuals_plots()
+    # generate_dataset3_individuals_plots()
     # generate_dataset8_individuals_plots()
-    # generate_dataset12_individuals_plots()
+    # generate_dataset11_individuals_plots()
+    generate_dataset12_individuals_plots()
