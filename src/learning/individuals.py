@@ -1,5 +1,6 @@
 import matplotlib.pyplot as plt
 import numpy as np
+from matplotlib.ticker import MaxNLocator
 
 from constants import *
 from learning.scoring import *
@@ -87,16 +88,30 @@ def generate_individual_real_vs_predicted_plot(dataset, model_name, individual, 
     densities_pred = individual_pred[0]
 
     # plot
+    plt.ylim((-0.1, 1.199))
+    iterations = len(densities_real)
+    plt.xlim((-0.5, iterations))
+    # limits
+    plt.plot([-1, iterations+1], [0, 0], color='black', linewidth=0.5, alpha=0.2, label='_nolegend_')
+    plt.plot([-1, iterations+1], [1, 1], color='black', linewidth=0.5, alpha=0.2, label='_nolegend_')
+    # remove spines top and right
+    plt.gca().spines['top'].set_visible(False)
+    plt.gca().spines['right'].set_visible(False)
+    # ticks major locator x
+    plt.gca().xaxis.set_major_locator(MaxNLocator(integer=True))
+    # labels
+    plt.xlabel('Iteration', labelpad=10, fontsize=12)
+    plt.ylabel('Density', labelpad=10, fontsize=12)
+    
     colors = plt.cm.jet(np.linspace(0,1,8))
-    plt.plot(densities_real, alpha=1, color=colors[2], marker='o', linestyle='--')
-    plt.plot(densities_pred, alpha=1, color=colors[6], marker='.', linestyle=':')
-    plt.legend(['Real', 'Pred'])
-    plt.ylim((-0.1, 1.1))
+    plt.plot(densities_real, label='Real', alpha=1, color=colors[2], marker='o', linestyle='-')
+    plt.plot(densities_pred, label='Predicted', alpha=1, color=colors[6], marker='.', linestyle=':')
+    plt.legend(loc='upper right', bbox_to_anchor=(1.15, 1.1))
 
     # file
     suffix = f'_{suffix}' if suffix else ''
     test_figures_folder = get_test_figures_folder(dataset)
     individuals_folder = f'{test_figures_folder}/individuals/{dataset}'
     create_folder_if_not_exists(individuals_folder)
-    plt.show() if show else plt.savefig(f'{individuals_folder}/individual_rvsp_{dataset}_{model_name}_i{individual}_{suffix}.png', dpi=300)
+    plt.show() if show else plt.savefig(f'{individuals_folder}/individual_rvsp_{dataset}_{model_name}_i{individual}_{suffix}.png', dpi=300, bbox_inches='tight')
     plt.close()
