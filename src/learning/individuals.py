@@ -83,22 +83,22 @@ def generate_individual_real_vs_predicted_plot(dataset, model_name, individual, 
     individual_real = individual_real
     individual_pred = yscaler.inverse_transform(individual_pred) if scaled else individual_pred
 
-    # get densities
+    # get densities np arrays
     densities_real = individual_real.values
     densities_pred = individual_pred[0]
 
     # plot
-    plt.ylim((-0.1, 1.199))
+    plt.ylim((-0.199, 1.199))
     iterations = len(densities_real)
     plt.xlim((-0.5, iterations))
     # limits
-    plt.plot([-1, iterations+1], [0, 0], color='black', linewidth=0.5, alpha=0.2, label='_nolegend_')
-    plt.plot([-1, iterations+1], [1, 1], color='black', linewidth=0.5, alpha=0.2, label='_nolegend_')
+    plt.plot([-1, iterations+0.5], [0, 0], color='black', linewidth=0.35, alpha=0.8, label='_nolegend_')
+    plt.plot([-1, iterations+0.5], [1, 1], color='black', linewidth=0.35, alpha=0.8, label='_nolegend_')
     # remove spines top and right
     plt.gca().spines['top'].set_visible(False)
     plt.gca().spines['right'].set_visible(False)
-    # ticks major locator x
-    plt.gca().xaxis.set_major_locator(MaxNLocator(integer=True))
+    # x ticks
+    plt.xticks(np.arange(iterations), np.arange(1, iterations+1))
     # labels
     plt.xlabel('Iteration', labelpad=10, fontsize=12)
     plt.ylabel('Density', labelpad=10, fontsize=12)
