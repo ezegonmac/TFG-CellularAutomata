@@ -1,6 +1,5 @@
 import matplotlib.pyplot as plt
 import numpy as np
-from matplotlib.ticker import MaxNLocator
 
 from constants import *
 from learning.scoring import *

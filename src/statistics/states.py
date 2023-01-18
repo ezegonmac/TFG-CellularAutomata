@@ -8,6 +8,16 @@ from constants import *
 from utils import *
 
 
+def create_random_states_plots(dataset, num_individuals=20, min_iteration=0, max_iteration=4, show=False, title=""):
+    datasets_folder = get_data_datasets_folder(dataset)
+    dataset_file = f'{datasets_folder}/{dataset}/dataset.csv'
+    dataset_size = len(open(dataset_file).readlines())
+    np.random.seed(NP_RANDOM_SEED)
+    choices = np.random.choice(range(0, dataset_size-1), num_individuals, replace=False)
+    for i in choices:
+        create_states_plot(dataset, individual=i, min_iteration=0, max_iteration=4)
+
+
 def create_states_plot(dataset, individual=0, min_iteration=0, max_iteration=4, show=False, title=""):
     fig, axs = plt.subplots(1, 
                             max_iteration+1, 
@@ -23,7 +33,9 @@ def create_states_plot(dataset, individual=0, min_iteration=0, max_iteration=4, 
         plot_state(state, title, ax)
     
     states_figures_folder = get_states_figures_folder(dataset)
-    plt.show() if show else plt.savefig(f'{states_figures_folder}/{dataset}_states_individual_{individual}_it{min_iteration}_{max_iteration}.png', dpi=200, bbox_inches='tight')
+    folder = f'{states_figures_folder}/{dataset}'
+    create_folder_if_not_exists(folder)
+    plt.show() if show else plt.savefig(f'{folder}/{dataset}_states_individual_{individual}_it{min_iteration}_{max_iteration}.png', dpi=200, bbox_inches='tight')
     plt.close()
 
 
@@ -33,7 +45,9 @@ def create_state_plot(dataset, individual=0, iteration=0, show=False, title=""):
     plot_state(state, title)
 
     states_figures_folder = get_states_figures_folder(dataset)
-    plt.show() if show else plt.savefig(f'{states_figures_folder}/state_it_{iteration}_individual_{individual}_{dataset}.png', dpi=200, bbox_inches='tight')
+    folder = f'{states_figures_folder}/{dataset}'
+    create_folder_if_not_exists(folder)
+    plt.show() if show else plt.savefig(f'{folder}/{dataset}/state_it_{iteration}_individual_{individual}_{dataset}.png', dpi=200, bbox_inches='tight')
     plt.close()
 
 

@@ -6,7 +6,7 @@ if __name__ == '__main__':
 
     # generate_dataset1()
     # generate_dataset2()
-    # generate_dataset3()
+    generate_dataset3(save_individuals=True)
     # generate_dataset4()
     # generate_dataset5()
     # generate_dataset6()
