@@ -16,18 +16,13 @@ def generate_evaluation_plots_dataset11_density():
     dataset = DATASET11_DENSITY
     
     # score model comparison plots
-    generate_scores_model_comparison_plot(dataset, metric='MSE')
-    generate_scores_model_comparison_plot(dataset, metric='R2')
-    # generate_scores_model_comparison_plot(dataset, metric='MSE', y_min=0, y_max=0.02, suffix='scaled')
-    # generate_scores_model_comparison_plot(dataset, metric='R2', y_min=0.95, y_max=1.0, suffix='scaled')
-    
+    # generate_scores_model_comparison_plot(dataset, metric='MSE', suffix='2_5000_ind')
+    # generate_scores_model_comparison_plot(dataset, metric='R2', suffix='2_5000_ind')
+
     # score evolution plots
     generate_score_evolution_plots(dataset)
     
     generate_score_evolution_comparison_plots(dataset)
-
-    # generate_score_evolution_comparison_plot(dataset, metric="MSE", y_max=0.01, suffix='scaled')
-    # generate_score_evolution_comparison_plot(dataset, metric="R2", y_min=0.96, y_max=1, suffix='scaled')
 
 
 def generate_evaluation_plots_dataset12_density():
@@ -36,16 +31,11 @@ def generate_evaluation_plots_dataset12_density():
     # score model comparison plots
     generate_scores_model_comparison_plot(dataset, metric='MSE')
     generate_scores_model_comparison_plot(dataset, metric='R2')
-    # generate_scores_model_comparison_plot(dataset, metric='MSE', y_min=0, y_max=0.02, suffix='scaled')
-    # generate_scores_model_comparison_plot(dataset, metric='R2', y_min=0.95, y_max=1.0, suffix='scaled')
-    
+
     # score evolution plots
     generate_score_evolution_plots(dataset)
     
     generate_score_evolution_comparison_plots(dataset)
-
-    # generate_score_evolution_comparison_plot(dataset, metric="MSE", y_max=0.01, suffix='scaled')
-    # generate_score_evolution_comparison_plot(dataset, metric="R2", y_min=0.96, y_max=1, suffix='scaled')
 
 
 def generate_evaluation_plots_dataset13_density():
@@ -54,16 +44,11 @@ def generate_evaluation_plots_dataset13_density():
     # score model comparison plots
     generate_scores_model_comparison_plot(dataset, metric='MSE')
     generate_scores_model_comparison_plot(dataset, metric='R2')
-    # generate_scores_model_comparison_plot(dataset, metric='MSE', y_min=0, y_max=0.02, suffix='scaled')
-    # generate_scores_model_comparison_plot(dataset, metric='R2', y_min=0.95, y_max=1.0, suffix='scaled')
-    
+
     # score evolution plots
     generate_score_evolution_plots(dataset)
     
     generate_score_evolution_comparison_plots(dataset)
-
-    # generate_score_evolution_comparison_plot(dataset, metric="MSE", y_max=0.01, suffix='scaled')
-    # generate_score_evolution_comparison_plot(dataset, metric="R2", y_min=0.96, y_max=1, suffix='scaled')
 
 
 def train_models(dataset):

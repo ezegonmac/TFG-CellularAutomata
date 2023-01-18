@@ -47,11 +47,10 @@ def get_dataset_density_train_test_split(dataset, scaled=False):
     
     if scaled:
         xscaler, yscaler = get_x_y_scalers(dataset)
-        xscaler = StandardScaler().fit(X_train)
+        
         X_train = pd.DataFrame(xscaler.transform(X_train))
         X_test = pd.DataFrame(xscaler.transform(X_test))
         
-        yscaler = StandardScaler().fit(y_train)
         y_train = pd.DataFrame(yscaler.transform(y_train))
         y_test = pd.DataFrame(yscaler.transform(y_test))
     

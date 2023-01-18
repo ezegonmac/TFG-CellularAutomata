@@ -7,11 +7,11 @@ from learning.individuals import *
 
 if __name__ == '__main__':
     
-    # train_and_evaluate_dataset3()
-    # train_and_evaluate_dataset8()
-    # train_and_evaluate_dataset9()
-    # train_and_evaluate_dataset10()
-    # train_dataset11()
+    # train_models(DATASET3_DENSITY)
+    # train_models(DATASET8_DENSITY)
+    # train_models(DATASET9_DENSITY)
+    # train_models(DATASET10_DENSITY)
+    # train_models(DATASET11_DENSITY)
     # generate_evaluation_plots_dataset11_density()
     # train_models(DATASET12_DENSITY)
     # generate_evaluation_plots_dataset12_density()
@@ -30,3 +30,4 @@ if __name__ == '__main__':
     # generate_dataset8_individuals_plots()
     # generate_dataset11_individuals_plots()
     # generate_dataset12_individuals_plots()
+    # generate_dataset13_individuals_plots()
