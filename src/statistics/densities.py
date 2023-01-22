@@ -29,7 +29,7 @@ def create_dataset_density_evolution_plot(dataset, show=False, title="Evolución
     
     density_figures_folder = get_density_figures_folder(dataset)
     suffix = f'_{suffix}' if suffix else ''
-    plt.show() if show else plt.savefig(f'{density_figures_folder}/density_evolution_{dataset}_{suffix}.png', dpi=300)
+    plt.show() if show else plt.savefig(f'{density_figures_folder}/density_evolution_{dataset}{suffix}.png', dpi=300)
     plt.close()
 
 
