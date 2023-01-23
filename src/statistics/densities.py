@@ -36,10 +36,17 @@ def create_dataset_density_evolution_plot(dataset, show=False, title="Evolución
 def plot_density_evolutions(density_evolutions, title, num_colors=20):
     ax = plt.subplot(111)
     
+    # fig size
+    iterations = len(density_evolutions[0])
+    if iterations <= 15:
+        ax.figure.set_size_inches(6, 4)
+    if iterations > 15:
+        ax.figure.set_size_inches(15, 4)
+    
     colors = plt.cm.jet(np.linspace(0,1,num_colors))
     for i in range(len(density_evolutions)):
         densities = density_evolutions[i]
-        plt.plot(densities, alpha=0.5, color=colors[i%len(colors)])
+        plt.plot(densities, alpha=0.5, color=colors[i % len(colors)])
     
     ax.set(ylim=(0, 1.1), xlabel='Iteraciones', ylabel='Densidad', title=title)
     # remove right and top spines
@@ -97,7 +104,6 @@ def plot_density_histogram(ax, densities, iteration):
 # density variation
 
 def create_dataset_density_variation_plot(dataset, show=False, title="Variación de la densidad", limit=None, suffix=''):
-    
     data_datasets_folder = get_data_datasets_folder(dataset)
     dataset_file = f'{data_datasets_folder}/{dataset}/dataset.csv'
     df = pd.read_csv(dataset_file)
@@ -117,6 +123,14 @@ def create_dataset_density_variation_plot(dataset, show=False, title="Variación
     
 
 def plot_density_variations(density_evolutions, title):
+    ax = plt.subplot(111)
+    
+    # fig size
+    iterations = len(density_evolutions[0])
+    if iterations <= 15:
+        ax.figure.set_size_inches(6, 4)
+    if iterations > 15:
+        ax.figure.set_size_inches(15, 4)
     
     density_variations = []
     for density_evolution in density_evolutions:
@@ -125,8 +139,6 @@ def plot_density_variations(density_evolutions, title):
             variation = density_evolution[i] - density_evolution[i-1]
             variations.append(variation)
         density_variations.append(variations)
-    
-    ax = plt.subplot(111)
     
     for variation in density_variations:
         plt.plot(variation, alpha=0.3)
