@@ -28,6 +28,26 @@ def generate_dataset8_individuals_plots():
         )
 
 
+def generate_dataset9_individuals_plots():
+    generate_individuals_real_vs_predicted_plots(
+        DATASET9_DENSITY, 
+        NEURAL_NETWORK, 
+        num_individuals=20,
+        scaled=False,
+        suffix=''
+        )
+
+
+def generate_dataset10_individuals_plots():
+    generate_individuals_real_vs_predicted_plots(
+        DATASET10_DENSITY, 
+        NEURAL_NETWORK, 
+        num_individuals=20,
+        scaled=False,
+        suffix=''
+        )
+
+
 def generate_dataset11_individuals_plots():
     generate_individuals_real_vs_predicted_plots(
         DATASET11_DENSITY, 
