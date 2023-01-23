@@ -53,24 +53,25 @@ if __name__ == '__main__':
     # print('dataset10 done')
     
     # dataset = DATASET11
-    # create_dataset_density_evolution_plot(dataset, limit=100, suffix='100')
-    # create_dataset_density_evolution_plot(dataset, limit=200, suffix='200')
-    # create_dataset_density_evolution_plot(dataset, limit=500, suffix='500')
-    # create_dataset_density_evolution_plot(dataset, limit=700, suffix='700')
-    # create_dataset_density_variation_plot(dataset, limit=200, suffix='200')
-    # create_dataset_density_variation_plot(dataset, limit=500, suffix='500')
+    # create_dataset_density_evolution_plot(dataset, limit=10, suffix='10_4', num_colors=10)
+    # create_dataset_density_evolution_plot(dataset, limit=100, suffix='100_2')
+    # create_dataset_density_evolution_plot(dataset, limit=200, suffix='200_2')
+    # create_dataset_density_evolution_plot(dataset, limit=500, suffix='500_2')
+    # create_dataset_density_evolution_plot(dataset, limit=700, suffix='700_2')
+    # create_dataset_density_variation_plot(dataset, limit=200, suffix='200_2')
+    # create_dataset_density_variation_plot(dataset, limit=500, suffix='500_2')
     # create_dataset_density_histograms_plot(dataset)
     # print(f'{dataset} done')
     
     # dataset = DATASET12
-    # create_dataset_density_evolution_plot(dataset, limit=8, suffix='8')
+    # create_dataset_density_evolution_plot(dataset, limit=10, suffix='10_4', num_colors=10)
     # create_dataset_density_evolution_plot(dataset, limit=100, suffix='100')
     # create_dataset_density_evolution_plot(dataset, limit=200, suffix='200')
     # create_dataset_density_evolution_plot(dataset, limit=500, suffix='500')
     # create_dataset_density_evolution_plot(dataset, limit=700, suffix='700')
     # create_dataset_density_variation_plot(dataset, limit=200, suffix='200')
     # create_dataset_density_variation_plot(dataset, limit=500, suffix='500')
-    # create_dataset_density_histograms_plot(dataset)
+    # create_dataset_density_histograms_plot(dataset, suffix='2')
     # print(f'{dataset} done')
     
     # dataset = DATASET13

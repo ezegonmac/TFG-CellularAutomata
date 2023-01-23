@@ -18,7 +18,12 @@ def generate_dataset_files_from_individuals(individuals, dataset_folder, individ
     create_folder_if_not_exists(individuals_folder)
     
     # generate file and set evolution densities for each individual
-    for individual in individuals:
+    for i in range(len(individuals)):
+        individual = individuals[i]
+        
+        if i % 100 == 0:
+            print(f'Individual {i}')
+            print('...')
         
         ca = generate_ca_from_individual(individual, rule_type)
         

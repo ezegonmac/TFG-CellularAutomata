@@ -13,7 +13,7 @@ from utils import *
 
 # density evolution
 
-def create_dataset_density_evolution_plot(dataset, show=False, title="Evolución de la densidad", limit=None, suffix=''):
+def create_dataset_density_evolution_plot(dataset, show=False, title="Evolución de la densidad", limit=None, suffix='', num_colors=20):
     
     data_datasets_folder = get_data_datasets_folder(dataset)
     dataset_file = f'{data_datasets_folder}/{dataset}/dataset.csv'
@@ -25,7 +25,7 @@ def create_dataset_density_evolution_plot(dataset, show=False, title="Evolución
     
     density_evolutions = df['density_evolution'].apply(literal_eval).values
 
-    plot_density_evolutions(density_evolutions, title)
+    plot_density_evolutions(density_evolutions, title, num_colors=num_colors)
     
     density_figures_folder = get_density_figures_folder(dataset)
     suffix = f'_{suffix}' if suffix else ''
@@ -33,14 +33,13 @@ def create_dataset_density_evolution_plot(dataset, show=False, title="Evolución
     plt.close()
 
 
-def plot_density_evolutions(density_evolutions, title):
+def plot_density_evolutions(density_evolutions, title, num_colors=20):
     ax = plt.subplot(111)
     
-    n = 20
-    colors = plt.cm.jet(np.linspace(0,1,n))
+    colors = plt.cm.jet(np.linspace(0,1,num_colors))
     for i in range(len(density_evolutions)):
         densities = density_evolutions[i]
-        plt.plot(densities, alpha=0.9, color=colors[i%len(colors)])
+        plt.plot(densities, alpha=0.5, color=colors[i%len(colors)])
     
     ax.set(ylim=(0, 1.1), xlabel='Iteraciones', ylabel='Densidad', title=title)
     # remove right and top spines
@@ -76,7 +75,7 @@ def create_dataset_density_histograms_plot(dataset, show=False, title="Histogram
     
     density_figures_folder = get_density_figures_folder(dataset)
     suffix = f'_{suffix}' if suffix else ''
-    plt.show() if show else plt.savefig(f'{density_figures_folder}/density_histograms_{dataset}_{suffix}.png', dpi=300, bbox_inches='tight')
+    plt.show() if show else plt.savefig(f'{density_figures_folder}/density_histograms_{dataset}{suffix}.png', dpi=300, bbox_inches='tight')
     plt.close()
 
 
@@ -113,7 +112,7 @@ def create_dataset_density_variation_plot(dataset, show=False, title="Variación
     
     density_figures_folder = get_density_figures_folder(dataset)
     suffix = f'_{suffix}' if suffix else ''
-    plt.show() if show else plt.savefig(f'{density_figures_folder}/density_variation_{dataset}_{suffix}.png', dpi=300)
+    plt.show() if show else plt.savefig(f'{density_figures_folder}/density_variation_{dataset}{suffix}.png', dpi=300)
     plt.close()
     
 
@@ -166,7 +165,7 @@ def create_dataset_density_evolution_per_B_plot(dataset, show=False, title="Evol
     
     density_figures_folder = get_density_figures_folder(dataset)
     suffix = f'_{suffix}' if suffix else ''
-    plt.show() if show else plt.savefig(f'{density_figures_folder}/density_evolution_B_{dataset}_{suffix}.png', dpi=300, bbox_inches='tight')
+    plt.show() if show else plt.savefig(f'{density_figures_folder}/density_evolution_B_{dataset}{suffix}.png', dpi=300, bbox_inches='tight')
     plt.close()
     
 
@@ -221,7 +220,7 @@ def create_dataset_density_evolution_per_S_plot(dataset, show=False, title="Evol
     
     density_figures_folder = get_density_figures_folder(dataset)
     suffix = f'_{suffix}' if suffix else ''
-    plt.show() if show else plt.savefig(f'{density_figures_folder}/density_evolution_S_{dataset}_{suffix}.png', dpi=300, bbox_inches='tight')
+    plt.show() if show else plt.savefig(f'{density_figures_folder}/density_evolution_S_{dataset}{suffix}.png', dpi=300, bbox_inches='tight')
     plt.close()
 
 
@@ -305,5 +304,5 @@ def create_dataset_density_evolution_per_B_and_S_plot(dataset, show=False, title
     
     density_figures_folder = get_density_figures_folder(dataset)
     suffix = f'_{suffix}' if suffix else ''
-    plt.show() if show else plt.savefig(f'{density_figures_folder}/density_evolution_B_and_S_{dataset}_{suffix}.png', dpi=300, bbox_inches='tight')
+    plt.show() if show else plt.savefig(f'{density_figures_folder}/density_evolution_B_and_S_{dataset}{suffix}.png', dpi=300, bbox_inches='tight')
     plt.close()

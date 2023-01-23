@@ -31,9 +31,9 @@ def generate_dataset11_density() -> None:
     
     # free attributes
     B_min = 0
-    B_max = 9
+    B_max = 8
     S_min = 0
-    S_max = 9
+    S_max = 8
       
     n_individuals = 5000
     
@@ -97,9 +97,9 @@ def generate_dataset12_density() -> None:
     
     # free attributes
     B_min = 0
-    B_max = 9
+    B_max = 8
     S_min = 0
-    S_max = 9
+    S_max = 8
     density_min = 0
     density_max = 1
     
@@ -166,9 +166,9 @@ def generate_dataset13_density() -> None:
     
     # free attributes
     B_min = 0
-    B_max = 9
+    B_max = 8
     S_min = 0
-    S_max = 9
+    S_max = 8
     density_min = 0
     density_max = 1
     

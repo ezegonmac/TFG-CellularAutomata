@@ -31,11 +31,11 @@ def generate_dataset11(save_individuals=False) -> None:
     
     # free attributes
     B_min = 0
-    B_max = 9
+    B_max = 8
     S_min = 0
-    S_max = 9
+    S_max = 8
       
-    n_individuals = 100
+    n_individuals = 5000
     
     # folders
     data_datasets_folder = get_data_datasets_folder(dataset_name)
@@ -98,13 +98,13 @@ def generate_dataset12(save_individuals=False) -> None:
     
     # free attributes
     B_min = 0
-    B_max = 9
+    B_max = 8
     S_min = 0
-    S_max = 9
+    S_max = 8
     density_min = 0
     density_max = 1
     
-    n_individuals = 2000
+    n_individuals = 3000
     
     # folders
     data_datasets_folder = get_data_datasets_folder(dataset_name)
@@ -168,9 +168,9 @@ def generate_dataset13(save_individuals=False) -> None:
     
     # free attributes
     B_min = 0
-    B_max = 9
+    B_max = 8
     S_min = 0
-    S_max = 9
+    S_max = 8
     density_min = 0
     density_max = 1
     
