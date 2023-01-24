@@ -30,11 +30,15 @@ repo_url: https://github.com/ezegonmac/TFG-CellularAutomata
 repo_name: ezegonmac/TFG-CellularAutomata
 
 plugins:
-  - mkdocstrings
   - search
+  - gen-files:
+      scripts:
+      - docs/gen_ref_pages.py
+  - mkdocstrings
 
 nav:
   - Introduction: index.md
   - Getting Started: getting-started.md
   - API Reference: reference.md
+  # - Reference: reference/
   - Explanation: explanation.md
