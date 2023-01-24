@@ -11,3 +11,6 @@ scikit-learn==1.2.0
 
 # Parallelization
 ray[default]==2.2.0
+
+# Code linter
+flake8==5.0.4
