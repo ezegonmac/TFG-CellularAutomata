@@ -1,15 +1,18 @@
+import pandas as pd
 from sklearn.ensemble import RandomForestRegressor
 from sklearn.neighbors import KNeighborsRegressor
 from sklearn.neural_network import MLPRegressor
 from sklearn.tree import DecisionTreeRegressor
 
-import pandas as pd
 from constants import *
-from utils import *
-from learning.scoring import *
-from learning.test import *
-from learning.models import *
 from learning.density_dataset import *
+from learning.models.files import generate_model_file
+from learning.test.files import generate_scores_file
+from learning.test.plots import (generate_score_evolution_comparison_plots,
+                                 generate_score_evolution_plots,
+                                 generate_scores_model_comparison_plot)
+from learning.test.scores import print_scores
+from utils import *
 
 
 def generate_evaluation_plots_dataset11_density():
@@ -98,4 +101,4 @@ def generate_model_and_scores_files(model, dataset, model_name):
     # scores
     y_pred = model.predict(X_test)
     generate_scores_file(X, y, X_test, y_test, y_pred, model, dataset=dataset, model_name=model_name)
-    print_evaluation(dataset, model_name)
+    print_scores(dataset, model_name)

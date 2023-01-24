@@ -8,79 +8,9 @@ from learning.density_dataset import *
 from learning.models import *
 
 
-def generate_dataset3_individuals_plots():
-    generate_individuals_real_vs_predicted_plots(
-        DATASET3_DENSITY, 
-        NEURAL_NETWORK, 
-        num_individuals=20,
-        scaled=False,
-        suffix=''
-        )
-
-
-def generate_dataset8_individuals_plots():
-    generate_individuals_real_vs_predicted_plots(
-        DATASET8_DENSITY, 
-        NEURAL_NETWORK, 
-        num_individuals=10,
-        scaled=False,
-        suffix=''
-        )
-
-
-def generate_dataset9_individuals_plots():
-    generate_individuals_real_vs_predicted_plots(
-        DATASET9_DENSITY, 
-        NEURAL_NETWORK, 
-        num_individuals=20,
-        scaled=False,
-        suffix=''
-        )
-
-
-def generate_dataset10_individuals_plots():
-    generate_individuals_real_vs_predicted_plots(
-        DATASET10_DENSITY, 
-        NEURAL_NETWORK, 
-        num_individuals=20,
-        scaled=False,
-        suffix=''
-        )
-
-
-def generate_dataset11_individuals_plots():
-    generate_individuals_real_vs_predicted_plots(
-        DATASET11_DENSITY, 
-        NEURAL_NETWORK, 
-        num_individuals=20, 
-        scaled=True,
-        suffix=''
-        )
-
-
-def generate_dataset12_individuals_plots():
-    generate_individuals_real_vs_predicted_plots(
-        DATASET12_DENSITY, 
-        NEURAL_NETWORK, 
-        num_individuals=20, 
-        scaled=True,
-        suffix=''
-        )
-
-
-def generate_dataset13_individuals_plots():
-    generate_individuals_real_vs_predicted_plots(
-        DATASET13_DENSITY, 
-        NEURAL_NETWORK, 
-        num_individuals=20, 
-        scaled=True,
-        suffix=''
-        )
-
-
 def generate_individuals_real_vs_predicted_plots(dataset, model_name, num_individuals, iterations=10, scaled=False, suffix=None, show=False):
     split = get_dataset_density_train_test_split(dataset, scaled=scaled)
-    X, y, X_train, X_test, y_train, y_test = split
+    _, _, _, _, _, y_test = split
     
     model = load_model_from_file(dataset, model_name)
     print(f'Model: {model}')
@@ -101,10 +31,10 @@ def generate_individuals_real_vs_predicted_plots(dataset, model_name, num_indivi
 
 
 def generate_individual_real_vs_predicted_plot(dataset, model_name, individual, split, model, iterations=10, scaled=False, suffix=None, show=False):
-    X, y, X_train, X_test, y_train, y_test = split
+    _, _, _, X_test, _, y_test = split
     _, yscaler = get_x_y_scalers(dataset) if scaled else (None, None)
 
-    # predict
+    # Prediction
     individual_real = np.array(y_test.iloc[individual]).reshape(1, -1)
     individual_pred = model.predict(X_test.iloc[individual].values.reshape(1, -1))
 
@@ -116,7 +46,7 @@ def generate_individual_real_vs_predicted_plot(dataset, model_name, individual, 
     densities_real = individual_real[0]
     densities_pred = individual_pred[0]
 
-    # plot
+    # Style
     # size and x ticks
     iterations = len(densities_real)
     if iterations <= 15:
@@ -136,13 +66,15 @@ def generate_individual_real_vs_predicted_plot(dataset, model_name, individual, 
     # labels
     plt.xlabel('Iteración', labelpad=10, fontsize=12)
     plt.ylabel('Densidad', labelpad=10, fontsize=12)
+    # legend
+    plt.legend(loc='upper right', bbox_to_anchor=(1.15, 1.1))
     
+    # Plots
     colors = plt.cm.jet(np.linspace(0,1,8))
     plt.plot(densities_real, label='Real', alpha=1, color=colors[2], marker='o', linestyle='-')
     plt.plot(densities_pred, label='Predicho', alpha=1, color=colors[6], marker='.', linestyle=':')
-    plt.legend(loc='upper right', bbox_to_anchor=(1.15, 1.1))
 
-    # file
+    # File
     suffix = f'_{suffix}' if suffix else ''
     test_figures_folder = get_test_figures_folder(dataset)
     individuals_folder = f'{test_figures_folder}/individuals/{dataset}'

@@ -1,27 +1,12 @@
 from time import time
 
-import pandas as pd
-from sklearn.experimental import enable_halving_search_cv  # noqa
-from sklearn.model_selection import HalvingGridSearchCV
 from sklearn.neural_network import MLPRegressor
-from sklearn.preprocessing import StandardScaler
 
 from constants import *
 from learning.BTST_density import *
-
-
-def evaluate_nn_model_ds3_1():
-    dataset = DATASET3_DENSITY
-    param_grid = {
-        'hidden_layer_sizes': [(100, 100, 100), (9, 18, 9), (9, 9, 9), (18, 18, 18), (18, 9, 18)],
-        'activation': ['relu', 'tanh', 'logistic'],
-        'solver': ['lbfgs', 'sgd', 'adam'],
-        'alpha': [0.05],
-        'learning_rate': ['constant', 'invscaling', 'adaptive'],
-        'max_iter': [3000],
-    }
-    
-    evaluate_nn_model_gsh(dataset, param_grid, suffix='1')
+from learning.evaluation import evaluate_nn_model_gs, evaluate_nn_model_gsh
+from learning.test.files import generate_scores_file
+from learning.test.scores import print_scores
 
 
 def evaluate_nn_model_ds12_1():
@@ -147,71 +132,4 @@ def evaluate_nn_model_ds12_7():
     print(f'test time: {test_time}')
     
     generate_scores_file(X, y, X_test, y_test, y_pred, model, dataset=dataset, model_name=model_name)
-    print_evaluation(dataset, model_name)
-
-
-# grid search and halving grid search
-
-def evaluate_nn_model_gsh(dataset, param_grid, suffix=''):
-    
-    split = get_dataset_density_train_test_split(dataset, scaled=True)
-    X, y, X_train, X_test, y_train, y_test = split
-    
-    xscaler = StandardScaler().fit(X_train)
-    X_train = xscaler.transform(X_train)
-    yscaler = StandardScaler().fit(y_train)
-    y_train = yscaler.transform(y_train)
-    
-    nn_model = MLPRegressor(random_state=SKLEARN_RANDOM_SEED)
-    
-    # Halving Grid Search
-    tic = time()
-    gsh = HalvingGridSearchCV(
-        estimator=nn_model, param_grid=param_grid, factor=2, random_state=SKLEARN_RANDOM_SEED,
-        verbose=1, n_jobs=-1, cv=5,
-        aggressive_elimination=True
-    )
-    gsh.fit(X_train, y_train)
-    
-    gsh_time = time() - tic
-    print('HGS time: ', gsh_time)
-    best_params = gsh.best_params_
-    print('Best params: ', best_params)
-    score = gsh.best_score_
-    print('Best score: ', score)
-    
-    results = gsh.cv_results_
-    df = pd.DataFrame(results)
-    
-    suffix = f'_{suffix}' if suffix else ''
-    data_learning_folder = get_data_learning_folder(dataset)
-    df.to_csv(f'{data_learning_folder}/{dataset}/gsh_results_{dataset}{suffix}.csv')
-
-
-def evaluate_nn_model_gs(dataset, param_grid, suffix=''):
-    
-    split = get_dataset_density_train_test_split(dataset, scaled=True)
-    X, y, X_train, X_test, y_train, y_test = split
-    
-    nn_model = MLPRegressor(random_state=SKLEARN_RANDOM_SEED)
-    
-    # Grid Search
-    tic = time()
-    gs = GridSearchCV(
-        estimator=nn_model, param_grid=param_grid, random_state=SKLEARN_RANDOM_SEED,
-        verbose=1, n_jobs=-1, cv=5
-    )
-    gs.fit(X_train, y_train)
-    
-    gs_time = time() - tic
-    print('GS time: ', gs_time)
-    best_params = gs.best_params_
-    print('Best params: ', best_params)
-    score = gs.best_score_
-    print('Best score: ', score)
-
-    results = gs.cv_results_
-    df = pd.DataFrame(results)
-    suffix = f'_{suffix}' if suffix else ''
-    data_learning_folder = get_data_learning_folder(dataset)
-    df.to_csv(f'{data_learning_folder}/{dataset}/gsh_results_{dataset}{suffix}.csv')
+    print_scores(dataset, model_name)

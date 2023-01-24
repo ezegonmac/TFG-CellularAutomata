@@ -133,4 +133,4 @@ def generate_model_and_scores_files(model, dataset, model_name):
     # scores
     y_pred = model.predict(X_test)
     generate_scores_file(X, y, X_test, y_test, y_pred, model, dataset=dataset, model_name=model_name)
-    print_evaluation(dataset, model_name)
+    print_scores(dataset, model_name)
