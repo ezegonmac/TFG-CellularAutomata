@@ -418,7 +418,7 @@ def generate_dataset10(save_individuals=False) -> None:
     Generate dataset10.
     
     Description:
-    (Same as dataset9 but with more iterations)
+    (Same as dataset10 but with more iterations)
     Some cells die some become alive.
     Free thresholds.
     Free density.

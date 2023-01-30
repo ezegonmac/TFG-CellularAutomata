@@ -44,6 +44,13 @@ def get_density_figures_folder(dataset):
     return density_figures_folder
 
 
+def get_chaotic_figures_folder(dataset):
+    figures_folder = get_figures_folder(dataset)
+    density_figures_folder = f'{figures_folder}/statistics/chaotic'
+    create_folder_if_not_exists(density_figures_folder)
+    return density_figures_folder
+
+
 def get_states_figures_folder(dataset):
     figures_folder = get_figures_folder(dataset)
     states_figures_folder = f'{figures_folder}/statistics/states'

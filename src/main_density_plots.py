@@ -1,5 +1,7 @@
 from constants import *
 from statistics.densities import *
+from statistics.histograms import *
+from statistics.chaotic import *
 
 
 if __name__ == '__main__':
