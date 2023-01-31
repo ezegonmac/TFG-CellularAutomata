@@ -52,6 +52,8 @@ DATASET13_DENSITY = DATASET13 + '_density'
 # - BTST
 DATASET3_CHAOTIC = DATASET3 + '_chaotic'
 DATASET9_CHAOTIC = DATASET9 + '_chaotic'
+DATASET11_CHAOTIC = DATASET11 + '_chaotic'
+DATASET12_CHAOTIC = DATASET12 + '_chaotic'
 
 # datasets clasification
 DATASETS_BY_TYPE = {
@@ -81,6 +83,8 @@ DATASETS_BY_TYPE = {
     
     DATASET3_CHAOTIC: 'BTST',
     DATASET9_CHAOTIC: 'BTST',
+    DATASET11_CHAOTIC: 'BISI',
+    DATASET12_CHAOTIC: 'BISI',
 }
 
 #----------------#

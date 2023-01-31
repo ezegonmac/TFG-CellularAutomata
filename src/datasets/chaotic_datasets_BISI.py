@@ -14,9 +14,9 @@ Every cluster has the same rule, but different initial states.
 The initial state is changed minimally with a *C* number of cells flipped.
 """
 
-def generate_dataset3_chaotic(save_individuals=False) -> None:
+def generate_dataset11_chaotic(save_individuals=False) -> None:
     """
-    Generate dataset3 chaotic.
+    Generate dataset11 chaotic.
     
     Description:
     Composed of *K* clusters of *N* individuals.
@@ -25,14 +25,14 @@ def generate_dataset3_chaotic(save_individuals=False) -> None:
     
     Variables:
     - fixed size: 10x10
-    - fixed iterations: 10
-    - free B : [0, 9]
-    - free S: [0, 9]
     - fixed density: 0.5
+    - fixed iterations: 10
+    - free B: (bmin, bmax) with bmin, bmax in [0, 9]
+    - free S: (smin, smax) with smin, smax in [0, 9]
     """
     
     # subsets with all attributes
-    dataset_name = DATASET3_CHAOTIC
+    dataset_name = DATASET11_CHAOTIC
     
     # fixed attributes
     size = 10
@@ -41,16 +41,16 @@ def generate_dataset3_chaotic(save_individuals=False) -> None:
     
     # free attributes
     B_min = 0
-    B_max = 9
+    B_max = 8
     S_min = 0
-    S_max = 9
+    S_max = 8
     
     # number of clusters
     K = 10
     # number of individuals per cluster
     N = 100
     # number of cells to flip
-    C = 1
+    C = 5
     
     # folders
     data_datasets_folder = get_data_datasets_folder(dataset_name)
@@ -62,8 +62,14 @@ def generate_dataset3_chaotic(save_individuals=False) -> None:
     for k in range(K):
         
         np.random.seed(NP_RANDOM_SEED + k)
-        B = np.random.randint(B_min, B_max+1)
-        S = np.random.randint(S_min, S_max+1)
+        
+        b1 = np.random.randint(B_min, B_max+1)
+        b2 = np.random.randint(B_min, B_max+1)
+        B = (b1, b2) if b1 < b2 else (b2, b1)
+        
+        s1 = np.random.randint(S_min, S_max+1)
+        s2 = np.random.randint(S_min, S_max+1)
+        S = (s1, s2) if s1 < s2 else (s2, s1)
         
         initial_state = generate_initial_state(size, density)
         
@@ -81,13 +87,17 @@ def generate_dataset3_chaotic(save_individuals=False) -> None:
             
             individuals.append(ca)
             
-    generate_dataset_files_from_individuals(individuals, dataset_folder, individuals_folder, save_individuals=save_individuals, 
-                                            from_initial_state=True)
+    generate_dataset_files_from_individuals(
+        individuals, dataset_folder, 
+        individuals_folder, 
+        save_individuals=save_individuals, 
+        from_initial_state=True,
+        rule_type='BISI')
 
 
-def generate_dataset9_chaotic(save_individuals=False) -> None:
+def generate_dataset12_chaotic(save_individuals=False) -> None:
     """
-    Generate dataset9 chaotic.
+    Generate dataset12 chaotic.
     
     Description:
     Composed of *K* clusters of *N* individuals.
@@ -97,17 +107,16 @@ def generate_dataset9_chaotic(save_individuals=False) -> None:
     Variables:
     - fixed size: 10x10
     - fixed iterations: 10
-    - free B : [0, 9]
-    - free S: [0, 9]
+    - free B: (bmin, bmax) with bmin, bmax in [0, 9]
+    - free S: (smin, smax) with smin, smax in [0, 9]
     - free density: [0, 1]
     """
     
     # subsets with all attributes
-    dataset_name = DATASET9_CHAOTIC
+    dataset_name = DATASET12_CHAOTIC
     
     # fixed attributes
     size = 10
-    density = 0.5
     iterations = 10
     
     # free attributes
@@ -121,7 +130,7 @@ def generate_dataset9_chaotic(save_individuals=False) -> None:
     # number of individuals per cluster
     N = 100
     # number of cells to flip
-    C = 1
+    C = 5
     
     # folders
     data_datasets_folder = get_data_datasets_folder(dataset_name)
@@ -133,8 +142,14 @@ def generate_dataset9_chaotic(save_individuals=False) -> None:
     for k in range(K):
         
         np.random.seed(NP_RANDOM_SEED + k)
-        B = np.random.randint(B_min, B_max+1)
-        S = np.random.randint(S_min, S_max+1)
+        
+        b1 = np.random.randint(B_min, B_max+1)
+        b2 = np.random.randint(B_min, B_max+1)
+        B = (b1, b2) if b1 < b2 else (b2, b1)
+        
+        s1 = np.random.randint(S_min, S_max+1)
+        s2 = np.random.randint(S_min, S_max+1)
+        S = (s1, s2) if s1 < s2 else (s2, s1)
         
         density = np.random.random()
         initial_state = generate_initial_state(size, density)
@@ -153,5 +168,10 @@ def generate_dataset9_chaotic(save_individuals=False) -> None:
             
             individuals.append(ca)
             
-    generate_dataset_files_from_individuals(individuals, dataset_folder, individuals_folder, save_individuals=save_individuals, 
-                                            from_initial_state=True)
+    generate_dataset_files_from_individuals(
+        individuals, 
+        dataset_folder, 
+        individuals_folder, 
+        save_individuals=save_individuals, 
+        from_initial_state=True,
+        rule_type='BISI')
