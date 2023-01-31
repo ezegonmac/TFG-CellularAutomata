@@ -27,7 +27,7 @@ DATASET4 = 'dataset4'
 DATASET5 = 'dataset5'
 DATASET6 = 'dataset6'
 DATASET7 = 'dataset7'
-DATASET8 = 'dataset8'  # dataset 1 en el documento
+DATASET8 = 'dataset8'
 DATASET9 = 'dataset9'
 DATASET10 = 'dataset10'
 #  - BISI
@@ -35,6 +35,8 @@ DATASET11 = 'dataset11'
 DATASET11 = 'dataset11'
 DATASET12 = 'dataset12'
 DATASET13 = 'dataset13'
+#  - BS
+DATASET14 = 'dataset14'
 
 # density datasets
 # - BTST
@@ -60,31 +62,32 @@ DATASETS_BY_TYPE = {
     DATASET1: 'BTST',
     DATASET2: 'BTST',
     DATASET3: 'BTST',
+    DATASET3_DENSITY: 'BTST',
+    DATASET3_CHAOTIC: 'BTST',
     DATASET4: 'BTST',
     DATASET5: 'BTST',
     DATASET6: 'BTST',
     DATASET7: 'BTST',
     DATASET8: 'BTST',
-    DATASET9: 'BTST',
-    DATASET10: 'BTST',
     DATASET8_DENSITY: 'BTST',
-    DATASET3_DENSITY: 'BTST',
+    DATASET9: 'BTST',
     DATASET9_DENSITY: 'BTST',
+    DATASET9_CHAOTIC: 'BTST',
+    DATASET10: 'BTST',
     DATASET10_DENSITY: 'BTST',
     
     DATASET11: 'BISI',
     DATASET11_DENSITY: 'BISI',
     DATASET11: 'BISI',
     DATASET11_DENSITY: 'BISI',
+    DATASET11_CHAOTIC: 'BISI',
     DATASET12: 'BISI',
     DATASET12_DENSITY: 'BISI',
+    DATASET12_CHAOTIC: 'BISI',
     DATASET13: 'BISI',
     DATASET13_DENSITY: 'BISI',
     
-    DATASET3_CHAOTIC: 'BTST',
-    DATASET9_CHAOTIC: 'BTST',
-    DATASET11_CHAOTIC: 'BISI',
-    DATASET12_CHAOTIC: 'BISI',
+    DATASET14: 'BS',
 }
 
 #----------------#

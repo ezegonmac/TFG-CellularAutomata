@@ -31,9 +31,9 @@ def generate_dataset11_density() -> None:
     
     # free attributes
     B_min = 0
-    B_max = 8
+    B_max = 9
     S_min = 0
-    S_max = 8
+    S_max = 9
       
     n_individuals = 5000
     
@@ -47,12 +47,12 @@ def generate_dataset11_density() -> None:
     individuals = []
     for i in range(n_individuals):
         
-        b1 = np.random.randint(B_min, B_max+1)
-        b2 = np.random.randint(B_min, B_max+1)
+        b1 = np.random.randint(B_min, B_max)
+        b2 = np.random.randint(B_min, B_max)
         B = (b1, b2) if b1 < b2 else (b2, b1)
         
-        s1 = np.random.randint(S_min, S_max+1)
-        s2 = np.random.randint(S_min, S_max+1)
+        s1 = np.random.randint(S_min, S_max)
+        s2 = np.random.randint(S_min, S_max)
         S = (s1, s2) if s1 < s2 else (s2, s1)
 
         individuals.append(CA_individual(
@@ -97,9 +97,9 @@ def generate_dataset12_density() -> None:
     
     # free attributes
     B_min = 0
-    B_max = 8
+    B_max = 9
     S_min = 0
-    S_max = 8
+    S_max = 9
     density_min = 0
     density_max = 1
     
@@ -115,12 +115,12 @@ def generate_dataset12_density() -> None:
     individuals = []
     for i in range(n_individuals):
         
-        b1 = np.random.randint(B_min, B_max+1)
-        b2 = np.random.randint(B_min, B_max+1)
+        b1 = np.random.randint(B_min, B_max)
+        b2 = np.random.randint(B_min, B_max)
         B = (b1, b2) if b1 < b2 else (b2, b1)
         
-        s1 = np.random.randint(S_min, S_max+1)
-        s2 = np.random.randint(S_min, S_max+1)
+        s1 = np.random.randint(S_min, S_max)
+        s2 = np.random.randint(S_min, S_max)
         S = (s1, s2) if s1 < s2 else (s2, s1)
 
         individuals.append(CA_individual(
@@ -166,9 +166,9 @@ def generate_dataset13_density() -> None:
     
     # free attributes
     B_min = 0
-    B_max = 8
+    B_max = 9
     S_min = 0
-    S_max = 8
+    S_max = 9
     density_min = 0
     density_max = 1
     
@@ -184,12 +184,12 @@ def generate_dataset13_density() -> None:
     individuals = []
     for i in range(n_individuals):
         
-        b1 = np.random.randint(B_min, B_max+1)
-        b2 = np.random.randint(B_min, B_max+1)
+        b1 = np.random.randint(B_min, B_max)
+        b2 = np.random.randint(B_min, B_max)
         B = (b1, b2) if b1 < b2 else (b2, b1)
         
-        s1 = np.random.randint(S_min, S_max+1)
-        s2 = np.random.randint(S_min, S_max+1)
+        s1 = np.random.randint(S_min, S_max)
+        s2 = np.random.randint(S_min, S_max)
         S = (s1, s2) if s1 < s2 else (s2, s1)
 
         individuals.append(CA_individual(

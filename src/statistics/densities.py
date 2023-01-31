@@ -13,7 +13,7 @@ from utils import *
 
 # density evolution
 
-def create_dataset_density_evolution_plot(dataset, show=False, title="Evolución de la densidad", limit=None, suffix='', num_colors=20):
+def create_dataset_density_evolution_plot(dataset, show=False, title="Evolución de la densidad", start=0, limit=None, suffix='', num_colors=20):
     
     data_datasets_folder = get_data_datasets_folder(dataset)
     dataset_file = f'{data_datasets_folder}/{dataset}/dataset.csv'
@@ -21,7 +21,9 @@ def create_dataset_density_evolution_plot(dataset, show=False, title="Evolución
     
     # limit to firsts rows (for df)
     if limit is not None and len(df) > limit:
-        df = df[:limit]
+        df = df[start:start+limit]
+    elif start > 0:
+        df = df[start:]
     
     density_evolutions = df['density_evolution'].apply(literal_eval).values
 
