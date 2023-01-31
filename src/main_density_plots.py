@@ -86,13 +86,25 @@ if __name__ == '__main__':
     # create_dataset_density_variation_plot(dataset, limit=500, suffix='500_2')
     # print(f'{dataset} done')
     
-    dataset = DATASET14
-    create_dataset_density_evolution_plot(dataset, limit=10, suffix='10_1', start=100, num_colors=10)
-    create_dataset_density_evolution_plot(dataset, limit=10, suffix='10_2', start=1000, num_colors=10)
+    # dataset = DATASET14
+    # create_dataset_density_evolution_plot(dataset, limit=10, suffix='10_1', start=100, num_colors=10)
+    # create_dataset_density_evolution_plot(dataset, limit=10, suffix='10_2', start=1000, num_colors=10)
     # create_dataset_density_evolution_plot(dataset, limit=50, suffix='50')
     # create_dataset_density_evolution_plot(dataset, limit=100, suffix='100')
     # create_dataset_density_evolution_plot(dataset, limit=200, suffix='200')
     # create_dataset_density_evolution_plot(dataset, limit=500, suffix='500')
     # create_dataset_density_variation_plot(dataset, limit=200, suffix='200')
     # create_dataset_density_variation_plot(dataset, limit=500, suffix='500')
+    # print(f'{dataset} done')
+    
+    dataset = DATASET15
+    create_dataset_density_evolution_plot(dataset, limit=10, suffix='10_1', start=100, num_colors=10)
+    create_dataset_density_evolution_plot(dataset, limit=10, suffix='10_2', start=300, num_colors=10)
+    create_dataset_density_evolution_plot(dataset, limit=10, suffix='10_3', start=500, num_colors=10)
+    create_dataset_density_evolution_plot(dataset, limit=50, suffix='50')
+    create_dataset_density_evolution_plot(dataset, limit=100, suffix='100')
+    create_dataset_density_evolution_plot(dataset, limit=200, suffix='200')
+    create_dataset_density_evolution_plot(dataset, limit=500, suffix='500')
+    create_dataset_density_variation_plot(dataset, limit=200, suffix='200')
+    create_dataset_density_variation_plot(dataset, limit=500, suffix='500')
     print(f'{dataset} done')
