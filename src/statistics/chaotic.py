@@ -30,8 +30,10 @@ def create_dataset_chaotic_evolution_plot(dataset, show=False, title="Evolución
     plot_chaotic_density_evolutions(density_evolutions, title, num_colors=num_colors)
     
     chaotic_figures_folder = get_chaotic_figures_folder(dataset)
+    folder = f'{chaotic_figures_folder}/{dataset}'
+    create_folder_if_not_exists(folder)
     suffix = f'_{suffix}' if suffix else ''
-    plt.show() if show else plt.savefig(f'{chaotic_figures_folder}/density_chaotic_{dataset}_c{cluster}{suffix}.png', dpi=300)
+    plt.show() if show else plt.savefig(f'{folder}/density_chaotic_{dataset}_c{cluster}{suffix}.png', dpi=300)
     plt.close()
 
 

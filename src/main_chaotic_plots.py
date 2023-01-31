@@ -8,3 +8,8 @@ if __name__ == '__main__':
                                            clusters=10, 
                                            n_per_cluster=100)
     print('dataset3 done')
+
+    # create_dataset_chaotic_evolution_plots(DATASET9_CHAOTIC, 
+    #                                        clusters=10, 
+    #                                        n_per_cluster=100)
+    # print('dataset9 done')
