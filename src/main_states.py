@@ -12,7 +12,7 @@ if __name__ == '__main__':
 
     # for i in range(0, 20):
     #     create_states_plot(DATASET3, individual=i, min_iteration=0, max_iteration=4)
-    create_random_states_plots(DATASET3, num_individuals=100, min_iteration=0, max_iteration=4)
+    # create_random_states_plots(DATASET3, num_individuals=100, min_iteration=0, max_iteration=4)
 
     # for i in range(0, 10):
     #     create_states_plot(DATASET9, individual=i, min_iteration=0, max_iteration=4)
@@ -23,3 +23,6 @@ if __name__ == '__main__':
     # for i in range(0, 20):
     #     create_states_plot(DATASET12, individual=i, min_iteration=0, max_iteration=4)
 
+    create_random_states_plots(DATASET14, num_individuals=100, min_iteration=0, max_iteration=4)
+
+    create_random_states_plots(DATASET15, num_individuals=100, min_iteration=0, max_iteration=4)

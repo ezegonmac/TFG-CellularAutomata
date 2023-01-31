@@ -15,7 +15,7 @@ def create_random_states_plots(dataset, num_individuals=20, min_iteration=0, max
     np.random.seed(NP_RANDOM_SEED)
     choices = np.random.choice(range(0, dataset_size-1), num_individuals, replace=False)
     for i in choices:
-        create_states_plot(dataset, individual=i, min_iteration=0, max_iteration=4)
+        create_states_plot(dataset, individual=i, min_iteration=min_iteration, max_iteration=max_iteration)
 
 
 def create_states_plot(dataset, individual=0, min_iteration=0, max_iteration=4, show=False, title=""):
