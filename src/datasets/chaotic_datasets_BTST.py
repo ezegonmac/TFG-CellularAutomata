@@ -49,7 +49,7 @@ def generate_dataset3_chaotic(save_individuals=False) -> None:
     # number of individuals per cluster
     N = 100
     # number of cells to flip
-    C = 5
+    C = 1
     
     # folders
     data_datasets_folder = get_data_datasets_folder(dataset_name)
@@ -67,13 +67,13 @@ def generate_dataset3_chaotic(save_individuals=False) -> None:
         initial_state = generate_initial_state(size, density)
         
         for n in range(N):
-            initial_state = alter_initial_state(initial_state, C, size)
+            altered_initial_state = alter_initial_state(initial_state, C, size)
             
             ca = CA_individual_state(
                 id=id,
                 B=B,
                 S=S,
-                initial_state=initial_state,
+                initial_state=altered_initial_state,
                 iterations=iterations, 
                 file=f'{individuals_folder}/ca_{id}_k{k}_n{n}',
                 )
