@@ -57,7 +57,6 @@ The main package is `src`. It contains the following principal subpackages:
 - `statistics`: Contains the functions to generate statistical plots of the datasets.
 - `learning`: Contains the functions to train, evaluate and test Machine Learning models.
 
-Those subpackages are explained in detail in the [Reference](reference.md) section.
 Their functions must be called from their specific `main` files. Those files are located in the `src` folder.
 
 Those main files are:
