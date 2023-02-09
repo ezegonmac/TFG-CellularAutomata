@@ -4,30 +4,53 @@ from sklearn.neural_network import MLPRegressor
 from sklearn.tree import DecisionTreeRegressor
 
 from constants import *
-from utils import *
-from learning.scoring import *
-from learning.test import *
-from learning.models import *
 from learning.density_dataset import *
+from learning.density_dataset import generate_model_and_scores_files
+from learning.models.files import *
+from learning.test import *
+from learning.test.plots import *
+from utils import *
 
 
-def evaluate_dataset8():
+def train_and_test_models8():
     dataset = DATASET8_DENSITY
-    # evaluate_dataset(dataset)
+    
+    # Hyperparameters
+    
+    hp_knn = {}
+    
+    hp_dtree = {}
+    
+    rf_model = {}
+    
+    hp_nn = {
+        'hidden_layer_sizes': (3),
+        'solver': 'lbfgs',
+        'activation': 'tanh',
+    }
+    
+    train_and_test_models(
+        dataset,
+        hyperparameters_knn=hp_knn,
+        hyperparameters_dtree=hp_dtree,
+        hyperparameters_rf=rf_model,
+        hyperparameters_nn=hp_nn,
+        model_variation='vector',
+        )
     
     # FIGURES
     # score model comparison plots
-    generate_scores_model_comparison_plot(dataset, metric='MSE')
-    generate_scores_model_comparison_plot(dataset, metric='R2')
+    # generate_scores_model_comparison_plot(dataset, metric='MSE')
+    # generate_scores_model_comparison_plot(dataset, metric='R2')
 
     # score evolution plots
-    generate_score_evolution_plots(dataset)
-    generate_score_evolution_comparison_plots(dataset)
+    # generate_score_evolution_plots(dataset)
+    # generate_score_evolution_comparison_plots(dataset)
 
 
-def evaluate_dataset3():
+def train_and_test_models3():
     dataset = DATASET3_DENSITY
-    # evaluate_dataset(dataset)
+    # train_and_test_models(dataset)
     
     # FIGURES
     # score model comparison plots
@@ -45,9 +68,36 @@ def evaluate_dataset3():
     generate_score_evolution_comparison_plot(dataset, metric="R2", y_min=0.96, y_max=1, suffix='scaled')
 
 
-def evaluate_dataset9():
+def train_and_test_model9():
     dataset = DATASET9_DENSITY
-    evaluate_dataset(dataset)
+    
+    # Hyperparameters
+    hp_knn = {
+        'n_neighbors': 5,
+    }
+    
+    hp_dtree = {}
+    
+    rf_model = {}
+    
+    hp_nn = {
+        'early_stopping': True,
+        'hidden_layer_sizes': (9, 18, 9),
+        'alpha': 0.05,  # not important
+        'learning_rate': 'invscaling',  # medium importance
+        'max_iter': 3000,
+        'solver': 'lbfgs',  # important
+        'activation': 'tanh',  # not important
+        'batch_size': 300
+    }
+    
+    train_and_test_models(
+        dataset,
+        hyperparameters_knn=hp_knn,
+        hyperparameters_dtree=hp_dtree,
+        hyperparameters_rf=rf_model,
+        hyperparameters_nn=hp_nn
+        )
     
     # FIGURES
     # score model comparison plots
@@ -65,9 +115,9 @@ def evaluate_dataset9():
     # generate_score_evolution_comparison_plot(dataset, metric="R2", y_min=0.96, y_max=1, suffix='scaled')
 
 
-def evaluate_dataset10():
+def train_and_test_models10():
     dataset = DATASET10_DENSITY
-    evaluate_dataset(dataset)
+    train_and_test_models(dataset)
     
     # FIGURES
     # score model comparison plots
@@ -85,52 +135,36 @@ def evaluate_dataset10():
     # generate_score_evolution_comparison_plot(dataset, metric="R2", y_min=0.96, y_max=1, suffix='scaled')
 
 
-def evaluate_dataset(dataset):
-    knn_model = KNeighborsRegressor(n_neighbors=5)
-    dtree_model = DecisionTreeRegressor(random_state=SKLEARN_RANDOM_SEED)
-    rf_model = RandomForestRegressor(random_state=SKLEARN_RANDOM_SEED)
-    # nn_model = MLPRegressor(hidden_layer_sizes=(9, 18, 9), max_iter=500, random_state=SKLEARN_RANDOM_SEED)
+def train_and_test_models(dataset, model_variation='vector', hyperparameters_knn={}, hyperparameters_dtree={}, hyperparameters_rf= {}, hyperparameters_nn={}):
+    
+    knn_model = KNeighborsRegressor(**hyperparameters_knn)
+    dtree_model = DecisionTreeRegressor(random_state=SKLEARN_RANDOM_SEED, **hyperparameters_dtree)
+    rf_model = RandomForestRegressor(random_state=SKLEARN_RANDOM_SEED, **hyperparameters_rf)
     nn_model = MLPRegressor(
-        hidden_layer_sizes=(9, 18, 9),
-        alpha=0.05,  # not important
-        learning_rate='invscaling',  # medium importance
-        max_iter=3000,
-        solver='lbfgs',  # important
-        activation='tanh',  # not important
-        
         random_state=SKLEARN_RANDOM_SEED,
-        batch_size=300,
-        early_stopping=True,
-        verbose=True
+        # verbose=True
+        **hyperparameters_nn,
         )
     
     print('---------------------------------')
     print(dataset.capitalize())
     print('---------------------------------')
+    
     print('KNN')
     print('---------')
-    generate_model_and_scores_files(knn_model, dataset, 'KNN')
+    generate_model_and_scores_files(knn_model, dataset, 'KNN', model_variation)
+    
+    print('---------')
     print('Decision Tree')
     print('---------')
-    generate_model_and_scores_files(dtree_model, dataset, 'DecisionTree')
+    generate_model_and_scores_files(dtree_model, dataset, 'DecisionTree', model_variation)
+    
+    print('---------')
     print('Random Forest')
     print('---------')
-    generate_model_and_scores_files(rf_model, dataset, 'RandomForest')
+    generate_model_and_scores_files(rf_model, dataset, 'RandomForest', model_variation)
+    
+    print('---------')
     print('Neural Network')
     print('---------')
-    generate_model_and_scores_files(nn_model, dataset, 'NeuralNetwork')
-
-
-def generate_model_and_scores_files(model, dataset, model_name):
-    split = get_dataset_density_train_test_split(dataset, scaled=False)
-    X, y, X_train, X_test, y_train, y_test = split
-    
-    model.fit(X_train, y_train)
-    
-    # model
-    generate_model_file(dataset, model, model_name)
-    
-    # scores
-    y_pred = model.predict(X_test)
-    generate_scores_file(X, y, X_test, y_test, y_pred, model, dataset=dataset, model_name=model_name)
-    print_scores(dataset, model_name)
+    generate_model_and_scores_files(nn_model, dataset, 'NeuralNetwork', model_variation)

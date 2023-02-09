@@ -4,7 +4,6 @@ import pandas as pd
 from sklearn.experimental import enable_halving_search_cv  # noqa
 from sklearn.model_selection import GridSearchCV, HalvingGridSearchCV
 from sklearn.neural_network import MLPRegressor
-from sklearn.preprocessing import StandardScaler
 
 from constants import *
 from learning.density_dataset import get_dataset_density_train_test_split

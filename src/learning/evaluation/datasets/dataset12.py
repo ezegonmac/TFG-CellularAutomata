@@ -6,7 +6,7 @@ from constants import *
 from learning.BTST_density import *
 from learning.evaluation import evaluate_nn_model_gs, evaluate_nn_model_gsh
 from learning.test.files import generate_scores_file
-from learning.test.scores import print_scores
+from learning.test.scores_print import print_scores
 
 
 def evaluate_nn_model_ds12_1():
@@ -131,5 +131,6 @@ def evaluate_nn_model_ds12_7():
     test_time = time() - tic
     print(f'test time: {test_time}')
     
+    # TODO: not call this function here ?
     generate_scores_file(X, y, X_test, y_test, y_pred, model, dataset=dataset, model_name=model_name)
     print_scores(dataset, model_name)

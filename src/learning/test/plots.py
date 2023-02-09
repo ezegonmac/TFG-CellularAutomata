@@ -19,7 +19,7 @@ def generate_score_evolution_comparison_plots(dataset, suffix=''):
             generate_score_evolution_comparison_plot(dataset, metric=metric, suffix=suffix)
 
 
-def generate_score_evolution_comparison_plot(dataset, metric, suffix='', y_min=0, y_max=1.1, show=False):
+def generate_score_evolution_comparison_plot(dataset, metric, suffix='', y_min=0.0, y_max=1.1, show=False):
     df = get_scores_by_dataset(dataset)
     color = 'blue' if metric == 'MSE' else 'red'
 

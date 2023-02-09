@@ -10,7 +10,7 @@ from learning.test.files import generate_scores_file
 from learning.test.plots import (generate_score_evolution_comparison_plots,
                                  generate_score_evolution_plots,
                                  generate_scores_model_comparison_plot)
-from learning.test.scores import print_scores
+from learning.test.scores_print import print_scores
 from utils import *
 
 
@@ -19,7 +19,7 @@ def generate_evaluation_plots_dataset11_density():
     
     # score model comparison plots
     # generate_scores_model_comparison_plot(dataset, metric='MSE', suffix='2_5000_ind')
-    # generate_scores_model_comparison_plot(dataset, metric='R2', suffix='2_5000_ind')
+    generate_scores_model_comparison_plot(dataset, metric='R2', suffix='2_5000_ind')
 
     # score evolution plots
     generate_score_evolution_plots(dataset)
@@ -88,16 +88,16 @@ def train_models(dataset):
     generate_model_and_scores_files(nn_model, dataset, 'NeuralNetwork')
 
 
-def generate_model_and_scores_files(model, dataset, model_name):
+def generate_model_and_scores_files(model, dataset, model_name, model_variation):
     split = get_dataset_density_train_test_split(dataset, scaled=True)
     X, y, X_train, X_test, y_train, y_test = split
     
     model.fit(X_train, y_train)
     
     # model
-    generate_model_file(dataset, model, model_name)
+    generate_model_file(dataset, model, model_name, model_variation)
     
     # scores
     y_pred = model.predict(X_test)
-    generate_scores_file(X, y, X_test, y_test, y_pred, model, dataset=dataset, model_name=model_name)
+    generate_scores_file(y_test, y_pred, dataset=dataset, model_name=model_name, model_variation=model_variation)
     print_scores(dataset, model_name)
