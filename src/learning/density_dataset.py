@@ -15,18 +15,25 @@ TEST_SIZE = 0.2
 def generate_model_and_scores_files(model, dataset, model_name, model_variation):
     split = get_dataset_density_train_test_split(dataset, scaled=True)
     X, y, X_train, X_test, y_train, y_test = split
+    num_individuals = X.shape[0]
     
     model.fit(X_train, y_train)
     
     # model
-    generate_model_file(dataset, model, model_name, model_variation)
+    generate_model_file(dataset, 
+                        model, 
+                        model_name, 
+                        model_variation, 
+                        num_individuals
+                        )
     
     # scores
     y_pred = model.predict(X_test)
     generate_scores_file(y_test, y_pred,
                          dataset=dataset,
                          model_name=model_name,
-                         model_variation=model_variation
+                         model_variation=model_variation,
+                         num_individuals=num_individuals,
                          )
     print_scores(dataset, model_name)
 

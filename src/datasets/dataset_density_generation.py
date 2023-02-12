@@ -28,7 +28,7 @@ def generate_density_dataset_files_from_individuals(individuals, dataset_folder,
     for i in range(num_individuals):
         individual = individuals[i]
         
-        ca = generate_ca_from_individual(individual, rule_type)
+        ca = generate_ca_from_individual(individual, rule_type, from_initial_state=False)
         
         density_evolution = np.array(ca.get_density_evolution())
         individual.density_evolution = density_evolution
@@ -41,10 +41,11 @@ def generate_density_dataset_files_from_individuals(individuals, dataset_folder,
         ids[i] = int(i)
         Bs[i] = individual.B
         Ss[i] = individual.S
-        Bls[i] = individual.B[0] if rule_type == 'BISI' else None
-        Bts[i] = individual.B[1] if rule_type == 'BISI' else None
-        Sls[i] = individual.S[0] if rule_type == 'BISI' else None
-        Sts[i] = individual.S[1] if rule_type == 'BISI' else None
+        if rule_type == 'BISI':
+            Bls[i] = individual.B[0]
+            Bts[i] = individual.B[1]
+            Sls[i] = individual.S[0]
+            Sts[i] = individual.S[1]
         densities[i] = density_evolution
     
     # data = id|B|S|0|1|2|3|...|9

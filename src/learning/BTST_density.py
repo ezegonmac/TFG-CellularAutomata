@@ -12,7 +12,9 @@ from learning.test.plots import *
 from utils import *
 
 
-def train_and_test_models8():
+# DATASET 8 #
+
+def train_and_test_models_ds8():
     dataset = DATASET8_DENSITY
     
     # Hyperparameters
@@ -37,29 +39,66 @@ def train_and_test_models8():
         hyperparameters_nn=hp_nn,
         model_variation='vector',
         )
-    
-    # FIGURES
-    # score model comparison plots
-    # generate_scores_model_comparison_plot(dataset, metric='MSE')
-    # generate_scores_model_comparison_plot(dataset, metric='R2')
-
-    # score evolution plots
-    # generate_score_evolution_plots(dataset)
-    # generate_score_evolution_comparison_plots(dataset)
 
 
-def train_and_test_models3():
-    dataset = DATASET3_DENSITY
-    # train_and_test_models(dataset)
+def generate_models_score_plots_ds8():
+    dataset = DATASET8_DENSITY
     
     # FIGURES
     # score model comparison plots
     generate_scores_model_comparison_plot(dataset, metric='MSE')
     generate_scores_model_comparison_plot(dataset, metric='R2')
+
+    # score evolution plots
+    generate_score_evolution_plots(dataset)
+    generate_score_evolution_comparison_plots(dataset)
+
+
+# DATASET 3 #
+
+def train_and_test_models_ds3():
+    dataset = DATASET3_DENSITY
+    
+    # Hyperparameters
+    
+    hp_knn = {
+        'n_neighbors': 3,
+    }
+    
+    hp_dtree = {}
+    
+    rf_model = {}
+    
+    hp_nn = {
+        'early_stopping': True,
+        'hidden_layer_sizes': (9, 18, 9),
+        'learning_rate': 'invscaling',
+        'max_iter': 5000,
+        'solver': 'lbfgs',
+        'activation': 'tanh',
+    }
+    
+    train_and_test_models(
+        dataset,
+        hyperparameters_knn=hp_knn,
+        hyperparameters_dtree=hp_dtree,
+        hyperparameters_rf=rf_model,
+        hyperparameters_nn=hp_nn,
+        model_variation='vector',
+        )
+    
+    
+def generate_models_score_plots_ds3():
+    dataset = DATASET3_DENSITY
+    
+    # FIGURES
+    # # score model comparison plots
+    generate_scores_model_comparison_plot(dataset, metric='MSE')
+    generate_scores_model_comparison_plot(dataset, metric='R2')
     generate_scores_model_comparison_plot(dataset, metric='MSE', y_min=0, y_max=0.02, suffix='scaled')
     generate_scores_model_comparison_plot(dataset, metric='R2', y_min=0.95, y_max=1.0, suffix='scaled')
     
-    # score evolution plots
+    # # score evolution plots
     generate_score_evolution_plots(dataset)
     
     generate_score_evolution_comparison_plots(dataset)
@@ -67,6 +106,8 @@ def train_and_test_models3():
     generate_score_evolution_comparison_plot(dataset, metric="MSE", y_max=0.01, suffix='scaled')
     generate_score_evolution_comparison_plot(dataset, metric="R2", y_min=0.96, y_max=1, suffix='scaled')
 
+
+# DATASET 9 #
 
 def train_and_test_model9():
     dataset = DATASET9_DENSITY
@@ -150,21 +191,7 @@ def train_and_test_models(dataset, model_variation='vector', hyperparameters_knn
     print(dataset.capitalize())
     print('---------------------------------')
     
-    print('KNN')
-    print('---------')
     generate_model_and_scores_files(knn_model, dataset, 'KNN', model_variation)
-    
-    print('---------')
-    print('Decision Tree')
-    print('---------')
     generate_model_and_scores_files(dtree_model, dataset, 'DecisionTree', model_variation)
-    
-    print('---------')
-    print('Random Forest')
-    print('---------')
     generate_model_and_scores_files(rf_model, dataset, 'RandomForest', model_variation)
-    
-    print('---------')
-    print('Neural Network')
-    print('---------')
     generate_model_and_scores_files(nn_model, dataset, 'NeuralNetwork', model_variation)

@@ -2,17 +2,18 @@ import matplotlib.pyplot as plt
 import numpy as np
 
 from constants import *
-from learning.scoring import *
+from learning.models.files import *
 from utils import *
 from learning.density_dataset import *
 from learning.models import *
 
 
-def generate_individuals_real_vs_predicted_plots(dataset, model_name, num_individuals, iterations=10, scaled=False, suffix=None, show=False):
+def generate_individuals_real_vs_predicted_plots(dataset, model_name, model_variation, num_individuals, iterations=10, scaled=False, suffix=None, show=False):
     split = get_dataset_density_train_test_split(dataset, scaled=scaled)
-    _, _, _, _, _, y_test = split
+    X, _, _, _, _, y_test = split
+    num_individuals_ds = X.shape[0]
     
-    model = load_model_from_file(dataset, model_name)
+    model = load_model_from_file(dataset, model_name, model_variation, num_individuals_ds)
     print(f'Model: {model}')
     
     np.random.seed(NP_RANDOM_SEED)

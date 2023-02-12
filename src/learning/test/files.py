@@ -43,7 +43,7 @@ def get_scores_by_dataset(dataset):
 
 # GENERATE SCORES
 
-def generate_scores_file(y_test, y_pred, dataset, model_name, model_variation):
+def generate_scores_file(y_test, y_pred, dataset, model_name, model_variation, num_individuals):
     rmse = calc_RMSE(y_test, y_pred)
     r2 = calc_R2(y_test, y_pred)
     mse_std = calc_RMSE_std(y_test, y_pred)
@@ -57,6 +57,7 @@ def generate_scores_file(y_test, y_pred, dataset, model_name, model_variation):
         'Dataset': dataset, 
         'Model': model_name, 
         'Model variation': model_variation, 
+        'Number of individuals': num_individuals, 
         'RMSE': rmse, 
         'R2': r2, 
         'RMSE std': mse_std,
@@ -76,7 +77,7 @@ def generate_scores_file(y_test, y_pred, dataset, model_name, model_variation):
         df = pd.read_csv(scores_file)
 
     # add data as row to csv file, or update if exists
-    row = df.loc[(df['Dataset'] == dataset) & (df['Model'] == model_name)]
+    row = df.loc[(df['Dataset'] == dataset) & (df['Model'] == model_name) & (df['Model variation'] == model_variation) & (df['Number of individuals'] == num_individuals)]
     if row.empty:
         row = pd.DataFrame.from_dict(data, orient='index').T
         df = pd.concat([df, row], ignore_index=True)

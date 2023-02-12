@@ -94,7 +94,7 @@ def generate_dataset3_density() -> None:
     B_min = 0
     S_max = 9
       
-    n_individuals = 500
+    n_individuals = 1000
     
     # folders
     data_datasets_folder = get_data_datasets_folder(dataset_name)
