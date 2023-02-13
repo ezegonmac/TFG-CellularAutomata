@@ -12,7 +12,7 @@ MODELS = [KNN, DECISION_TREE, RANDOM_FOREST, NEURAL_NETWORK]
 # Score evolution comparison plots
 
 def generate_score_evolution_comparison_plots(dataset, suffix=''):
-    metrics = ['MSE', 'R2']
+    metrics = ['RMSE', 'R2']
 
     for model in MODELS:
         for metric in metrics:
@@ -21,11 +21,12 @@ def generate_score_evolution_comparison_plots(dataset, suffix=''):
 
 def generate_score_evolution_comparison_plot(dataset, metric, suffix='', y_min=0.0, y_max=1.1, show=False):
     df = get_scores_by_dataset(dataset)
-    color = 'blue' if metric == 'MSE' else 'red'
+    color = 'blue' if metric == 'RMSE' else 'red'
 
     iterations = len(df[df['Model'] == MODELS[0]][f'{metric} by iteration'].values[0].values())
     fig, axs = plt.subplots(1, len(MODELS), figsize=(18, 5))
     for i, model in enumerate(MODELS):
+        axs[i].plot([-1, iterations+0.5], [1, 1], color='black', linewidth=0.35, alpha=0.8, label='_nolegend_')
         axs[i].plot(df[df['Model'] == model][f'{metric} by iteration'].values[0].values(), color=color)
         axs[i].set(xlim=(1, iterations), ylim=(y_min, y_max))
         axs[i].set(xlabel='Iteraciones', ylabel=metric, title=model)
@@ -41,7 +42,7 @@ def generate_score_evolution_comparison_plot(dataset, metric, suffix='', y_min=0
 # Score evolution plots
 
 def generate_score_evolution_plots(dataset):
-    metrics = ['MSE', 'R2']
+    metrics = ['RMSE', 'R2']
     
     for model in MODELS:
         for metric in metrics:
@@ -65,9 +66,10 @@ def plot_score_evolution(dataset, model_name, metric):
     
     title = f'{metric}'
     ax = plt.subplot(111)
-    color = 'blue' if metric == 'MSE' else 'red'
+    color = 'blue' if metric == 'RMSE' else 'red'
     ax.plot(scores_evolution, color=color)
     
+    # top limit line
     iterations = len(scores_evolution)
     ax.set(xlim=(1, iterations), ylim=(0, 1.1), xlabel='Iteraciones', ylabel=metric, title=title)
     # remove right and top spines
@@ -91,8 +93,8 @@ def generate_scores_model_comparison_plot(dataset, metric, model_variation='vect
     df = df[['Model', metric]]
     df = df.set_index(['Model'])
     
-    color = 'blue' if metric == 'RMSE' else 'red'
-    df.plot.bar(figsize=(10, 10), width=0.8, color=color)
+    colormap = 'winter' if metric == 'RMSE' else 'autumn'
+    df.plot.bar(figsize=(10, 10), width=0.8, colormap=colormap)
 
     plt.xticks(rotation=0, fontsize=16)
     plt.ylim((y_min, y_max))
@@ -116,8 +118,9 @@ def generate_scores_model_individuals_comparison_plot(dataset, metric, model_var
     # group by num individuals
     df = df.pivot(index='Model', columns='Number of individuals', values=metric)
     
-    # plasma inverted cmap
-    df.plot.bar(figsize=(10, 10), width=0.8, colormap='plasma_r')
+    colormap = 'winter_r' if metric == 'RMSE' else 'autumn_r'
+    df.plot.bar(figsize=(10, 10), width=0.8, colormap=colormap)
+    # df.plot.line(figsize=(10, 10), colormap=colormap)
 
     plt.xticks(rotation=0, fontsize=16)
     plt.ylim((y_min, y_max))
