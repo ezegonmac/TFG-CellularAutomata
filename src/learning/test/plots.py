@@ -79,15 +79,19 @@ def plot_score_evolution(dataset, model_name, metric):
 
 # Model comparison plot
 
-def generate_scores_model_comparison_plot(dataset, metric, suffix='', y_min=0, y_max=1.1, show=False):
+def generate_scores_model_comparison_plot(dataset, metric, model_variation='vector', num_individuals=500, suffix='', y_min=0.0, y_max=1.1, show=False):
     df = get_scores_by_dataset(dataset)
     # filter by MODELS
     df = df[df['Model'].isin(MODELS)]
     df = df.sort_values(by=[metric])
+    # filter by model variation
+    df = df[df['Model variation'] == model_variation]
+    # filter by num individuals
+    df = df[df['Number of individuals'] == num_individuals]
     df = df[['Model', metric]]
     df = df.set_index(['Model'])
     
-    color = 'blue' if metric == 'MSE' else 'red'
+    color = 'blue' if metric == 'RMSE' else 'red'
     df.plot.bar(figsize=(10, 10), width=0.8, color=color)
 
     plt.xticks(rotation=0, fontsize=16)
@@ -97,4 +101,29 @@ def generate_scores_model_comparison_plot(dataset, metric, suffix='', y_min=0, y
 
     suffix = f'_{suffix}' if suffix else ''
     test_figures_folder = get_test_figures_folder(dataset)
-    plt.show() if show else plt.savefig(f'{test_figures_folder}/model_comparison_{metric}_{dataset}{suffix}.png', dpi=300)
+    plt.show() if show else plt.savefig(f'{test_figures_folder}/model_comparison_{metric}_{dataset}_{model_variation}_{num_individuals}ind{suffix}.png', dpi=300)
+
+
+def generate_scores_model_individuals_comparison_plot(dataset, metric, model_variation='vector', suffix='', y_min=0.0, y_max=1.1, show=False):
+    df = get_scores_by_dataset(dataset)
+    # filter by MODELS
+    df = df[df['Model'].isin(MODELS)]
+    df = df.sort_values(by=[metric])
+    # filter by model variation
+    df = df[df['Model variation'] == model_variation]
+    df = df.groupby(['Model', 'Number of individuals']).mean().reset_index()
+    df = df[['Model', 'Number of individuals', metric]]
+    # group by num individuals
+    df = df.pivot(index='Model', columns='Number of individuals', values=metric)
+    
+    # plasma inverted cmap
+    df.plot.bar(figsize=(10, 10), width=0.8, colormap='plasma_r')
+
+    plt.xticks(rotation=0, fontsize=16)
+    plt.ylim((y_min, y_max))
+    plt.title(f'Comparación de los modelos - {metric}', fontsize=20)
+    plt.legend(fontsize=16)
+
+    suffix = f'_{suffix}' if suffix else ''
+    test_figures_folder = get_test_figures_folder(dataset)
+    plt.show() if show else plt.savefig(f'{test_figures_folder}/model_comparison_{metric}_{dataset}_{model_variation}_byind{suffix}.png', dpi=300)

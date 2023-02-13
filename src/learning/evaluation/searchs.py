@@ -33,7 +33,7 @@ def evaluate_nn_model_gsh(dataset, param_grid, suffix=''):
     tic = time()
     gsh = HalvingGridSearchCV(
         estimator=nn_model, param_grid=param_grid, factor=2, random_state=SKLEARN_RANDOM_SEED,
-        verbose=1, n_jobs=-1, cv=5,
+        verbose=0, n_jobs=-1, cv=5,
         aggressive_elimination=True
     )
     gsh.fit(X_train, y_train)
@@ -74,7 +74,7 @@ def evaluate_nn_model_gs(dataset, param_grid, suffix=''):
     # Grid Search
     tic = time()
     gs = GridSearchCV(
-        estimator=nn_model, param_grid=param_grid, random_state=SKLEARN_RANDOM_SEED,
+        estimator=nn_model, param_grid=param_grid, 
         verbose=1, n_jobs=-1, cv=5
     )
     gs.fit(X_train, y_train)
@@ -91,4 +91,4 @@ def evaluate_nn_model_gs(dataset, param_grid, suffix=''):
     df = pd.DataFrame(results)
     suffix = f'_{suffix}' if suffix else ''
     data_learning_folder = get_data_learning_folder(dataset)
-    df.to_csv(f'{data_learning_folder}/{dataset}/gsh_results_{dataset}{suffix}.csv')
+    df.to_csv(f'{data_learning_folder}/{dataset}/gs_results_{dataset}{suffix}.csv')

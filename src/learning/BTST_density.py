@@ -93,18 +93,24 @@ def generate_models_score_plots_ds3():
     
     # FIGURES
     # # score model comparison plots
-    generate_scores_model_comparison_plot(dataset, metric='MSE')
-    generate_scores_model_comparison_plot(dataset, metric='R2')
-    generate_scores_model_comparison_plot(dataset, metric='MSE', y_min=0, y_max=0.02, suffix='scaled')
-    generate_scores_model_comparison_plot(dataset, metric='R2', y_min=0.95, y_max=1.0, suffix='scaled')
+    # num_individuals = 1000
+    # generate_scores_model_comparison_plot(dataset, metric='RMSE', num_individuals=num_individuals)
+    # generate_scores_model_comparison_plot(dataset, metric='R2', num_individuals=num_individuals)
+    # generate_scores_model_comparison_plot(dataset, metric='R2', num_individuals=num_individuals, 
+    #                                       y_min=0.92, y_max=1.0, suffix='scaled')
+    
+    # generate_scores_model_individuals_comparison_plot(dataset, metric='RMSE')
+    generate_scores_model_individuals_comparison_plot(dataset, metric='RMSE', y_min=0, y_max=0.3, suffix='scaled')
+    # generate_scores_model_individuals_comparison_plot(dataset, metric='R2')
+    # generate_scores_model_individuals_comparison_plot(dataset, metric='R2', y_min=0.9, y_max=1.0, suffix='scaled')
     
     # # score evolution plots
-    generate_score_evolution_plots(dataset)
+    # generate_score_evolution_plots(dataset)
     
-    generate_score_evolution_comparison_plots(dataset)
+    # generate_score_evolution_comparison_plots(dataset)
 
-    generate_score_evolution_comparison_plot(dataset, metric="MSE", y_max=0.01, suffix='scaled')
-    generate_score_evolution_comparison_plot(dataset, metric="R2", y_min=0.96, y_max=1, suffix='scaled')
+    # generate_score_evolution_comparison_plot(dataset, metric="MSE", y_max=0.01, suffix='scaled')
+    # generate_score_evolution_comparison_plot(dataset, metric="R2", y_min=0.96, y_max=1, suffix='scaled')
 
 
 # DATASET 9 #
