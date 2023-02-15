@@ -7,4 +7,7 @@ if __name__ == '__main__':
     # generate_models_score_plots_ds8()
     
     # train_and_test_models_ds3()
-    generate_models_score_plots_ds3()
+    # generate_models_score_plots_ds3()
+    
+    # train_and_test_models_ds9()
+    generate_models_score_plots_ds9()
