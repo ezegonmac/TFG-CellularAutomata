@@ -1,5 +1,4 @@
-from constants import *
-from learning.scoring import get_scores_by_dataset
+from learning.test.files import get_scores_by_dataset
 
 
 def generate_score_by_iteration_table(dataset) -> None:

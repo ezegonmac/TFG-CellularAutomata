@@ -38,25 +38,28 @@ def generate_grid_figure():
     state = np.zeros((n, n))
     ax = plt.subplot(111)
     
+    small_fontsize = 20
+    big_fontsize = 30
+    
     plt.matshow(state, cmap='Greys', vmin=0, vmax=1, fignum=0)
     
     ticks = ['0', '1', '2', '...', '...', 'n-1']
     
-    # set x ticks and labels
+    # set x ticks and labels with fontsize
     ax.set_xticks(range(0, n))
     ax.set_xticklabels(ticks)
+    ax.tick_params(axis='x', which='major', labelsize=small_fontsize)
     # set y ticks and labels
     ax.set_yticks(range(0, n))
     ax.set_yticklabels(ticks)
+    ax.tick_params(axis='y', which='major', labelsize=small_fontsize)
     # set x label on top left
     ax.xaxis.tick_top()
     ax.xaxis.set_label_position('top')
     # set x label
-    ax.set_xlabel('i', fontsize=18)
-    # rotate y label
-
+    ax.set_xlabel('i', fontsize=big_fontsize)
     # set y label
-    ax.set_ylabel('j', fontsize=18, rotation=0)
+    ax.set_ylabel('j', fontsize=big_fontsize, rotation=0)
 
     # grid
     ax.xaxis.set_minor_locator(AutoMinorLocator(2))
