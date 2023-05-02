@@ -28,8 +28,8 @@ def generate_dataset8_density() -> None:
     iterations = 10
     
     # define subsets with same attributes
-    n_subset1 = 200
-    n_subset2 = 200
+    n_subset1 = 100
+    n_subset2 = 100
     
     # folders
     data_datasets_folder = get_data_datasets_folder(dataset_name)

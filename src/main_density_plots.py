@@ -10,13 +10,14 @@ if __name__ == '__main__':
     # create_dataset_density_evolution_per_B_plot(DATASET1)
     # print('dataset1 done')
     
-    # create_dataset_density_evolution_plot(DATASET3)
-    # create_dataset_density_evolution_per_S_plot(DATASET3)
-    # create_dataset_density_evolution_per_B_plot(DATASET3)
-    # create_dataset_density_evolution_plot(DATASET3)
-    # create_dataset_density_variation_plot(DATASET3)
-    # create_dataset_density_histograms_plot(DATASET3)
-    # print('dataset3 done')
+    dataset = DATASET3
+    # create_dataset_density_evolution_plot(dataset, limit=300)
+    # create_dataset_density_evolution_per_S_plot(dataset)
+    # create_dataset_density_evolution_per_B_plot(dataset)
+    # create_dataset_density_evolution_plot(dataset)
+    # create_dataset_density_variation_plot(dataset)
+    # create_dataset_density_histograms_plot(dataset)
+    # print(dataset + 'done')
     
     # create_dataset_density_evolution_per_S_plot(DATASET4)
     # create_dataset_density_evolution_per_B_plot(DATASET4)
@@ -34,11 +35,13 @@ if __name__ == '__main__':
     # create_dataset_density_evolution_per_B_plot(DATASET7)
     # print('dataset7 done')
     
+    dataset = DATASET8
     # create_dataset_density_evolution_per_S_plot(DATASET8)
     # create_dataset_density_evolution_per_B_plot(DATASET8)
-    # create_dataset_density_evolution_per_B_and_S_plot(DATASET8)
-    # print('dataset8 done')
+    create_dataset_density_evolution_per_B_and_S_plot(DATASET8)
+    print('dataset8 done')
     
+    # dataset = DATASET9
     # create_dataset_density_evolution_plot(DATASET9, limit=500)
     # create_dataset_density_evolution_per_S_plot(DATASET9, limit=500)
     # create_dataset_density_evolution_per_B_plot(DATASET9, limit=500)

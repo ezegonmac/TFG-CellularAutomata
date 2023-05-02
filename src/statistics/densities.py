@@ -14,7 +14,6 @@ from utils import *
 # density evolution
 
 def create_dataset_density_evolution_plot(dataset, show=False, title="Evolución de la densidad", start=0, limit=None, suffix='', num_colors=20):
-    
     data_datasets_folder = get_data_datasets_folder(dataset)
     dataset_file = f'{data_datasets_folder}/{dataset}/dataset.csv'
     df = pd.read_csv(dataset_file)
@@ -31,7 +30,7 @@ def create_dataset_density_evolution_plot(dataset, show=False, title="Evolución
     
     density_figures_folder = get_density_figures_folder(dataset)
     suffix = f'_{suffix}' if suffix else ''
-    plt.show() if show else plt.savefig(f'{density_figures_folder}/density_evolution_{dataset}{suffix}.png', dpi=300)
+    plt.show() if show else plt.savefig(f'{density_figures_folder}/density_evolution_{dataset}{suffix}.png', dpi=250)
     plt.close()
 
 
@@ -231,6 +230,9 @@ def plot_density_evolutions_per_B_and_S(density_evolutions_by_B_and_S, BSs, titl
             plt.plot(densities, c=color, alpha=0.3)
     
     ax.set(ylim=(0, 1.1), xlabel='Iteraciones', ylabel='Densidad', title=title)
+    # set label fontsize
+    ax.axes.xaxis.label.set_size(12)
+    ax.axes.yaxis.label.set_size(12)
     # remove right and top spines
     ax.spines.right.set_visible(False)
     ax.spines.top.set_visible(False)
@@ -246,7 +248,7 @@ def plot_density_evolutions_per_B_and_S(density_evolutions_by_B_and_S, BSs, titl
               labels=[(0, 0), (9, 9)],
               loc='center left', bbox_to_anchor=(0.9, 0.5))
 
-def create_dataset_density_evolution_per_B_and_S_plot(dataset, show=False, title="Evolución de la densidad por umbral de vida (B) y supervivencia (S)", limit=None, suffix=''):
+def create_dataset_density_evolution_per_B_and_S_plot(dataset, show=False, title="Evolución de la densidad por umbrales B y S", limit=None, suffix=''):
     # Used only for equal values of B and S
     # Sometimes only takes B in account
     
