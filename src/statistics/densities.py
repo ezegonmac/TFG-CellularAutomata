@@ -107,7 +107,7 @@ def plot_density_variations(density_evolutions, title):
 
 # density evolution per B
 
-def create_dataset_density_evolution_per_B_plot(dataset, show=False, title="Evolución de la densidad por umbral de vida (B)", limit=None, suffix=''):
+def create_dataset_density_evolution_per_B_plot(dataset, show=False, title="Evolución de la densidad por umbral B", limit=None, suffix=''):
     
     data_datasets_folder = get_data_datasets_folder(dataset)
     dataset_file = f'{data_datasets_folder}/{dataset}/dataset.csv'
@@ -162,8 +162,7 @@ def plot_density_evolutions_per_B(density_evolutions_by_B, Bs, title):
 
 # density evolution per S
 
-def create_dataset_density_evolution_per_S_plot(dataset, show=False, title="Evolución de la densidad por umbral de supervivencia (S)", limit=None, suffix=''):
-    
+def create_dataset_density_evolution_per_S_plot(dataset, show=False, title="Evolución de la densidad por umbral S", limit=None, suffix=''):
     data_datasets_folder = get_data_datasets_folder(dataset)
     dataset_file = f'{data_datasets_folder}/{dataset}/dataset.csv'
     df = pd.read_csv(dataset_file)
@@ -202,6 +201,9 @@ def plot_density_evolutions_per_S(density_evolutions_by_S, Ss, title):
             plt.plot(densities, c=color, alpha=0.3)
     
     ax.set(ylim=(0, 1.1), xlabel='Iteraciones', ylabel='Densidad', title=title)
+    # set label fontsize
+    ax.axes.xaxis.label.set_size(12)
+    ax.axes.yaxis.label.set_size(12)
     # remove right and top spines
     ax.spines.right.set_visible(False)
     ax.spines.top.set_visible(False)
