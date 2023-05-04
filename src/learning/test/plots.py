@@ -99,7 +99,12 @@ def generate_scores_model_comparison_plot(dataset, metric, model_variation='vect
     plt.xticks(rotation=0, fontsize=16)
     plt.ylim((y_min, y_max))
     plt.title(f'Comparación de los modelos - {metric}', fontsize=20)
-    plt.legend(fontsize=16)
+    plt.xlabel('')
+    plt.yticks(fontsize=16)
+    plt.gca().spines.right.set_visible(False)
+    plt.gca().spines.top.set_visible(False)
+    # plt.legend(fontsize=16)
+    plt.gca().legend_.remove()
 
     suffix = f'_{suffix}' if suffix else ''
     test_figures_folder = get_test_figures_folder(dataset)
@@ -125,6 +130,10 @@ def generate_scores_model_individuals_comparison_plot(dataset, metric, model_var
     plt.xticks(rotation=0, fontsize=16)
     plt.ylim((y_min, y_max))
     plt.title(f'Comparación de los modelos - {metric}', fontsize=20)
+    plt.xlabel('')
+    plt.yticks(fontsize=16)
+    plt.gca().spines.right.set_visible(False)
+    plt.gca().spines.top.set_visible(False)
     plt.legend(fontsize=16)
 
     suffix = f'_{suffix}' if suffix else ''

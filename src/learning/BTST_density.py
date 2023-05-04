@@ -112,7 +112,7 @@ def generate_models_score_plots_ds3():
 
 # DATASET 9 #
 
-def train_and_test_models_ds9():
+def train_and_test_models_ds9(num_executions=10, num_individuals=500, save_models=False):
     dataset = DATASET9_DENSITY
     
     # Hyperparameters
@@ -158,23 +158,25 @@ def train_and_test_models_ds9():
         hyperparameters_rf=hp_rf,
         hyperparameters_nn=hp_nn,
         model_variation='vector',
+        num_individuals=num_individuals,
+        save_models=save_models,
+        num_executions=num_executions,
         )
     
     
-def generate_models_score_plots_ds9():
+def generate_models_score_plots_ds9(num_individuals=500):
     dataset = DATASET9_DENSITY
     
     # # FIGURES
     # # # score model comparison plots
-    # num_individuals = 500 # 1000 # 5000 # 500
-    # generate_scores_model_comparison_plot(dataset, metric='RMSE', num_individuals=num_individuals)
-    # generate_scores_model_comparison_plot(dataset, metric='R2', num_individuals=num_individuals)
+    generate_scores_model_comparison_plot(dataset, metric='RMSE', num_individuals=num_individuals)
+    generate_scores_model_comparison_plot(dataset, metric='R2', num_individuals=num_individuals)
 
     # # # score model comparison individuals plots
     # generate_scores_model_individuals_comparison_plot(dataset, metric='RMSE')
-    generate_scores_model_individuals_comparison_plot(dataset, metric='RMSE', y_min=0, y_max=0.6, suffix='scaled')
+    # generate_scores_model_individuals_comparison_plot(dataset, metric='RMSE', y_min=0, y_max=0.6, suffix='scaled')
     # generate_scores_model_individuals_comparison_plot(dataset, metric='R2')
-    generate_scores_model_individuals_comparison_plot(dataset, metric='R2', y_min=0.6, y_max=1.0, suffix='scaled')
+    # generate_scores_model_individuals_comparison_plot(dataset, metric='R2', y_min=0.6, y_max=1.0, suffix='scaled')
     
     # # # score evolution plots
     # generate_score_evolution_comparison_plots(dataset)
@@ -218,7 +220,7 @@ def train_and_test_models10():
     # generate_score_evolution_comparison_plot(dataset, metric="R2", y_min=0.96, y_max=1, suffix='scaled')
 
 
-def train_and_test_models(dataset, model_variation='vector', hyperparameters_knn={}, hyperparameters_dtree={}, hyperparameters_rf= {}, hyperparameters_nn={}):
+def train_and_test_models(dataset, model_variation='vector', hyperparameters_knn={}, hyperparameters_dtree={}, hyperparameters_rf= {}, hyperparameters_nn={}, num_executions=10, num_individuals=500, save_models=False):
     
     knn_model = KNeighborsRegressor(**hyperparameters_knn)
     dtree_model = DecisionTreeRegressor(random_state=SKLEARN_RANDOM_SEED, **hyperparameters_dtree)
@@ -233,7 +235,7 @@ def train_and_test_models(dataset, model_variation='vector', hyperparameters_knn
     print(dataset.capitalize())
     print('---------------------------------')
     
-    generate_model_and_scores_files(knn_model, dataset, 'KNN', model_variation)
-    generate_model_and_scores_files(dtree_model, dataset, 'DecisionTree', model_variation)
-    generate_model_and_scores_files(rf_model, dataset, 'RandomForest', model_variation)
-    generate_model_and_scores_files(nn_model, dataset, 'NeuralNetwork', model_variation)
+    generate_model_and_scores_files(knn_model, dataset, 'KNN', model_variation, save_model=save_models, num_individuals=num_individuals, num_executions=num_executions)
+    # generate_model_and_scores_files(dtree_model, dataset, 'DecisionTree', model_variation, save_model=save_models, num_individuals=num_individuals, num_executions=num_executions)
+    # generate_model_and_scores_files(rf_model, dataset, 'RandomForest', model_variation, save_model=save_models, num_individuals=num_individuals, num_executions=num_executions)
+    # generate_model_and_scores_files(nn_model, dataset, 'NeuralNetwork', model_variation, save_model=save_models, num_individuals=num_individuals, num_executions=num_executions)

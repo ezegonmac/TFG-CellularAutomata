@@ -13,45 +13,6 @@ def calc_R2(y_test, y_pred):
     return r2
 
 
-# Standard deviations
-
-def calc_RMSE_std(y_test, y_pred):
-    # calc standard deviation of the RMSE
-    individuals = y_test.shape[0]
-    rmses = []
-    for i in range(individuals):
-        if y_test.ndim == 1:
-            y_test_i = y_test.iloc[i].reshape(-1,1)
-            y_pred_i = y_pred[i].reshape(-1,1)
-        else:
-            y_test_i = y_test.iloc[i, :]
-            y_pred_i = y_pred[i, :]
-        rmse = calc_RMSE(y_test_i, y_pred_i)
-        rmses.append(rmse)
-    
-    return np.std(rmses)
-
-
-def calc_R2_std(y_test, y_pred):
-    # TODO: meaning of the R2 std ?
-    return 0
-    
-    # calc standard deviation of the RMSE
-    individuals = y_test.shape[0]
-    r2s = []
-    for i in range(individuals):
-        if y_test.ndim == 1:
-            y_test_i = y_test.iloc[i].reshape(-1,1)
-            y_pred_i = y_pred[i].reshape(-1,1)
-        else:
-            y_test_i = y_test.iloc[i, :]
-            y_pred_i = y_pred[i, :]
-        r2 = calc_R2(y_test_i, y_pred_i)
-        r2s.append(r2)
-    
-    return np.std(r2s)
-
-
 # By iteration scores
 
 def calc_rmse_by_iteration(y_test, y_pred):
@@ -108,3 +69,32 @@ def _calc_score_std_by_iteration(y_test, y_pred, scorer='RMSE'):
             raise ValueError(f'Unknown score: {score}')
         scores_by_iteration[str(i+1)] = score
     return scores_by_iteration
+
+
+
+# RMSE and R2 (scores) statistics
+
+def calc_score_statistics_by_iteration(scores_by_iteration):
+    executions = scores_by_iteration.shape[0]
+    iterations = len(scores_by_iteration[0])
+    
+    # dict with iteration as keys and values as scores
+    values_per_iteration = {}
+    for i in range(1, iterations+1):
+        values = []
+        for e in range(executions):
+            execution = scores_by_iteration[e]
+            value = execution[str(i)]
+            values.append(value)
+            
+        values_per_iteration[i] = values
+    
+    score_mean_by_iteration = {}
+    for i in range(1, iterations+1):
+        score_mean_by_iteration[i] = np.mean(values_per_iteration[i])
+    
+    score_std_by_iteration = {}
+    for i in range(1, iterations+1):
+        score_std_by_iteration[i] = np.std(values_per_iteration[i])
+
+    return [score_mean_by_iteration, score_std_by_iteration]
