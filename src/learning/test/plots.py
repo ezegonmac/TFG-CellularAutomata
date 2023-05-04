@@ -2,8 +2,10 @@ import matplotlib.pyplot as plt
 from matplotlib.ticker import MaxNLocator
 
 from constants import *
-from learning.test.files import (get_scores_by_dataset,
-                                 get_scores_by_dataset_and_model)
+from learning.test.files_scores import (
+    get_scores_by_dataset,
+    get_scores_by_dataset_and_model
+    )
 from utils import *
 
 MODELS = [KNN, DECISION_TREE, RANDOM_FOREST, NEURAL_NETWORK]

@@ -76,6 +76,7 @@ def _calc_score_std_by_iteration(y_test, y_pred, scorer='RMSE'):
 
 def calc_score_statistics_by_iteration(scores_by_iteration):
     executions = scores_by_iteration.shape[0]
+    scores_by_iteration = scores_by_iteration.tolist()
     iterations = len(scores_by_iteration[0])
     
     # dict with iteration as keys and values as scores

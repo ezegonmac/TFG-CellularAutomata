@@ -1,3 +1,4 @@
+import time
 from sklearn.ensemble import RandomForestRegressor
 from sklearn.neighbors import KNeighborsRegressor
 from sklearn.neural_network import MLPRegressor
@@ -5,10 +6,11 @@ from sklearn.tree import DecisionTreeRegressor
 
 from constants import *
 from learning.density_dataset import *
-from learning.density_dataset import generate_model_and_scores_files
 from learning.models.files import *
 from learning.test import *
 from learning.test.plots import *
+from datasets.density_datasets_BTST import generate_dataset9_density
+from learning.test.files import generate_model_and_scores_files
 from utils import *
 
 
@@ -115,6 +117,10 @@ def generate_models_score_plots_ds3():
 def train_and_test_models_ds9(num_executions=10, num_individuals=500, save_models=False):
     dataset = DATASET9_DENSITY
     
+    print('---------------------------------')
+    print('Train and test: ' + dataset)
+    print('---------------------------------')
+    
     # Hyperparameters
     hp_knn = {
         'algorithm': 'ball_tree', 
@@ -151,6 +157,13 @@ def train_and_test_models_ds9(num_executions=10, num_individuals=500, save_model
         'activation': 'tanh',
     }
     
+    start_time = time.time()
+    
+    generate_dataset(
+        num_executions=num_executions, 
+        num_individuals=num_individuals
+        )
+    
     train_and_test_models(
         dataset,
         hyperparameters_knn=hp_knn,
@@ -163,7 +176,17 @@ def train_and_test_models_ds9(num_executions=10, num_individuals=500, save_model
         num_executions=num_executions,
         )
     
-    
+    # time in minutes
+    elapsed_time = (time.time() - start_time) / 60
+    print(f"Elapsed time: {elapsed_time:.2f} minutes\n")
+
+
+def generate_dataset(num_executions=10, num_individuals=500):
+    print(f"# Generating dataset with {num_executions} executions and {num_individuals} individuals")
+    dataset_individuals = num_executions * num_individuals
+    generate_dataset9_density(dataset_individuals)
+
+
 def generate_models_score_plots_ds9(num_individuals=500):
     dataset = DATASET9_DENSITY
     
@@ -220,8 +243,7 @@ def train_and_test_models10():
     # generate_score_evolution_comparison_plot(dataset, metric="R2", y_min=0.96, y_max=1, suffix='scaled')
 
 
-def train_and_test_models(dataset, model_variation='vector', hyperparameters_knn={}, hyperparameters_dtree={}, hyperparameters_rf= {}, hyperparameters_nn={}, num_executions=10, num_individuals=500, save_models=False):
-    
+def train_and_test_models(dataset, model_variation='vector', hyperparameters_knn={}, hyperparameters_dtree={}, hyperparameters_rf= {}, hyperparameters_nn={}, num_executions=10, num_individuals=500, save_models=False):    
     knn_model = KNeighborsRegressor(**hyperparameters_knn)
     dtree_model = DecisionTreeRegressor(random_state=SKLEARN_RANDOM_SEED, **hyperparameters_dtree)
     rf_model = RandomForestRegressor(random_state=SKLEARN_RANDOM_SEED, **hyperparameters_rf)
@@ -231,11 +253,7 @@ def train_and_test_models(dataset, model_variation='vector', hyperparameters_knn
         **hyperparameters_nn,
         )
     
-    print('---------------------------------')
-    print(dataset.capitalize())
-    print('---------------------------------')
-    
     generate_model_and_scores_files(knn_model, dataset, 'KNN', model_variation, save_model=save_models, num_individuals=num_individuals, num_executions=num_executions)
-    # generate_model_and_scores_files(dtree_model, dataset, 'DecisionTree', model_variation, save_model=save_models, num_individuals=num_individuals, num_executions=num_executions)
-    # generate_model_and_scores_files(rf_model, dataset, 'RandomForest', model_variation, save_model=save_models, num_individuals=num_individuals, num_executions=num_executions)
-    # generate_model_and_scores_files(nn_model, dataset, 'NeuralNetwork', model_variation, save_model=save_models, num_individuals=num_individuals, num_executions=num_executions)
+    generate_model_and_scores_files(dtree_model, dataset, 'DecisionTree', model_variation, save_model=save_models, num_individuals=num_individuals, num_executions=num_executions)
+    generate_model_and_scores_files(rf_model, dataset, 'RandomForest', model_variation, save_model=save_models, num_individuals=num_individuals, num_executions=num_executions)
+    generate_model_and_scores_files(nn_model, dataset, 'NeuralNetwork', model_variation, save_model=save_models, num_individuals=num_individuals, num_executions=num_executions)

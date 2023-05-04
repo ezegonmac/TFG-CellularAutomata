@@ -115,7 +115,7 @@ def generate_dataset3_density() -> None:
     generate_density_dataset_files_from_individuals(individuals, dataset_folder)
 
 
-def generate_dataset9_density() -> None:
+def generate_dataset9_density(n_individuals=500) -> None:
     """
     Generate dataset9.
     
@@ -145,8 +145,6 @@ def generate_dataset9_density() -> None:
     S_max = 9
     density_min = 0
     density_max = 1
-      
-    n_individuals = 5000
     
     # folders
     data_datasets_folder = get_data_datasets_folder(dataset_name)
