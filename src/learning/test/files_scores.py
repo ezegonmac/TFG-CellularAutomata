@@ -15,8 +15,8 @@ def load_scores_file(dataset):
     data_learning_folder = get_data_learning_folder(dataset)
     scores_file = f'{data_learning_folder}/scores.csv'
     df = pd.read_csv(scores_file)
-    df['RMSE by iteration'] = df['RMSE mean by iteration'].apply(lambda x: literal_eval(str(x)))
-    df['R2 by iteration'] = df['R2 mean by iteration'].apply(lambda x: literal_eval(str(x)))
+    df['RMSE mean by iteration'] = df['RMSE mean by iteration'].apply(lambda x: literal_eval(str(x)))
+    df['R2 mean by iteration'] = df['R2 mean by iteration'].apply(lambda x: literal_eval(str(x)))
     df['RMSE std by iteration'] = df['RMSE std by iteration'].apply(lambda x: literal_eval(str(x)))
     df['R2 std by iteration'] = df['R2 std by iteration'].apply(lambda x: literal_eval(str(x)))
     return df

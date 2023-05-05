@@ -16,28 +16,53 @@ MODELS = [KNN, DECISION_TREE, RANDOM_FOREST, NEURAL_NETWORK]
 def generate_score_evolution_comparison_plots(dataset, suffix=''):
     metrics = ['RMSE', 'R2']
 
-    for model in MODELS:
-        for metric in metrics:
-            generate_score_evolution_comparison_plot(dataset, metric=metric, suffix=suffix)
+    for metric in metrics:
+        generate_score_evolution_comparison_plot(dataset, metric=metric, suffix=suffix)
 
 
 def generate_score_evolution_comparison_plot(dataset, metric, suffix='', y_min=0.0, y_max=1.1, show=False):
     df = get_scores_by_dataset(dataset)
     color = 'blue' if metric == 'RMSE' else 'red'
 
-    iterations = len(df[df['Model'] == MODELS[0]][f'{metric} by iteration'].values[0].values())
-    fig, axs = plt.subplots(1, len(MODELS), figsize=(18, 5))
+    iterations = len(df[df['Model'] == MODELS[0]][f'{metric} mean by iteration'].values[0].values())
+    fig, axs = plt.subplots(1, len(MODELS), figsize=(16, 4), sharey=True)
+    
+    # Big figure to set common labels
+    ax = fig.add_subplot(111, frameon=False)
+    ax.tick_params(top=False, bottom=False, left=False, right=False)
+    ax.set_xticklabels([])
+    ax.set_yticklabels([])
+    ax.set_xlabel('Densidad', labelpad=25)
+    ax.set_ylabel(metric, labelpad=40)
+    ax.xaxis.label.set_size(16)
+    ax.yaxis.label.set_size(16)
+    
     for i, model in enumerate(MODELS):
+        # filter by model
+        df_model = df[df['Model'] == model]
+        # horizontal line
         axs[i].plot([-1, iterations+0.5], [1, 1], color='black', linewidth=0.35, alpha=0.8, label='_nolegend_')
-        axs[i].plot(df[df['Model'] == model][f'{metric} by iteration'].values[0].values(), color=color)
+        # plot
+        metric_by_iteration = df_model[f'{metric} mean by iteration'].values[0].values()
+        axs[i].plot(metric_by_iteration, color=color)
+        # error area
+        errors_max = [x + y for x, y in zip(df_model[f'{metric} mean by iteration'].values[0].values(), df[f'{metric} std by iteration'].values[0].values())]
+        errors_min = [x - y for x, y in zip(df_model[f'{metric} mean by iteration'].values[0].values(), df[f'{metric} std by iteration'].values[0].values())]
+        axs[i].fill_between(range(0, iterations), errors_max, errors_min, alpha=0.30, color=color, label='_nolegend_', linewidth=0)
+        # extra
         axs[i].set(xlim=(1, iterations), ylim=(y_min, y_max))
-        axs[i].set(xlabel='Iteraciones', ylabel=metric, title=model)
+        axs[i].set(title=model)
         axs[i].spines.right.set_visible(False)
         axs[i].spines.top.set_visible(False)
+        # ticks fontsize
+        axs[i].tick_params(axis='x', labelsize=16)
+        axs[i].tick_params(axis='y', labelsize=16)
+        # title fontsize
+        axs[i].title.set_fontsize(18)
 
     suffix = f'_{suffix}' if suffix else ''
     test_figures_folder = get_test_figures_folder(dataset)
-    plt.show() if show else plt.savefig(f'{test_figures_folder}/{metric}_evolution_comparison_{dataset}{suffix}.png', dpi=300)
+    plt.show() if show else plt.savefig(f'{test_figures_folder}/{metric}_evolution_comparison_{dataset}{suffix}.png', dpi=300, bbox_inches='tight')
     plt.close()
 
 

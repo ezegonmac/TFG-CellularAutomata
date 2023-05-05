@@ -210,8 +210,8 @@ def generate_models_score_plots_ds9(num_individuals=500):
     
     # # FIGURES
     # # # score model comparison plots
-    generate_scores_model_comparison_plot(dataset, metric='RMSE', num_individuals=num_individuals)
-    generate_scores_model_comparison_plot(dataset, metric='R2', num_individuals=num_individuals)
+    # generate_scores_model_comparison_plot(dataset, metric='RMSE', num_individuals=num_individuals)
+    # generate_scores_model_comparison_plot(dataset, metric='R2', num_individuals=num_individuals)
 
     # # # score model comparison individuals plots
     # generate_scores_model_individuals_comparison_plot(dataset, metric='RMSE')
@@ -220,7 +220,7 @@ def generate_models_score_plots_ds9(num_individuals=500):
     # generate_scores_model_individuals_comparison_plot(dataset, metric='R2', y_min=0.6, y_max=1.0, suffix='scaled')
     
     # # # score evolution plots
-    # generate_score_evolution_comparison_plots(dataset)
+    generate_score_evolution_comparison_plots(dataset)
 
     # generate_score_evolution_comparison_plot(dataset, metric="R2", y_min=0.85, y_max=1, suffix='scaled')
 

@@ -27,7 +27,9 @@ def create_dataset_density_histograms_plot(dataset, show=False, title="Histogram
     fig, axes = plt.subplots(3, 3, figsize=(10, 7), sharex=True, sharey=True, constrained_layout=True)
     # Big figure to set common labels
     ax = fig.add_subplot(111, frameon=False)
-    ax.tick_params(labelcolor='w', top=False, bottom=False, left=False, right=False)
+    ax.tick_params(top=False, bottom=False, left=False, right=False)
+    ax.set_xticklabels([])
+    ax.set_yticklabels([])
     ax.set_xlabel('Densidad', labelpad=15)
     ax.set_ylabel('Frecuencia', labelpad=15)
     ax.xaxis.label.set_size(16)
