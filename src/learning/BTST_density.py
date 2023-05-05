@@ -227,7 +227,7 @@ def train_and_test_models_ds9(num_executions=10, num_individuals=500, save_model
     print(f"Elapsed time: {elapsed_time:.2f} minutes\n")
 
 
-def generate_models_score_plots_ds9(num_individuals=500):
+def generate_models_score_plots_ds9(num_individuals):
     dataset = DATASET9_DENSITY
     
     # # FIGURES
@@ -242,25 +242,9 @@ def generate_models_score_plots_ds9(num_individuals=500):
     # generate_scores_model_individuals_comparison_plot(dataset, metric='R2', y_min=0.6, y_max=1.0, suffix='scaled')
     
     # # # score evolution plots
-    generate_score_evolution_comparison_plots(dataset)
+    generate_score_evolution_comparison_plots(dataset, num_individuals=num_individuals)
 
     # generate_score_evolution_comparison_plot(dataset, metric="R2", y_min=0.85, y_max=1, suffix='scaled')
-
-
-    # FIGURES
-    # score model comparison plots
-    # generate_scores_model_comparison_plot(dataset, metric='MSE')
-    # generate_scores_model_comparison_plot(dataset, metric='R2')
-    # generate_scores_model_comparison_plot(dataset, metric='MSE', y_min=0, y_max=0.02, suffix='scaled')
-    # generate_scores_model_comparison_plot(dataset, metric='R2', y_min=0.95, y_max=1.0, suffix='scaled')
-    
-    # score evolution plots
-    # generate_score_evolution_plots(dataset)
-    
-    # generate_score_evolution_comparison_plots(dataset)
-
-    # generate_score_evolution_comparison_plot(dataset, metric="MSE", y_max=0.01, suffix='scaled')
-    # generate_score_evolution_comparison_plot(dataset, metric="R2", y_min=0.96, y_max=1, suffix='scaled')
 
 
 def train_and_test_models10():

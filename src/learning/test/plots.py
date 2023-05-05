@@ -13,14 +13,14 @@ MODELS = [KNN, DECISION_TREE, RANDOM_FOREST, NEURAL_NETWORK]
 
 # Score evolution comparison plots
 
-def generate_score_evolution_comparison_plots(dataset, suffix=''):
+def generate_score_evolution_comparison_plots(dataset, model_variation='vector', num_individuals=500, suffix=''):
     metrics = ['RMSE', 'R2']
 
     for metric in metrics:
-        generate_score_evolution_comparison_plot(dataset, metric=metric, suffix=suffix)
+        generate_score_evolution_comparison_plot(dataset, metric=metric, model_variation=model_variation, num_individuals=num_individuals, suffix=suffix)
 
 
-def generate_score_evolution_comparison_plot(dataset, metric, suffix='', y_min=0.0, y_max=1.1, show=False):
+def generate_score_evolution_comparison_plot(dataset, metric, model_variation='vector', num_individuals=500, suffix='', y_min=0.0, y_max=1.1, show=False):
     df = get_scores_by_dataset(dataset)
     color = 'blue' if metric == 'RMSE' else 'red'
 
@@ -34,8 +34,8 @@ def generate_score_evolution_comparison_plot(dataset, metric, suffix='', y_min=0
     ax.set_yticklabels([])
     ax.set_xlabel('Densidad', labelpad=25)
     ax.set_ylabel(metric, labelpad=40)
-    ax.xaxis.label.set_size(16)
-    ax.yaxis.label.set_size(16)
+    ax.xaxis.label.set_size(20)
+    ax.yaxis.label.set_size(20)
     
     for i, model in enumerate(MODELS):
         # filter by model
@@ -55,14 +55,14 @@ def generate_score_evolution_comparison_plot(dataset, metric, suffix='', y_min=0
         axs[i].spines.right.set_visible(False)
         axs[i].spines.top.set_visible(False)
         # ticks fontsize
-        axs[i].tick_params(axis='x', labelsize=16)
-        axs[i].tick_params(axis='y', labelsize=16)
+        axs[i].tick_params(axis='x', labelsize=18)
+        axs[i].tick_params(axis='y', labelsize=18)
         # title fontsize
-        axs[i].title.set_fontsize(18)
+        axs[i].title.set_fontsize(20)
 
     suffix = f'_{suffix}' if suffix else ''
     test_figures_folder = get_test_figures_folder(dataset)
-    plt.show() if show else plt.savefig(f'{test_figures_folder}/{metric}_evolution_comparison_{dataset}{suffix}.png', dpi=300, bbox_inches='tight')
+    plt.show() if show else plt.savefig(f'{test_figures_folder}/evolution_comparison_{dataset}_{metric}_{model_variation}_{num_individuals}ind{suffix}.png', dpi=300, bbox_inches='tight')
     plt.close()
 
 
@@ -128,11 +128,11 @@ def generate_scores_model_comparison_plot(dataset, metric, model_variation='vect
     colormap = 'winter' if metric == 'RMSE' else 'autumn'
     df.plot.bar(figsize=(10, 10), width=0.8, colormap=colormap, yerr="Double std", capsize=4)
 
-    plt.xticks(rotation=0, fontsize=16)
+    plt.xticks(rotation=-30, fontsize=20)
     plt.ylim((y_min, y_max))
-    plt.title(f'Comparación de los modelos - {metric}', fontsize=20)
+    plt.title(f'Comparación de los modelos - {metric}', fontsize=25)
     plt.xlabel('')
-    plt.yticks(fontsize=16)
+    plt.yticks(fontsize=22)
     plt.gca().spines.right.set_visible(False)
     plt.gca().spines.top.set_visible(False)
     # plt.legend(fontsize=16)
@@ -140,7 +140,7 @@ def generate_scores_model_comparison_plot(dataset, metric, model_variation='vect
 
     suffix = f'_{suffix}' if suffix else ''
     test_figures_folder = get_test_figures_folder(dataset)
-    plt.show() if show else plt.savefig(f'{test_figures_folder}/model_comparison_{metric}_{dataset}_{model_variation}_{num_individuals}ind{suffix}.png', dpi=300)
+    plt.show() if show else plt.savefig(f'{test_figures_folder}/model_comparison_{metric}_{dataset}_{model_variation}_{num_individuals}ind{suffix}.png', dpi=300, bbox_inches='tight')
 
 
 def generate_scores_model_individuals_comparison_plot(dataset, metric, model_variation='vector', suffix='', y_min=0.0, y_max=1.1, show=False):
