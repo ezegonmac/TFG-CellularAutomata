@@ -36,12 +36,8 @@ def generate_execution_scores_file(model, dataset, model_name, model_variation, 
     if os.path.isfile(executions_file):
         df = pd.read_csv(executions_file)
         index = df[(df['Model'] == model_name) & (df['Dataset'] == dataset) & (df['Model variation'] == model_variation) & (df['Number of individuals'] == num_individuals)].index
-        print(model_name)
-        print(df[(df['Model'] == model_name)])
         df.drop(index, inplace=True)
-        print(df)
         df.to_csv(executions_file, index=False)
-        print(df)
     
     # add one row for each execution
     for execution in range(num_executions):

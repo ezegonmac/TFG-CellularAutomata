@@ -25,7 +25,7 @@ def get_data_learning_folder(dataset):
 def get_data_learning_executions_folder(dataset):
     data_learning_folder = get_data_learning_folder(dataset)
     executions_folder = f'{data_learning_folder}/{dataset}/executions'
-    create_folder_if_not_exists(data_learning_folder)
+    create_folder_if_not_exists(executions_folder)
     return executions_folder
 
 # figures

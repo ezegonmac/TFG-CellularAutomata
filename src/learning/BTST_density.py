@@ -16,8 +16,12 @@ from utils import *
 
 # DATASET 8 #
 
-def train_and_test_models_ds8():
+def train_and_test_models_ds8(num_executions=10, num_individuals=500, save_models=False):
     dataset = DATASET8_DENSITY
+    
+    print('---------------------------------')
+    print('Train and test: ' + dataset)
+    print('---------------------------------')
     
     # Hyperparameters
     
@@ -25,7 +29,7 @@ def train_and_test_models_ds8():
     
     hp_dtree = {}
     
-    rf_model = {}
+    hp_rf = {}
     
     hp_nn = {
         'hidden_layer_sizes': (3),
@@ -33,14 +37,28 @@ def train_and_test_models_ds8():
         'activation': 'tanh',
     }
     
+    start_time = time.time()
+    
+    # generate_dataset(
+    #     num_executions=num_executions, 
+    #     num_individuals=num_individuals
+    #     )
+    
     train_and_test_models(
         dataset,
         hyperparameters_knn=hp_knn,
         hyperparameters_dtree=hp_dtree,
-        hyperparameters_rf=rf_model,
+        hyperparameters_rf=hp_rf,
         hyperparameters_nn=hp_nn,
         model_variation='vector',
+        num_individuals=num_individuals,
+        save_models=save_models,
+        num_executions=num_executions,
         )
+    
+    # time in minutes
+    elapsed_time = (time.time() - start_time) / 60
+    print(f"Elapsed time: {elapsed_time:.2f} minutes\n")
 
 
 def generate_models_score_plots_ds8():
@@ -243,7 +261,7 @@ def train_and_test_models10():
     # generate_score_evolution_comparison_plot(dataset, metric="R2", y_min=0.96, y_max=1, suffix='scaled')
 
 
-def train_and_test_models(dataset, model_variation='vector', hyperparameters_knn={}, hyperparameters_dtree={}, hyperparameters_rf= {}, hyperparameters_nn={}, num_executions=10, num_individuals=500, save_models=False):    
+def train_and_test_models(dataset, model_variation='vector', hyperparameters_knn={}, hyperparameters_dtree={}, hyperparameters_rf= {}, hyperparameters_nn={}, num_executions=10, num_individuals=500, save_models=False):
     knn_model = KNeighborsRegressor(**hyperparameters_knn)
     dtree_model = DecisionTreeRegressor(random_state=SKLEARN_RANDOM_SEED, **hyperparameters_dtree)
     rf_model = RandomForestRegressor(random_state=SKLEARN_RANDOM_SEED, **hyperparameters_rf)
