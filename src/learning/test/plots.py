@@ -84,19 +84,24 @@ def plot_score_evolution(dataset, model_name, metric):
 # Model comparison plot
 
 def generate_scores_model_comparison_plot(dataset, metric, model_variation='vector', num_individuals=500, suffix='', y_min=0.0, y_max=1.1, show=False):
+    metric_mean = f'{metric} mean'
+    metric_std = f'{metric} std'
+    
     df = get_scores_by_dataset(dataset)
     # filter by MODELS
     df = df[df['Model'].isin(MODELS)]
-    df = df.sort_values(by=[metric])
     # filter by model variation
     df = df[df['Model variation'] == model_variation]
     # filter by num individuals
     df = df[df['Number of individuals'] == num_individuals]
-    df = df[['Model', metric]]
+    # error = 2*std
+    df['Double std'] = 2*df[metric_std]
+    # filter columns
+    df = df[['Model', metric_mean, 'Double std']]
     df = df.set_index(['Model'])
     
     colormap = 'winter' if metric == 'RMSE' else 'autumn'
-    df.plot.bar(figsize=(10, 10), width=0.8, colormap=colormap)
+    df.plot.bar(figsize=(10, 10), width=0.8, colormap=colormap, yerr="Double std", capsize=4)
 
     plt.xticks(rotation=0, fontsize=16)
     plt.ylim((y_min, y_max))
