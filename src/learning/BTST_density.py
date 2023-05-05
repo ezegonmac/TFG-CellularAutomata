@@ -9,9 +9,16 @@ from learning.density_dataset import *
 from learning.models.files import *
 from learning.test import *
 from learning.test.plots import *
-from datasets.density_datasets_BTST import generate_dataset9_density
+from datasets.density_datasets_BTST import *
 from learning.test.files import generate_model_and_scores_files
 from utils import *
+
+
+def generate_dataset(dataset, num_executions=10, num_individuals=500):
+    print(f"# Generating dataset with {num_executions} executions and {num_individuals} individuals")
+    dataset_individuals = num_executions * num_individuals
+    generate_dataset = globals()[f'generate_{dataset}']
+    generate_dataset(dataset_individuals)
 
 
 # DATASET 8 #
@@ -39,10 +46,11 @@ def train_and_test_models_ds8(num_executions=10, num_individuals=500, save_model
     
     start_time = time.time()
     
-    # generate_dataset(
-    #     num_executions=num_executions, 
-    #     num_individuals=num_individuals
-    #     )
+    generate_dataset(
+        dataset,
+        num_executions=num_executions, 
+        num_individuals=num_individuals
+        )
     
     train_and_test_models(
         dataset,
@@ -75,8 +83,12 @@ def generate_models_score_plots_ds8():
 
 # DATASET 3 #
 
-def train_and_test_models_ds3():
+def train_and_test_models_ds3(num_executions=10, num_individuals=500, save_models=False):
     dataset = DATASET3_DENSITY
+    
+    print('---------------------------------')
+    print('Train and test: ' + dataset)
+    print('---------------------------------')
     
     # Hyperparameters
     
@@ -86,7 +98,7 @@ def train_and_test_models_ds3():
     
     hp_dtree = {}
     
-    rf_model = {}
+    hp_rf = {}
     
     hp_nn = {
         'early_stopping': True,
@@ -97,14 +109,29 @@ def train_and_test_models_ds3():
         'activation': 'tanh',
     }
     
+    start_time = time.time()
+    
+    generate_dataset(
+        dataset,
+        num_executions=num_executions, 
+        num_individuals=num_individuals
+        )
+    
     train_and_test_models(
         dataset,
         hyperparameters_knn=hp_knn,
         hyperparameters_dtree=hp_dtree,
-        hyperparameters_rf=rf_model,
+        hyperparameters_rf=hp_rf,
         hyperparameters_nn=hp_nn,
         model_variation='vector',
+        num_individuals=num_individuals,
+        save_models=save_models,
+        num_executions=num_executions,
         )
+    
+    # time in minutes
+    elapsed_time = (time.time() - start_time) / 60
+    print(f"Elapsed time: {elapsed_time:.2f} minutes\n")
     
     
 def generate_models_score_plots_ds3():
@@ -178,6 +205,7 @@ def train_and_test_models_ds9(num_executions=10, num_individuals=500, save_model
     start_time = time.time()
     
     generate_dataset(
+        dataset,
         num_executions=num_executions, 
         num_individuals=num_individuals
         )
@@ -197,12 +225,6 @@ def train_and_test_models_ds9(num_executions=10, num_individuals=500, save_model
     # time in minutes
     elapsed_time = (time.time() - start_time) / 60
     print(f"Elapsed time: {elapsed_time:.2f} minutes\n")
-
-
-def generate_dataset(num_executions=10, num_individuals=500):
-    print(f"# Generating dataset with {num_executions} executions and {num_individuals} individuals")
-    dataset_individuals = num_executions * num_individuals
-    generate_dataset9_density(dataset_individuals)
 
 
 def generate_models_score_plots_ds9(num_individuals=500):

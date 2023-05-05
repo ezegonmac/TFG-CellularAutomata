@@ -65,7 +65,7 @@ def generate_dataset8_density() -> None:
     generate_density_dataset_files_from_individuals(individuals, dataset_folder)
 
 
-def generate_dataset3_density() -> None:
+def generate_dataset3_density(n_individuals=500) -> None:
     """
     Generate dataset3.
         
@@ -93,8 +93,6 @@ def generate_dataset3_density() -> None:
     B_max = 9
     B_min = 0
     S_max = 9
-      
-    n_individuals = 1000
     
     # folders
     data_datasets_folder = get_data_datasets_folder(dataset_name)
@@ -149,6 +147,7 @@ def generate_dataset9_density(n_individuals=500) -> None:
     # folders
     data_datasets_folder = get_data_datasets_folder(dataset_name)
     dataset_folder = f'{data_datasets_folder}/{dataset_name}'
+    print(dataset_folder)
     
     # individuals with random lt and dt
     np.random.seed(NP_RANDOM_SEED)
