@@ -1,3 +1,4 @@
+from math import ceil
 import numpy as np
 
 from constants import *
@@ -6,7 +7,7 @@ from datasets.CA_individual import CA_individual
 from utils import *
 
 
-def generate_dataset8_density() -> None:
+def generate_dataset8_density(n_individuals=500) -> None:
     """
     Generate dataset8 density.
     
@@ -28,8 +29,8 @@ def generate_dataset8_density() -> None:
     iterations = 10
     
     # define subsets with same attributes
-    n_subset1 = 100
-    n_subset2 = 100
+    n_subset1 = ceil(n_individuals/2)
+    n_subset2 = ceil(n_individuals/2)
     
     # folders
     data_datasets_folder = get_data_datasets_folder(dataset_name)
@@ -164,7 +165,7 @@ def generate_dataset9_density(n_individuals=500) -> None:
     generate_density_dataset_files_from_individuals(individuals, dataset_folder)
 
 
-def generate_dataset10_density() -> None:
+def generate_dataset10_density(n_individuals=500) -> None:
     """
     Generate dataset10.
     
@@ -197,8 +198,6 @@ def generate_dataset10_density() -> None:
     S_max = 9
     density_min = 0
     density_max = 1
-    
-    n_individuals = 500
     
     # folders
     data_datasets_folder = get_data_datasets_folder(dataset_name)

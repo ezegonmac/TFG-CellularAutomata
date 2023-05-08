@@ -42,7 +42,7 @@ def plot_density_evolutions(density_evolutions, title, num_colors=20):
     if iterations <= 15:
         ax.figure.set_size_inches(6, 4)
     if iterations > 15:
-        ax.figure.set_size_inches(15, 4)
+        ax.figure.set_size_inches(8, 4)
     
     colors = plt.cm.jet(np.linspace(0,1,num_colors))
     for i in range(len(density_evolutions)):
@@ -147,6 +147,9 @@ def plot_density_evolutions_per_B(density_evolutions_by_B, Bs, title):
             plt.plot(densities, c=color, alpha=0.3)
     
     ax.set(ylim=(0, 1.1), xlabel='Iteraciones', ylabel='Densidad', title=title)
+    # set label fontsize
+    ax.axes.xaxis.label.set_size(12)
+    ax.axes.yaxis.label.set_size(12)
     # remove right and top spines
     ax.spines.right.set_visible(False)
     ax.spines.top.set_visible(False)

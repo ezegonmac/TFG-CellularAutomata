@@ -30,8 +30,8 @@ def create_dataset_density_histograms_plot(dataset, show=False, title="Histogram
     ax.tick_params(top=False, bottom=False, left=False, right=False)
     ax.set_xticklabels([])
     ax.set_yticklabels([])
-    ax.set_xlabel('Densidad', labelpad=15)
-    ax.set_ylabel('Frecuencia', labelpad=15)
+    ax.set_xlabel('Densidad', labelpad=25)
+    ax.set_ylabel('Frecuencia', labelpad=25)
     ax.xaxis.label.set_size(16)
     ax.yaxis.label.set_size(16)
     

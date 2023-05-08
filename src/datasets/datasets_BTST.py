@@ -321,8 +321,8 @@ def generate_dataset8(save_individuals=False) -> None:
     iterations = 10
     
     # define subsets with same attributes
-    n_subset1 = 20
-    n_subset2 = 20
+    n_subset1 = 150
+    n_subset2 = 150
     
     # folders
     data_datasets_folder = get_data_datasets_folder(dataset_name)
@@ -391,7 +391,7 @@ def generate_dataset9(save_individuals=False) -> None:
     density_min = 0
     density_max = 1
     
-    n_individuals = 100
+    n_individuals = 500
     
     # folders
     data_datasets_folder = get_data_datasets_folder(dataset_name)
@@ -447,7 +447,7 @@ def generate_dataset10(save_individuals=False) -> None:
     density_min = 0
     density_max = 1
     
-    n_individuals = 500
+    n_individuals = 1000
     
     # folders
     data_datasets_folder = get_data_datasets_folder(dataset_name)
