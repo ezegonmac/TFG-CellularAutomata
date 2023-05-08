@@ -38,27 +38,42 @@ def generate_dataset8_density(n_individuals=500) -> None:
     
     # subsets
     np.random.seed(NP_RANDOM_SEED)
-    subset1 = [CA_individual(
-        id=id,
-        B=0, 
-        S=0, 
-        size=size, 
-        density=density, 
-        iterations=iterations, 
-        # file=f'{individuals_folder}/all_live_{id}',
-        ) for id in range(n_subset1)]
+    subsets = []
+    for id in range(n_individuals):
+        B_and_S = np.random.choice([0, 9])
+        individual = CA_individual(
+            id=id,
+            B=B_and_S, 
+            S=B_and_S, 
+            size=size, 
+            density=density, 
+            iterations=iterations, 
+            # file=f'{individuals_folder}/ca_{id}',
+            )
+        
+        subsets.append([individual])
     
-    subset2 = [CA_individual(
-        id=id,
-        B=9, 
-        S=9, 
-        size=size, 
-        density=density, 
-        iterations=iterations, 
-        # file=f'{individuals_folder}/all_die_{id}',
-        ) for id in range(n_subset2)]
+    # subset1 = [CA_individual(
+    #     id=id,
+    #     B=0, 
+    #     S=0, 
+    #     size=size, 
+    #     density=density, 
+    #     iterations=iterations, 
+    #     # file=f'{individuals_folder}/all_live_{id}',
+    #     ) for id in range(n_subset1)]
+    
+    # subset2 = [CA_individual(
+    #     id=id,
+    #     B=9, 
+    #     S=9, 
+    #     size=size, 
+    #     density=density, 
+    #     iterations=iterations, 
+    #     # file=f'{individuals_folder}/all_die_{id}',
+    #     ) for id in range(n_subset2)]
 
-    subsets = [subset1, subset2]
+    # subsets = [subset1, subset2]
     
     # individuals contains all subset individuals
     individuals = [individual for subset in subsets for individual in subset]

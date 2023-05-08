@@ -1,5 +1,6 @@
 import matplotlib.pyplot as plt
 from matplotlib.ticker import MaxNLocator
+import numpy as np
 
 from constants import *
 from learning.test.files_scores import (
@@ -59,6 +60,14 @@ def generate_score_evolution_comparison_plot(dataset, metric, model_variation='v
         axs[i].tick_params(axis='y', labelsize=18)
         # title fontsize
         axs[i].title.set_fontsize(20)
+        # integer ticks (if iterations > 10 then only show some ticks)
+        if iterations <= 10:
+            axs[i].xaxis.set_major_locator(MaxNLocator(integer=True, nbins=9))
+        else:
+            # 5 ticks including min and max
+            ticks = np.linspace(1, iterations, 5)
+            int_ticks = [round(i) for i in ticks]
+            axs[i].set_xticks(int_ticks)
 
     suffix = f'_{suffix}' if suffix else ''
     test_figures_folder = get_test_figures_folder(dataset)

@@ -13,6 +13,24 @@ from datasets.density_datasets_BTST import *
 from learning.test.files import generate_model_and_scores_files
 from utils import *
 
+# Train and test models
+
+def train_and_test_models(dataset, model_variation='vector', hyperparameters_knn={}, hyperparameters_dtree={}, hyperparameters_rf= {}, hyperparameters_nn={}, num_executions=10, num_individuals=500, save_models=False):
+    knn_model = KNeighborsRegressor(**hyperparameters_knn)
+    dtree_model = DecisionTreeRegressor(random_state=SKLEARN_RANDOM_SEED, **hyperparameters_dtree)
+    rf_model = RandomForestRegressor(random_state=SKLEARN_RANDOM_SEED, **hyperparameters_rf)
+    nn_model = MLPRegressor(
+        random_state=SKLEARN_RANDOM_SEED,
+        # verbose=True
+        **hyperparameters_nn,
+        )
+    
+    generate_model_and_scores_files(knn_model, dataset, 'KNN', model_variation, save_model=save_models, num_individuals=num_individuals, num_executions=num_executions)
+    generate_model_and_scores_files(dtree_model, dataset, 'DecisionTree', model_variation, save_model=save_models, num_individuals=num_individuals, num_executions=num_executions)
+    generate_model_and_scores_files(rf_model, dataset, 'RandomForest', model_variation, save_model=save_models, num_individuals=num_individuals, num_executions=num_executions)
+    generate_model_and_scores_files(nn_model, dataset, 'NeuralNetwork', model_variation, save_model=save_models, num_individuals=num_individuals, num_executions=num_executions)
+
+# Generate dataset
 
 def generate_dataset(dataset, num_executions=10, num_individuals=500):
     print(f"# Generating dataset with {num_executions} executions and {num_individuals} individuals")
@@ -20,6 +38,9 @@ def generate_dataset(dataset, num_executions=10, num_individuals=500):
     generate_dataset = globals()[f'generate_{dataset}']
     generate_dataset(dataset_individuals)
 
+# ---------  #
+#  DATASETS  # 
+# ---------  #
 
 # DATASET 8 #
 
@@ -332,21 +353,3 @@ def generate_models_score_plots_ds10(num_individuals):
     
     # generate_score_evolution_comparison_plot(dataset, metric="MSE", y_max=0.01, suffix='scaled')
     # generate_score_evolution_comparison_plot(dataset, metric="R2", y_min=0.96, y_max=1, suffix='scaled')
-
-
-
-
-def train_and_test_models(dataset, model_variation='vector', hyperparameters_knn={}, hyperparameters_dtree={}, hyperparameters_rf= {}, hyperparameters_nn={}, num_executions=10, num_individuals=500, save_models=False):
-    knn_model = KNeighborsRegressor(**hyperparameters_knn)
-    dtree_model = DecisionTreeRegressor(random_state=SKLEARN_RANDOM_SEED, **hyperparameters_dtree)
-    rf_model = RandomForestRegressor(random_state=SKLEARN_RANDOM_SEED, **hyperparameters_rf)
-    nn_model = MLPRegressor(
-        random_state=SKLEARN_RANDOM_SEED,
-        # verbose=True
-        **hyperparameters_nn,
-        )
-    
-    generate_model_and_scores_files(knn_model, dataset, 'KNN', model_variation, save_model=save_models, num_individuals=num_individuals, num_executions=num_executions)
-    generate_model_and_scores_files(dtree_model, dataset, 'DecisionTree', model_variation, save_model=save_models, num_individuals=num_individuals, num_executions=num_executions)
-    generate_model_and_scores_files(rf_model, dataset, 'RandomForest', model_variation, save_model=save_models, num_individuals=num_individuals, num_executions=num_executions)
-    generate_model_and_scores_files(nn_model, dataset, 'NeuralNetwork', model_variation, save_model=save_models, num_individuals=num_individuals, num_executions=num_executions)
