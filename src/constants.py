@@ -38,6 +38,7 @@ DATASET13 = 'dataset13'
 #  - BS
 DATASET14 = 'dataset14'
 DATASET15 = 'dataset15'
+DATASET16 = 'dataset16'
 
 # density datasets
 # - BTST
@@ -90,6 +91,7 @@ DATASETS_BY_TYPE = {
     
     DATASET14: 'BS',
     DATASET15: 'BS',
+    DATASET16: 'BS',
 }
 
 #----------------#
