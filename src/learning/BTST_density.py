@@ -95,11 +95,16 @@ def generate_models_score_plots_ds8(num_individuals):
     
     # FIGURES
     # score model comparison plots
-    generate_scores_model_comparison_plot(dataset, metric='RMSE', num_individuals=num_individuals)
-    generate_scores_model_comparison_plot(dataset, metric='R2', num_individuals=num_individuals)
+    # generate_scores_model_comparison_plot(dataset, metric='RMSE', num_individuals=num_individuals)
+    # generate_scores_model_comparison_plot(dataset, metric='R2', num_individuals=num_individuals)
+    generate_scores_model_comparison_plot(dataset, metric='RMSE', num_individuals=num_individuals, 
+                                          y_min=0, y_max=0.0004, suffix='scaled')
+    generate_scores_model_comparison_plot(dataset, metric='RMSE', num_individuals=num_individuals, 
+                                          y_min=0, y_max=10**(-14), suffix='scaled2')
+    # generate_scores_model_comparison_plot(dataset, metric='R2', num_individuals=num_individuals)
 
     # score evolution plots
-    generate_score_evolution_comparison_plots(dataset, num_individuals=num_individuals)
+    # generate_score_evolution_comparison_plots(dataset, num_individuals=num_individuals)
 
 
 # DATASET 3 #

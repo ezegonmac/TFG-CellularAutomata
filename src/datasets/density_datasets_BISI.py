@@ -6,7 +6,7 @@ from datasets.CA_individual import CA_individual
 from utils import *
 
 
-def generate_dataset11_density() -> None:
+def generate_dataset11_density(n_individuals) -> None:
     """
     Generate dataset11.
     
@@ -34,8 +34,6 @@ def generate_dataset11_density() -> None:
     B_max = 9
     S_min = 0
     S_max = 9
-      
-    n_individuals = 5000
     
     # folders
     data_datasets_folder = get_data_datasets_folder(dataset_name)
@@ -71,7 +69,7 @@ def generate_dataset11_density() -> None:
         )
 
 
-def generate_dataset12_density() -> None:
+def generate_dataset12_density(n_individuals) -> None:
     """
     Generate dataset12.
     
@@ -102,8 +100,6 @@ def generate_dataset12_density() -> None:
     S_max = 9
     density_min = 0
     density_max = 1
-    
-    n_individuals = 5000
     
     # folders
     data_datasets_folder = get_data_datasets_folder(dataset_name)
@@ -139,7 +135,7 @@ def generate_dataset12_density() -> None:
         )
 
 
-def generate_dataset13_density() -> None:
+def generate_dataset13_density(n_individuals) -> None:
     """
     Generate dataset13.
     
@@ -171,8 +167,6 @@ def generate_dataset13_density() -> None:
     S_max = 9
     density_min = 0
     density_max = 1
-    
-    n_individuals = 5000
     
     # folders
     data_datasets_folder = get_data_datasets_folder(dataset_name)
