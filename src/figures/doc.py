@@ -43,7 +43,7 @@ def generate_grid_figure():
     
     plt.matshow(state, cmap='Greys', vmin=0, vmax=1, fignum=0)
     
-    ticks = ['0', '1', '2', '...', '...', 'n-1']
+    ticks = ['0', '1', '2', '...', '...', 'l-1']
     
     # set x ticks and labels with fontsize
     ax.set_xticks(range(0, n))

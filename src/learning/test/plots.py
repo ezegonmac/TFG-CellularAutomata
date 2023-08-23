@@ -15,6 +15,7 @@ MODELS = [KNN, DECISION_TREE, RANDOM_FOREST, NEURAL_NETWORK]
 # Score evolution comparison plots
 
 def generate_score_evolution_comparison_plots(dataset, model_variation='vector', num_individuals=500, suffix=''):
+    print('# Generating score evolution comparison plots')
     metrics = ['RMSE', 'R2']
 
     for metric in metrics:
@@ -22,6 +23,7 @@ def generate_score_evolution_comparison_plots(dataset, model_variation='vector',
 
 
 def generate_score_evolution_comparison_plot(dataset, metric, model_variation='vector', num_individuals=500, suffix='', y_min=0.0, y_max=1.1, show=False):
+    print(f'Generating score evolution comparison plot ({dataset} dataset, {metric} metric, {model_variation} model variation, {num_individuals} individuals')
     df = get_scores_by_dataset(dataset)
     color = 'blue' if metric == 'RMSE' else 'red'
 
@@ -71,34 +73,57 @@ def generate_score_evolution_comparison_plot(dataset, metric, model_variation='v
 
     suffix = f'_{suffix}' if suffix else ''
     test_figures_folder = get_test_figures_folder(dataset)
-    plt.show() if show else plt.savefig(f'{test_figures_folder}/evolution_comparison_{dataset}_{metric}_{model_variation}_{num_individuals}ind{suffix}.png', dpi=300, bbox_inches='tight')
+    if show:
+        plt.show()
+    else:
+        plt.savefig(f'{test_figures_folder}/evolution_comparison_{dataset}_{metric}_{model_variation}_{num_individuals}ind{suffix}.png', dpi=300, bbox_inches='tight')
+        print(f'Figure saved in {test_figures_folder}/evolution_comparison_{dataset}_{metric}_{model_variation}_{num_individuals}ind{suffix}.png')
     plt.close()
 
 
 # Score evolution plots
 
-def generate_score_evolution_plots(dataset):
+def generate_score_evolution_plots(dataset, num_individuals=500, suffix=''):
+    print('# Generating score evolution plots')
     metrics = ['RMSE', 'R2']
     
     for model in MODELS:
         for metric in metrics:
-            generate_score_evolution_plot(dataset, model_name=model, metric=metric)
+            generate_score_evolution_plot(dataset, model_name=model, metric=metric, num_individuals=num_individuals, suffix=suffix)
 
 
 # Score evolution plot
 
-def generate_score_evolution_plot(dataset, model_name, metric, show=False):
-    plot_score_evolution(dataset, model_name, metric)
+def generate_score_evolution_plot(dataset, model_name, metric, model_variation='vector', num_individuals=500, suffix='', show=False):
+    print(f'Generating score evolution plot ({dataset} dataset, {metric} metric, {model_variation} model variation, {num_individuals} individuals')
+    plot_score_evolution(dataset, model_name, metric, model_variation, num_individuals)
 
     test_figures_folder = get_test_figures_folder(dataset)
-    plt.show() if show else plt.savefig(f'{test_figures_folder}/{metric}_evolution_{model_name}_{dataset}.png', dpi=300)
+    file = f'{test_figures_folder}/{metric}_evolution_{model_name}_{dataset}_{num_individuals}ind{suffix}.png'
+    if show:
+        plt.show()
+    else:
+        plt.savefig(file, dpi=300)
+        print(f'Figure saved in {file}')
     plt.close()
 
 
-def plot_score_evolution(dataset, model_name, metric):
+def plot_score_evolution(dataset, model_name, metric, model_variation='vector', num_individuals=500):
     plt.figure(figsize=(5, 5))
+    # filter by model
     df = get_scores_by_dataset_and_model(dataset, model_name)
-    scores_evolution = df[f'{metric} by iteration'].values[0].values()
+    if df.empty:
+        raise Exception('No scores for this model')
+    # filter by num individuals
+    df = df[df['Number of individuals'] == num_individuals]
+    if df.empty:
+        raise Exception('No scores for this number of individuals')
+    # filter by model variation
+    df = df[df['Model variation'] == model_variation]
+    if df.empty:
+        raise Exception('No scores for this model variation')
+    
+    scores_evolution = df[f'{metric} mean by iteration'].values[0].values()
     
     title = f'{metric}'
     ax = plt.subplot(111)
@@ -115,19 +140,34 @@ def plot_score_evolution(dataset, model_name, metric):
     ax.xaxis.set_major_locator(MaxNLocator(integer=True))
 
 
-# Model comparison plot
+# Model comparison plots
+
+def generate_score_model_comparison_plots(dataset, model_variation='vector', num_individuals=500, suffix='', y_min=0.0, y_max=1.1, show=False):
+    print('# Generating model comparison plots')
+    metrics = ['RMSE', 'R2']
+    
+    for metric in metrics:
+        generate_scores_model_comparison_plot(dataset, metric, model_variation, num_individuals, suffix, y_min, y_max, show)
+
 
 def generate_scores_model_comparison_plot(dataset, metric, model_variation='vector', num_individuals=500, suffix='', y_min=0.0, y_max=1.1, show=False):
+    print(f'Generating model comparison plot ({dataset} dataset, {metric} metric, {model_variation} model variation, {num_individuals} individuals')
     metric_mean = f'{metric} mean'
     metric_std = f'{metric} std'
-    
+
     df = get_scores_by_dataset(dataset)
     # filter by MODELS
     df = df[df['Model'].isin(MODELS)]
+    if df.empty:
+        raise Exception('No scores for this model')
     # filter by model variation
     df = df[df['Model variation'] == model_variation]
+    if df.empty:
+        raise Exception('No scores for this model variation')
     # filter by num individuals
     df = df[df['Number of individuals'] == num_individuals]
+    if df.empty:
+        raise Exception('No scores for this number of individuals')
     # error = 2*std
     df['Double std'] = 2*df[metric_std]
     # filter columns
@@ -149,7 +189,12 @@ def generate_scores_model_comparison_plot(dataset, metric, model_variation='vect
 
     suffix = f'_{suffix}' if suffix else ''
     test_figures_folder = get_test_figures_folder(dataset)
-    plt.show() if show else plt.savefig(f'{test_figures_folder}/model_comparison_{metric}_{dataset}_{model_variation}_{num_individuals}ind{suffix}.png', dpi=300, bbox_inches='tight')
+    file = f'{test_figures_folder}/model_comparison_{metric}_{dataset}_{model_variation}_{num_individuals}ind{suffix}.png'
+    if show:
+        plt.show()
+    else:
+        plt.savefig(file, dpi=300, bbox_inches='tight')
+        print(f'Figure saved in {file}')
 
 
 def generate_scores_model_individuals_comparison_plot(dataset, metric, model_variation='vector', suffix='', y_min=0.0, y_max=1.1, show=False):
