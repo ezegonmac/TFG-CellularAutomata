@@ -27,4 +27,4 @@ def generate_model_and_scores_files(model, dataset, model_name, model_variation,
         num_individuals=num_individuals,
         )
     
-    print_scores(dataset, model_name)
+    print_scores(dataset, model_name, model_variation, num_individuals)

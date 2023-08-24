@@ -8,6 +8,7 @@ from learning.test.files_executions import load_executions_file
 from learning.test.scores import calc_score_statistics_by_iteration
 from utils import *
 
+MODELS = [KNN, DECISION_TREE, RANDOM_FOREST, NEURAL_NETWORK]
 
 # LOAD SCORES
 
@@ -19,6 +20,29 @@ def load_scores_file(dataset):
     df['R2 mean by iteration'] = df['R2 mean by iteration'].apply(lambda x: literal_eval(str(x)))
     df['RMSE std by iteration'] = df['RMSE std by iteration'].apply(lambda x: literal_eval(str(x)))
     df['R2 std by iteration'] = df['R2 std by iteration'].apply(lambda x: literal_eval(str(x)))
+    return df
+
+def get_scores(dataset, model_name=None, model_variation=None, num_individuals=None):
+    df = load_scores_file(dataset)
+    # filter by MODELS
+    df = df[df['Model'].isin(MODELS)]
+    if df.empty:
+        raise Exception('No valid models found')
+    # filter by model name
+    if model_name:
+        df = df[df['Model'] == model_name]
+        if df.empty:
+            raise Exception('No scores for this model')
+    # filter by model variation
+    if model_variation:
+        df = df[df['Model variation'] == model_variation]
+        if df.empty:
+            raise Exception('No scores for this model variation')
+    # filter by num individuals
+    if num_individuals:
+        df = df[df['Number of individuals'] == num_individuals]
+        if df.empty:
+            raise Exception('No scores for this number of individuals')
     return df
 
 

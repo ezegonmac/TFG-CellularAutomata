@@ -13,7 +13,6 @@ from learning.test.plots import (generate_score_evolution_comparison_plots,
                                  generate_score_evolution_plots,
                                  generate_scores_model_comparison_plot,
                                  generate_score_model_comparison_plots)
-from learning.test.scores_print import print_scores
 from utils import *
 
 # Train and test models
@@ -29,9 +28,9 @@ def train_and_test_models(dataset, model_variation='vector', hyperparameters_knn
         )
     
     generate_model_and_scores_files(knn_model, dataset, 'KNN', model_variation, save_model=save_models, num_individuals=num_individuals, num_executions=num_executions)
-    # generate_model_and_scores_files(dtree_model, dataset, 'DecisionTree', model_variation, save_model=save_models, num_individuals=num_individuals, num_executions=num_executions)
-    # generate_model_and_scores_files(rf_model, dataset, 'RandomForest', model_variation, save_model=save_models, num_individuals=num_individuals, num_executions=num_executions)
-    # generate_model_and_scores_files(nn_model, dataset, 'NeuralNetwork', model_variation, save_model=save_models, num_individuals=num_individuals, num_executions=num_executions)
+    generate_model_and_scores_files(dtree_model, dataset, 'DecisionTree', model_variation, save_model=save_models, num_individuals=num_individuals, num_executions=num_executions)
+    generate_model_and_scores_files(rf_model, dataset, 'RandomForest', model_variation, save_model=save_models, num_individuals=num_individuals, num_executions=num_executions)
+    generate_model_and_scores_files(nn_model, dataset, 'NeuralNetwork', model_variation, save_model=save_models, num_individuals=num_individuals, num_executions=num_executions)
 
 # Generate dataset
 
@@ -120,10 +119,10 @@ def train_and_test_models_ds11(num_executions, num_individuals, save_models=Fals
 def generate_models_score_plots_ds11(num_individuals):
     dataset = DATASET11_DENSITY
     
+    # score evolution plots
+    # generate_score_evolution_plots(dataset, num_individuals=num_individuals)
     # score model comparison plots
     generate_score_model_comparison_plots(dataset, num_individuals=num_individuals)
-    # score evolution plots
-    generate_score_evolution_plots(dataset, num_individuals=num_individuals)
     # score evolution comparison plots
     generate_score_evolution_comparison_plots(dataset, num_individuals=num_individuals)
 

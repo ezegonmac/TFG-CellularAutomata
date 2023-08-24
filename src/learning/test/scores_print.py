@@ -1,17 +1,16 @@
 
 # Print all scores
 
-from learning.test.files_scores import get_scores_by_dataset_and_model
+from learning.test.files_scores import get_scores
 
 
-def print_scores(dataset, model_name):
+def print_scores(dataset, model_name, model_variation, num_individuals):
+    row = get_scores(dataset, model_name, model_variation, num_individuals)
+    
     print('--------------------------------------')
     print(f'Statistics: {model_name} - {dataset}')
-    print('--------------------------------------')
-    
-    row = get_scores_by_dataset_and_model(dataset, model_name)
-    
     print("Individuals: " + str(row['Number of individuals'].values[0]))
+    print('--------------------------------------')
     
     print("RMSE: " + str(row['RMSE mean'].values[0]))
     print("R2: " + str(row['R2 mean'].values[0]))

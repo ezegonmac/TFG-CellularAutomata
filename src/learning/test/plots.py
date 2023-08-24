@@ -4,8 +4,8 @@ import numpy as np
 
 from constants import *
 from learning.test.files_scores import (
-    get_scores_by_dataset,
-    get_scores_by_dataset_and_model
+    get_scores,
+    get_scores_by_dataset
     )
 from utils import *
 
@@ -24,7 +24,7 @@ def generate_score_evolution_comparison_plots(dataset, model_variation='vector',
 
 def generate_score_evolution_comparison_plot(dataset, metric, model_variation='vector', num_individuals=500, suffix='', y_min=0.0, y_max=1.1, show=False):
     print(f'Generating score evolution comparison plot ({dataset} dataset, {metric} metric, {model_variation} model variation, {num_individuals} individuals')
-    df = get_scores_by_dataset(dataset)
+    df = get_scores(dataset, model_variation=model_variation, num_individuals=num_individuals)
     color = 'blue' if metric == 'RMSE' else 'red'
 
     iterations = len(df[df['Model'] == MODELS[0]][f'{metric} mean by iteration'].values[0].values())
@@ -110,18 +110,8 @@ def generate_score_evolution_plot(dataset, model_name, metric, model_variation='
 
 def plot_score_evolution(dataset, model_name, metric, model_variation='vector', num_individuals=500):
     plt.figure(figsize=(5, 5))
-    # filter by model
-    df = get_scores_by_dataset_and_model(dataset, model_name)
-    if df.empty:
-        raise Exception('No scores for this model')
-    # filter by num individuals
-    df = df[df['Number of individuals'] == num_individuals]
-    if df.empty:
-        raise Exception('No scores for this number of individuals')
-    # filter by model variation
-    df = df[df['Model variation'] == model_variation]
-    if df.empty:
-        raise Exception('No scores for this model variation')
+    
+    df = get_scores(dataset, model_name=model_name, model_variation=model_variation, num_individuals=num_individuals)
     
     scores_evolution = df[f'{metric} mean by iteration'].values[0].values()
     
@@ -155,19 +145,8 @@ def generate_scores_model_comparison_plot(dataset, metric, model_variation='vect
     metric_mean = f'{metric} mean'
     metric_std = f'{metric} std'
 
-    df = get_scores_by_dataset(dataset)
-    # filter by MODELS
-    df = df[df['Model'].isin(MODELS)]
-    if df.empty:
-        raise Exception('No scores for this model')
-    # filter by model variation
-    df = df[df['Model variation'] == model_variation]
-    if df.empty:
-        raise Exception('No scores for this model variation')
-    # filter by num individuals
-    df = df[df['Number of individuals'] == num_individuals]
-    if df.empty:
-        raise Exception('No scores for this number of individuals')
+    df = get_scores(dataset, model_variation=model_variation, num_individuals=num_individuals)
+    
     # error = 2*std
     df['Double std'] = 2*df[metric_std]
     # filter columns
