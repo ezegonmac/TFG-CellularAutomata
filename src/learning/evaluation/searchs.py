@@ -39,8 +39,8 @@ def _evaluate_model_gsh(model, dataset, param_grid, suffix=''):
     results = gsh.cv_results_
     df = pd.DataFrame(results)
     suffix = f'_{suffix}' if suffix else ''
-    data_learning_folder = get_data_learning_folder(dataset)
-    df.to_csv(f'{data_learning_folder}/{dataset}/gsh_{model_name}_results_{dataset}{suffix}.csv')
+    data_evaluation_folder = get_data_evaluation_folder(dataset)
+    df.to_csv(f'{data_evaluation_folder}/gsh_{model_name}_results_{dataset}{suffix}.csv')
 
 
 def _evaluate_model_gs(model, dataset, param_grid, suffix=''):
@@ -68,8 +68,8 @@ def _evaluate_model_gs(model, dataset, param_grid, suffix=''):
     results = gs.cv_results_
     df = pd.DataFrame(results)
     suffix = f'_{suffix}' if suffix else ''
-    data_learning_folder = get_data_learning_folder(dataset)
-    df.to_csv(f'{data_learning_folder}/{dataset}/gs_{model_name}_results_{dataset}{suffix}.csv')
+    data_evaluation_folder = get_data_evaluation_folder(dataset)
+    df.to_csv(f'{data_evaluation_folder}/gs_{model_name}_results_{dataset}{suffix}.csv')
 
 
 # KNN - Grid search (GS) and Halving grid search (HGS)

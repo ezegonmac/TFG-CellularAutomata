@@ -20,8 +20,8 @@ if __name__ == '__main__':
 
     # BISI
     
-    # train_and_test_models_ds11(num_executions=3, num_individuals=500, save_models=False)
-    generate_models_score_plots_ds11(num_individuals=500)
+    train_and_test_models_ds11(num_executions=3, num_individuals=1000, save_models=False)
+    # generate_models_score_plots_ds11(num_individuals=1000)
     
     # train_and_test_models_ds12(num_executions=10, num_individuals=1000, save_models=False)
     # generate_models_score_plots_ds12(num_individuals=1000)

@@ -22,6 +22,13 @@ def get_data_learning_folder(dataset):
     return data_learning_folder
 
 
+def get_data_evaluation_folder(dataset):
+    dataset_type = DATASETS_BY_TYPE[dataset]
+    data_evaluation_folder = f'{DATA_LEARNING_FOLDER}/{dataset_type}/{dataset}/evaluation'
+    create_folder_if_not_exists(data_evaluation_folder)
+    return data_evaluation_folder
+
+
 def get_data_learning_executions_folder(dataset):
     data_learning_folder = get_data_learning_folder(dataset)
     executions_folder = f'{data_learning_folder}/{dataset}/executions'

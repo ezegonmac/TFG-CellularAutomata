@@ -1,11 +1,16 @@
 # from learning.evaluation.datasets.dataset12 import *
+# BTST
 from learning.evaluation.datasets.dataset3 import *
 from learning.evaluation.datasets.dataset9 import *
 from learning.evaluation.datasets.dataset10 import *
+# BISI
+from learning.evaluation.datasets.dataset11 import *
 
 if __name__ == '__main__':
     
     # EVALUATE MODELS
+    
+    ## BTST
     
     # DATASET 3
     
@@ -36,7 +41,17 @@ if __name__ == '__main__':
     
     # evaluate_nn_model_ds10_1()
     # evaluate_nn_model_ds10_2()
-    evaluate_nn_model_ds10_3()
+    # evaluate_nn_model_ds10_3()
     # evaluate_knn_model_ds10_1()
     # evaluate_dtree_model_ds10_1()
     # evaluate_rf_model_ds10_1()
+    
+    ## BISI
+    
+    # DATASET 11
+    # evaluate_nn_model_ds11_1()
+    # evaluate_nn_model_ds11_2()
+    # evaluate_nn_model_ds11_3()
+    # evaluate_knn_model_ds11_1()
+    # evaluate_dtree_model_ds11_1()
+    # evaluate_rf_model_ds11_1()

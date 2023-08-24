@@ -29,9 +29,9 @@ def train_and_test_models(dataset, model_variation='vector', hyperparameters_knn
         )
     
     generate_model_and_scores_files(knn_model, dataset, 'KNN', model_variation, save_model=save_models, num_individuals=num_individuals, num_executions=num_executions)
-    generate_model_and_scores_files(dtree_model, dataset, 'DecisionTree', model_variation, save_model=save_models, num_individuals=num_individuals, num_executions=num_executions)
-    generate_model_and_scores_files(rf_model, dataset, 'RandomForest', model_variation, save_model=save_models, num_individuals=num_individuals, num_executions=num_executions)
-    generate_model_and_scores_files(nn_model, dataset, 'NeuralNetwork', model_variation, save_model=save_models, num_individuals=num_individuals, num_executions=num_executions)
+    # generate_model_and_scores_files(dtree_model, dataset, 'DecisionTree', model_variation, save_model=save_models, num_individuals=num_individuals, num_executions=num_executions)
+    # generate_model_and_scores_files(rf_model, dataset, 'RandomForest', model_variation, save_model=save_models, num_individuals=num_individuals, num_executions=num_executions)
+    # generate_model_and_scores_files(nn_model, dataset, 'NeuralNetwork', model_variation, save_model=save_models, num_individuals=num_individuals, num_executions=num_executions)
 
 # Generate dataset
 
@@ -56,16 +56,40 @@ def train_and_test_models_ds11(num_executions, num_individuals, save_models=Fals
     
     # Hyperparameters
     
-    hp_knn = {}
+    hp_knn = {
+        'algorithm': 'auto', 
+        'leaf_size': 1, 
+        'n_neighbors': 7, 
+        'p': 1, 
+        'weights': 'distance'
+    }
     
-    hp_dtree = {}
+    hp_dtree = {
+        'criterion': 'squared_error', 
+        'max_depth': 15, 
+        'max_features': 'sqrt', 
+        'min_samples_leaf': 9, 
+        'min_samples_split': 4, 
+        'splitter': 'best'
+    }
     
-    hp_rf = {}
+    hp_rf = {
+        'criterion': 'squared_error', 
+        'max_depth': 11, 
+        'max_features': 'auto', 
+        'min_samples_leaf': 1, 
+        'min_samples_split': 2, 
+        'n_estimators': 15
+    }
     
     hp_nn = {
-        'hidden_layer_sizes': (3),
+        'hidden_layer_sizes': (36, 36, 36),
+        'max_iter': 5000,
         'solver': 'lbfgs',
-        'activation': 'tanh',
+        'activation': 'logistic',
+        'alpha': 0.05,
+        'learning_rate': 'invscaling',
+        'early_stopping': True,
     }
     
     start_time = time.time()
