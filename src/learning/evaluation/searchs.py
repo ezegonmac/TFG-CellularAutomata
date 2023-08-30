@@ -51,7 +51,7 @@ def _evaluate_model_gs(model, dataset, param_grid, suffix=''):
     tic = time()
     gs = GridSearchCV(
         estimator=model, param_grid=param_grid, 
-        verbose=1, n_jobs=-1, cv=5
+        verbose=0, n_jobs=-1, cv=5
     )
     gs.fit(X_train, y_train)
     

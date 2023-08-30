@@ -79,7 +79,7 @@ def evaluate_dtree_model_ds11_1():
         'max_features': ['auto', 'sqrt', 'log2', None],
     }
     
-    evaluate_dtree_model_gsh(dataset, param_grid, suffix='1')
+    evaluate_dtree_model_gs(dataset, param_grid, suffix='1')
 
 
 def evaluate_rf_model_ds11_1():

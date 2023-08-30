@@ -24,6 +24,10 @@ def load_scores_file(dataset):
 
 def get_scores(dataset, model_name=None, model_variation=None, num_individuals=None):
     df = load_scores_file(dataset)
+    #filter by dataset
+    df = df[df['Dataset'] == dataset]
+    if df.empty:
+        raise Exception('No scores for this dataset')
     # filter by MODELS
     df = df[df['Model'].isin(MODELS)]
     if df.empty:

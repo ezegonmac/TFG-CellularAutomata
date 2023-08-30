@@ -20,11 +20,11 @@ if __name__ == '__main__':
 
     # BISI
     
-    # train_and_test_models_ds11(num_executions=10, num_individuals=2000, save_models=False)
-    # generate_models_score_plots_ds11(num_individuals=2000)
+    # train_and_test_models_ds11(num_executions=10, num_individuals=1000, save_models=False)
+    # generate_models_score_plots_ds11(num_individuals=1000)
     
     # train_and_test_models_ds12(num_executions=10, num_individuals=1000, save_models=False)
     # generate_models_score_plots_ds12(num_individuals=1000)
     
-    # train_and_test_models_ds13(num_executions=10, num_individuals=1000, save_models=False)
-    # generate_models_score_plots_ds13(num_individuals=1000)
+    train_and_test_models_ds13(num_executions=10, num_individuals=1000, save_models=False)
+    generate_models_score_plots_ds13(num_individuals=1000)

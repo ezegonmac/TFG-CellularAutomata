@@ -16,6 +16,8 @@ def load_dataset_density(dataset):
     
     df = pd.read_csv(file)
     
+    print(f'Loading dataset: {file} ({len(df)} individuals)')
+    
     return df
 
 
