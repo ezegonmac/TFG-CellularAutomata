@@ -1,6 +1,7 @@
 # from learning.evaluation.datasets.dataset12 import *
 from datasets.density_datasets_BTST import *
 from datasets.density_datasets_BISI import *
+from datasets.density_datasets_BS import *
 # BTST
 from learning.evaluation.datasets.dataset3 import *
 from learning.evaluation.datasets.dataset9 import *
@@ -9,6 +10,10 @@ from learning.evaluation.datasets.dataset10 import *
 from learning.evaluation.datasets.dataset11 import *
 from learning.evaluation.datasets.dataset12 import *
 from learning.evaluation.datasets.dataset13 import *
+# BS
+from learning.evaluation.datasets.dataset14 import *
+from learning.evaluation.datasets.dataset15 import *
+from learning.evaluation.datasets.dataset16 import *
 
 if __name__ == '__main__':
     
@@ -76,4 +81,14 @@ if __name__ == '__main__':
     # evaluate_nn_model_ds13_1() #
     # evaluate_knn_model_ds13_1() #
     # evaluate_dtree_model_ds13_1() #
-    evaluate_rf_model_ds13_1() #
+    # evaluate_rf_model_ds13_1() #
+    
+    ## BS
+    
+    # DATASET 14
+    # generate_dataset14_density(n_individuals=10000)
+    
+    # evaluate_nn_model_ds14_1()
+    evaluate_knn_model_ds14_1()
+    # evaluate_dtree_model_ds14_1()
+    # evaluate_rf_model_ds14_1()

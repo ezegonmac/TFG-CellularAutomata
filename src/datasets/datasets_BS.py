@@ -12,7 +12,7 @@ def generate_dataset14(n_individuals, save_individuals=False) -> None:
     
     Description:
     (Same as dataset3 and dataset11 but with rules B/S)
-    All cells dies or become alive in the next iteration.
+    Free thresholds, fixed density.
     
     Variables:
     - fixed size: 10x10
@@ -76,7 +76,7 @@ def generate_dataset15(n_individuals, save_individuals=False) -> None:
     Generate dataset15.
     
     Description:
-    (Same as dataset14 but with free density)
+    Same as dataset14 but with free density.
     
     Variables:
     - fixed size: 10x10

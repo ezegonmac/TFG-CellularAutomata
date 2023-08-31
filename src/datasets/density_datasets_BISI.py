@@ -12,7 +12,7 @@ def generate_dataset11_density(n_individuals) -> None:
     
     Description:
     (Same as dataset3 but with rules BI/SI)
-    All cells dies or become alive in the next iteration.
+    Free thresholds, fixed density.
     
     Variables:
     - fixed size: 10x10
