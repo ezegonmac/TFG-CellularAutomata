@@ -88,7 +88,23 @@ if __name__ == '__main__':
     # DATASET 14
     # generate_dataset14_density(n_individuals=10000)
     
-    # evaluate_nn_model_ds14_1()
-    evaluate_knn_model_ds14_1()
-    # evaluate_dtree_model_ds14_1()
-    # evaluate_rf_model_ds14_1()
+    # evaluate_nn_model_ds14_1() #
+    # evaluate_knn_model_ds14_1() #
+    # evaluate_dtree_model_ds14_1() #
+    # evaluate_rf_model_ds14_1() #
+    
+    # DATASET 15
+    # generate_dataset15_density(n_individuals=10000)
+    
+    # evaluate_nn_model_ds15_1() #
+    # evaluate_knn_model_ds15_1() #
+    # evaluate_dtree_model_ds15_1() #
+    # evaluate_rf_model_ds15_1() #
+    
+    # DATASET 16
+    # generate_dataset16_density(n_individuals=10000)
+    
+    # evaluate_nn_model_ds16_1() #
+    # evaluate_knn_model_ds16_1() #
+    # evaluate_dtree_model_ds16_1() #
+    # evaluate_rf_model_ds16_1() #

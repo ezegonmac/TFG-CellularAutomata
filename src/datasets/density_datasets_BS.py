@@ -128,46 +128,6 @@ def generate_dataset15_density(n_individuals) -> None:
             file=f'{individuals_folder}/ca_{i}',
             ))
     
-    # fixed attributes
-    size = 10
-    iterations = 10
-    
-    # free attributes
-    B_min = 0
-    B_max = 9
-    S_min = 0
-    S_max = 9
-    density_min = 0
-    density_max = 1
-    
-    # folders
-    data_datasets_folder = get_data_datasets_folder(dataset_name)
-    dataset_folder = f'{data_datasets_folder}/{dataset_name}'
-    individuals_folder = f'{dataset_folder}/individuals'
-    
-    # individuals with random lt and dt
-    np.random.seed(NP_RANDOM_SEED)
-    individuals = []
-    for i in range(n_individuals):
-        
-        b1 = np.random.randint(B_min, B_max)
-        b2 = np.random.randint(B_min, B_max)
-        B = (b1, b2) if b1 < b2 else (b2, b1)
-        
-        s1 = np.random.randint(S_min, S_max)
-        s2 = np.random.randint(S_min, S_max)
-        S = (s1, s2) if s1 < s2 else (s2, s1)
-
-        individuals.append(CA_individual(
-            id=i,
-            B=B, 
-            S=S, 
-            size=size, 
-            density=np.random.uniform(density_min, density_max),
-            iterations=iterations, 
-            file=f'{individuals_folder}/ca_{i}',
-            ))
-    
     generate_density_dataset_files_from_individuals(
         individuals, dataset_folder,
         rule_type='BS'

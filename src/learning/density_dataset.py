@@ -42,8 +42,10 @@ def get_dataset_density_X_y_split(dataset, num_individuals=None):
         x_columns = ['Bl', 'Bt', 'Sl', 'St', '0']
         num_iterations = len(df.columns) - len(x_columns) - 4 # from Unnamed, id, B, S 
     if dataset_type == 'BS':
-        x_columns = ['B', 'S', '0']
-        num_iterations = len(df.columns) - len(x_columns) - 2 # 2 from Unnamed and id
+        x_columns = ['B1', 'B2', 'B3', 'B4', 'B5', 'B6', 'B7', 'B8',
+                    'S1', 'S2', 'S3', 'S4', 'S5', 'S6', 'S7', 'S8',
+                    '0']
+        num_iterations = len(df.columns) - len(x_columns) - 6
     
     iterations = [str(i) for i in range(1, num_iterations + 1)]
     X = df[x_columns]
@@ -68,7 +70,12 @@ def get_dataset_density_X_y_split_by_fold(dataset, num_individuals, fold):
     if dataset_type == 'BISI':
         x_columns = ['Bl', 'Bt', 'Sl', 'St', '0']
         num_iterations = len(df.columns) - len(x_columns) - 4 # from Unnamed, id, B, S 
-    
+    if dataset_type == 'BS':
+        x_columns = ['B1', 'B2', 'B3', 'B4', 'B5', 'B6', 'B7', 'B8',
+                    'S1', 'S2', 'S3', 'S4', 'S5', 'S6', 'S7', 'S8',
+                    '0']
+        num_iterations = len(df.columns) - len(x_columns) - 6
+        
     iterations = [str(i) for i in range(1, num_iterations + 1)]
     X = df[x_columns]
     y = df[iterations]
@@ -113,13 +120,6 @@ def get_dataset_density_train_test_split_by_fold(dataset, fold, scaled=False, nu
 def get_x_y_scalers(dataset):
     X, y = get_dataset_density_X_y_split(dataset)
     X_train, X_test, y_train, y_test = train_test_split(X, y, test_size=TEST_SIZE, random_state=SKLEARN_RANDOM_SEED)
-    
-    # print(X)
-    # print(y)
-    # print(X.columns)
-    # print(y.columns)
-    print(X_train)
-    print(X_test)
     
     xscaler = StandardScaler().fit(X_train)
     yscaler = StandardScaler().fit(y_train)

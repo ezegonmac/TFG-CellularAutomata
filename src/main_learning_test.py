@@ -1,6 +1,7 @@
 from constants import *
 from learning.BTST_density import *
 from learning.BISI_density import *
+from learning.BS_density import *
 
 if __name__ == '__main__':
     
@@ -26,5 +27,16 @@ if __name__ == '__main__':
     # train_and_test_models_ds12(num_executions=10, num_individuals=1000, save_models=False)
     # generate_models_score_plots_ds12(num_individuals=1000)
     
-    train_and_test_models_ds13(num_executions=10, num_individuals=1000, save_models=False)
-    generate_models_score_plots_ds13(num_individuals=1000)
+    # train_and_test_models_ds13(num_executions=10, num_individuals=1000, save_models=False)
+    # generate_models_score_plots_ds13(num_individuals=1000)
+    
+    # BS
+    
+    # train_and_test_models_ds14(num_executions=10, num_individuals=1000, save_models=False)
+    # generate_models_score_plots_ds14(num_individuals=1000)
+    
+    # train_and_test_models_ds15(num_executions=10, num_individuals=1000, save_models=False)
+    # generate_models_score_plots_ds15(num_individuals=1000)
+    
+    # train_and_test_models_ds16(num_executions=10, num_individuals=1000, save_models=False)
+    # generate_models_score_plots_ds16(num_individuals=1000)
