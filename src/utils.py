@@ -22,6 +22,13 @@ def get_data_learning_folder(dataset):
     return data_learning_folder
 
 
+def get_data_learning_folder_by_rule_type(rule_type):
+    data_learning_folder = f'{DATA_LEARNING_FOLDER}/{rule_type}'
+    print(data_learning_folder)
+    create_folder_if_not_exists(data_learning_folder)
+    return data_learning_folder
+
+
 def get_data_evaluation_folder(dataset):
     dataset_type = DATASETS_BY_TYPE[dataset]
     data_evaluation_folder = f'{DATA_LEARNING_FOLDER}/{dataset_type}/{dataset}/evaluation'

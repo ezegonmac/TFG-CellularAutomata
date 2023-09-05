@@ -22,14 +22,22 @@ def load_scores_file(dataset):
     df['R2 std by iteration'] = df['R2 std by iteration'].apply(lambda x: literal_eval(str(x)))
     return df
 
+def load_scores_file_by_rule_type(rule_type):
+    data_learning_folder = get_data_learning_folder_by_rule_type(rule_type)
+    scores_file = f'{data_learning_folder}/scores.csv'
+    df = pd.read_csv(scores_file)
+    df['RMSE mean by iteration'] = df['RMSE mean by iteration'].apply(lambda x: literal_eval(str(x)))
+    df['R2 mean by iteration'] = df['R2 mean by iteration'].apply(lambda x: literal_eval(str(x)))
+    df['RMSE std by iteration'] = df['RMSE std by iteration'].apply(lambda x: literal_eval(str(x)))
+    df['R2 std by iteration'] = df['R2 std by iteration'].apply(lambda x: literal_eval(str(x)))
+    return df
+
 def get_scores(dataset, model_name=None, model_variation=None, num_individuals=None):
     df = load_scores_file(dataset)
-    #filter by dataset
+    # filter by dataset
     df = df[df['Dataset'] == dataset]
     if df.empty:
         raise Exception('No scores for this dataset')
-    # filter by MODELS
-    df = df[df['Model'].isin(MODELS)]
     if df.empty:
         raise Exception('No valid models found')
     # filter by model name
@@ -54,6 +62,11 @@ def get_scores_by_dataset_and_model(dataset, model_name):
     df = load_scores_file(dataset)
     row = df.loc[(df['Dataset'] == dataset) & (df['Model'] == model_name)]
     return row
+
+
+def get_scores_by_rule_type(rule_type):
+    df = load_scores_file_by_rule_type(rule_type)
+    return df
 
 
 def get_scores_by_dataset(dataset):
