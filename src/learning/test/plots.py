@@ -45,13 +45,16 @@ def generate_score_evolution_comparison_plot(dataset, metric, model_variation='v
         df_model = df[df['Model'] == model]
         # horizontal line
         axs[i].plot([-1, iterations+0.5], [1, 1], color='black', linewidth=0.35, alpha=0.8, label='_nolegend_')
-        # plot
-        metric_by_iteration = df_model[f'{metric} mean by iteration'].values[0].values()
+        # plot ([0, n1, n2, ...])
+        metric_by_iteration = list(df_model[f'{metric} mean by iteration'].values[0].values())
+        metric_by_iteration = [0] + metric_by_iteration
         axs[i].plot(metric_by_iteration, color=color)
         # error area
         errors_max = [x + y for x, y in zip(df_model[f'{metric} mean by iteration'].values[0].values(), df[f'{metric} std by iteration'].values[0].values())]
+        errors_max = [0] + errors_max
         errors_min = [x - y for x, y in zip(df_model[f'{metric} mean by iteration'].values[0].values(), df[f'{metric} std by iteration'].values[0].values())]
-        axs[i].fill_between(range(0, iterations), errors_max, errors_min, alpha=0.30, color=color, label='_nolegend_', linewidth=0)
+        errors_min = [0] + errors_min
+        axs[i].fill_between(range(0, iterations+1), errors_max, errors_min, alpha=0.30, color=color, label='_nolegend_', linewidth=0)
         # extra
         axs[i].set(xlim=(1, iterations), ylim=(y_min, y_max))
         axs[i].set(title=model)

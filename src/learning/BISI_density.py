@@ -265,7 +265,7 @@ def generate_models_score_plots_ds11(num_individuals):
     dataset = DATASET11_DENSITY
     
     # score model comparison plots
-    generate_score_model_comparison_plots(dataset, num_individuals=num_individuals)
+    # generate_score_model_comparison_plots(dataset, num_individuals=num_individuals)
     # score individual evolution plots
     # generate_score_evolution_plots(dataset, num_individuals=num_individuals)
     # score evolution comparison plots

@@ -18,7 +18,7 @@ def generate_scores_table(dataset) -> None:
         \\hline
         #Ldata#T
     \\end{tabular}
-    \\caption{Métricas para el #Ldataset#T}
+    \\caption{Métricas obtenidas para el #Ldataset#T}
     \\label{tab:metrics_#Ldataset#T}
 \\end{table}
     '''
@@ -98,7 +98,7 @@ def generate_score_by_iteration_table(dataset) -> None:
         #Ldata#T
     \\end{tabular}
     }
-    \\caption{#Lmetric#T por iteración para el #Ldataset#T}
+    \\caption{#Lmetric#T obtenidos por iteración para el #Ldataset#T}
     \\label{tab:#Lmetric#T_#Ldataset#T}
 \\end{table}
     '''
